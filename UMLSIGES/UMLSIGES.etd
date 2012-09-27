@@ -79,7 +79,8 @@
 
 
 </UML:Element.presentation><UML:Element.ownedElement>
-<UML:Operation xmi.id="DCE.03E916D2-C7BF-DE65-BBB7-BA9ACA2C7DFD" name="Documento" isConstructor="true" owner="DCE.0250125A-DA57-D0CC-0C0D-33495F22318A"/></UML:Element.ownedElement></UML:Class>
+<UML:Operation xmi.id="DCE.03E916D2-C7BF-DE65-BBB7-BA9ACA2C7DFD" name="Documento" isConstructor="true" owner="DCE.0250125A-DA57-D0CC-0C0D-33495F22318A"/>
+<UML:Part xmi.id="DCE.2004832E-0B54-ED01-BFE4-D4789FF8DE47" visibility="private" name="Unnamed" type="DCE.0250125A-DA57-D0CC-0C0D-33495F22318A" owner="DCE.0250125A-DA57-D0CC-0C0D-33495F22318A"/></UML:Element.ownedElement></UML:Class>
 <UML:Class xmi.id="DCE.25AE8AE5-1951-1E3A-AD90-83DA2BF38B4B" name="DocInterno" owner="DCE.4B6AFF76-7D7E-BB83-04BA-7424A76881DE" appliedStereotype="__uri_.\UMLSIGES.etup#//*[@xmi.id=&quot;DCE.3BA2DD34-CA49-EE3A-8EA0-07649EA3E5EA&quot;]"><UML:Element.presentation>
 
 
@@ -120,7 +121,8 @@
 
 
 </UML:Element.presentation><UML:Element.ownedElement>
-<UML:Operation xmi.id="DCE.4DA0DFA5-1431-52AA-B2A9-D3653D5BAE43" name="DistribuirDoc" isConstructor="true" owner="DCE.E42CBC72-3F39-5C75-6717-CA9FEB7AB7E5"/></UML:Element.ownedElement></UML:Class>
+<UML:Operation xmi.id="DCE.4DA0DFA5-1431-52AA-B2A9-D3653D5BAE43" name="DistribuirDoc" isConstructor="true" owner="DCE.E42CBC72-3F39-5C75-6717-CA9FEB7AB7E5"/>
+<UML:Part xmi.id="DCE.254109AF-09E6-EE12-6B9B-06B43B8ABD07" visibility="private" name="Unnamed" type="DCE.E42CBC72-3F39-5C75-6717-CA9FEB7AB7E5" owner="DCE.E42CBC72-3F39-5C75-6717-CA9FEB7AB7E5"/></UML:Element.ownedElement></UML:Class>
 
 
 
@@ -209,7 +211,12 @@
 </UML:Element.presentation></UML:Message><UML:Message xmi.id="DCE.BDDE093F-C18E-AC96-B1FF-8EF1252FC7FB" sendEvent="DCE.F16AE03B-7633-CDC6-4BA2-092800CD0521" receiveEvent="DCE.8B23A9B9-23B7-4142-7E76-1F340D089923" initiatingAction="DCE.98501EB9-EA58-9A5A-646D-79335B867A37" interaction="DCE.274A3152-ECA2-1CDF-BE8C-9D61EFC7C5D5" kind="result" sendingMessage="DCE.D086AEDC-55F1-4697-69D4-F21264670C7E"><UML:Element.presentation>
 
 </UML:Element.presentation></UML:Message></UML:Interaction.message></UML:Interaction>
-<UML:Interaction xmi.id="DCE.2F4DDC29-AFD0-4708-D8EB-FA1F6A419331" name="CU03_TramitarDoc" owner="DCE.4B6AFF76-7D7E-BB83-04BA-7424A76881DE"/></UML:Element.ownedElement><UML:Package.packageImport>
+<UML:Interaction xmi.id="DCE.2F4DDC29-AFD0-4708-D8EB-FA1F6A419331" name="CU03_TramitarDoc" owner="DCE.4B6AFF76-7D7E-BB83-04BA-7424A76881DE"/>
+<UML:Interaction xmi.id="DCE.B4BC3712-820E-0BE4-4362-47F7B8BEE1DB" name="DSTramitar" owner="DCE.4B6AFF76-7D7E-BB83-04BA-7424A76881DE"><UML:Element.ownedElement>
+<UML:Lifeline xmi.id="DCE.BED6F3F6-84D0-21A0-68CE-2EC5920A5E3A" owner="DCE.B4BC3712-820E-0BE4-4362-47F7B8BEE1DB" represents="DCE.254109AF-09E6-EE12-6B9B-06B43B8ABD07"><UML:Element.presentation>
+</UML:Element.presentation></UML:Lifeline>
+<UML:Lifeline xmi.id="DCE.DBE97682-C329-11F9-909C-22C844DFB1FB" owner="DCE.B4BC3712-820E-0BE4-4362-47F7B8BEE1DB" represents="DCE.2004832E-0B54-ED01-BFE4-D4789FF8DE47"><UML:Element.presentation>
+</UML:Element.presentation></UML:Lifeline></UML:Element.ownedElement></UML:Interaction></UML:Element.ownedElement><UML:Package.packageImport>
 <UML:PackageImport xmi.id="DCE.A77D2473-258A-2286-AB7B-4077E84E3646" importingPackage="DCE.4B6AFF76-7D7E-BB83-04BA-7424A76881DE"><UML:PackageImport.importedPackage>
 <UML:Profile xmi.id="DCE.BE64C905-3518-2720-3B78-8A329ADCECDF" name="Unnamed" href=".\UMLSIGES.etup#//*[@xmi.id=&apos;DCE.BE64C905-3518-2720-3B78-8A329ADCECDF&apos;]" isDirty="false"/></UML:PackageImport.importedPackage><UML:Element.ownedElement>
 <UML:TaggedValue xmi.id="DCE.7AEABFA8-3951-F8E5-403C-B4DDB160DDA8" owner="DCE.A77D2473-258A-2286-AB7B-4077E84E3646" name="autoCreated">
