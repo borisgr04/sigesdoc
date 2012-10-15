@@ -9,6 +9,16 @@ import java.util.Date;
 // </editor-fold> 
 public abstract class Documento {
 
+    private int folios;
+
+    public int getFolios() {
+        return folios;
+    }
+
+    public void setFolios(int folios) {
+        this.folios = folios;
+    }
+    
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.471FA084-4D58-1305-829E-0C2B9A34201B]
     // </editor-fold> 
@@ -47,7 +57,7 @@ public abstract class Documento {
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.D9870980-0CB3-1A44-0BF9-D2F3DC0D2337]
     // </editor-fold> 
-    private int anexos;
+    private boolean anexos;
 
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.1789F6FC-AB5C-3F07-BC07-C134407BB799]
@@ -69,14 +79,14 @@ public abstract class Documento {
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,regenBody=yes,id=DCE.EF207F11-33E1-ACFA-B516-E6AB80FAF899]
     // </editor-fold> 
-    public int getAnexos () {
+    public boolean getAnexos () {
         return anexos;
     }
 
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,regenBody=yes,id=DCE.3B6407D4-A10C-658E-7854-C293034EA53E]
     // </editor-fold> 
-    public void setAnexos (int val) {
+    public void setAnexos (boolean val) {
         this.anexos = val;
     }
 
