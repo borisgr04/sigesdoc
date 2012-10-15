@@ -52,6 +52,7 @@ public class CtrProdDoc {
         if(t!=null){
             int ncons=t.getNoCons()+1;
             doc.setNoDocumento(ncons);
+            t.actConsSerie();
             return doc.crear();
         }else
         {

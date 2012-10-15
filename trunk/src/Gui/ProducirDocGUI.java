@@ -11,15 +11,40 @@
 
 package Gui;
 
+import ClassControl.CtrProdDoc;
+import ClassEntidad.Sistema;
+import ClassEntidad.Dependencia;
+import ClassEntidad.DocInternoE;
+import ClassEntidad.Documento;
+import ClassEntidad.TRD;
+import javax.swing.JOptionPane;
+import util.CparaCombo;
+
 /**
  *
  * @author borisgr04
  */
 public class ProducirDocGUI extends javax.swing.JFrame {
 
+    CtrProdDoc cd= new CtrProdDoc();
     /** Creates new form ProducirDocGUI */
     public ProducirDocGUI() {
         initComponents();
+        inicializar();
+    }
+
+    void inicializar(){
+        //Llena Comobo Box Dependencia
+        for (Dependencia d:Sistema.instancia().getLstDep()){
+            this.depOrigenC.addItem(new CparaCombo(d.getId() ,d.getNombre()));
+        }
+
+        //Llena Comobo Box Serie
+        //Inicialziando
+        for (TRD serie:Sistema.instancia().getLstTRD()){
+            this.serieC.addItem(new CparaCombo(serie.getId_Serie() ,serie.getSerie().toUpperCase()));
+            //System.out.print(serie.getSerie());
+        }
     }
 
     /** This method is called from within the constructor to
@@ -32,129 +57,123 @@ public class ProducirDocGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
-        jButton6 = new javax.swing.JButton();
+        nuevoB = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
-        jButton5 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jSeparator4 = new javax.swing.JToolBar.Separator();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JToolBar.Separator();
-        jButton4 = new javax.swing.JButton();
+        guardaB = new javax.swing.JButton();
+        cancelarB = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
-        jButton10 = new javax.swing.JButton();
+        cerrarB = new javax.swing.JButton();
+        misDocC = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox();
+        depOrigenC = new javax.swing.JComboBox();
         jLabel13 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jComboBox5 = new javax.swing.JComboBox();
+        destinoT = new javax.swing.JTextField();
+        serieC = new javax.swing.JComboBox();
         jButton3 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        ndocumentoT = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        direccionT = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        asuntoT = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        resumenT = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jSpinner1 = new javax.swing.JSpinner();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        autorT = new javax.swing.JTextField();
+        foliosN = new javax.swing.JSpinner();
+        anexosCH = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jToolBar1.setRollover(true);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/New.png"))); // NOI18N
-        jButton6.setText("Nuevo");
-        jButton6.setFocusable(false);
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton6);
-        jToolBar1.add(jSeparator3);
-
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/open-icon.png"))); // NOI18N
-        jButton5.setText("Abrir");
-        jButton5.setFocusable(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton5);
-
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Edit.png"))); // NOI18N
-        jButton7.setText("Editar");
-        jButton7.setFocusable(false);
-        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton7);
-        jToolBar1.add(jSeparator4);
-
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
-        jButton8.setText("Guardar");
-        jButton8.setFocusable(false);
-        jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton8);
-
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/undo.png"))); // NOI18N
-        jButton9.setText("Cancelar");
-        jButton9.setFocusable(false);
-        jButton9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton9);
-        jToolBar1.add(jSeparator1);
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/email-send-icon.png"))); // NOI18N
-        jButton4.setText("Distribuir");
-        jButton4.setFocusable(false);
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        nuevoB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/New.png"))); // NOI18N
+        nuevoB.setText("Nuevo");
+        nuevoB.setFocusable(false);
+        nuevoB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        nuevoB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        nuevoB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                nuevoBActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton4);
+        jToolBar1.add(nuevoB);
+        jToolBar1.add(jSeparator3);
+
+        guardaB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
+        guardaB.setText("Guardar");
+        guardaB.setFocusable(false);
+        guardaB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        guardaB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        guardaB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardaBActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(guardaB);
+
+        cancelarB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/undo.png"))); // NOI18N
+        cancelarB.setText("Cancelar");
+        cancelarB.setFocusable(false);
+        cancelarB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        cancelarB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        cancelarB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarBActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(cancelarB);
         jToolBar1.add(jSeparator2);
 
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Log Out_32x32.png"))); // NOI18N
-        jButton10.setText("Cerrar");
-        jButton10.setFocusable(false);
-        jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton10.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton10);
+        cerrarB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Log Out_32x32.png"))); // NOI18N
+        cerrarB.setText("Cerrar");
+        cerrarB.setFocusable(false);
+        cerrarB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        cerrarB.setName("cerrarB"); // NOI18N
+        cerrarB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        cerrarB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarBActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(cerrarB);
+
+        jToolBar1.add(misDocC);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos Documentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 51, 153))); // NOI18N
 
         jLabel12.setText("Dependencia Origen");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Despacho ", "Secretaria Gobierno", "Secretaria Infraestructura", "Oficina de Juridica", "Oficina de Planeación", "Control Interno Disciplinario", "Secretaria de TIC's" }));
+        depOrigenC.setEnabled(false);
 
         jLabel13.setText("Serie Documental");
 
         jLabel5.setText("Destino");
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Oficios Internos", "Actas", "Certificaciones" }));
+        destinoT.setEnabled(false);
+
+        serieC.setEnabled(false);
 
         jButton3.setText("...");
 
-        jTextField1.setEditable(false);
+        ndocumentoT.setEditable(false);
 
         jTextField4.setEditable(false);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Correspondencia Interna", "Correspondencia Externa" }));
+        jComboBox1.setEnabled(false);
 
         jLabel2.setText("Tipo Correspondencia");
 
@@ -163,6 +182,10 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         jLabel4.setText("N° Documento");
 
         jLabel3.setText("Dirección");
+
+        direccionT.setEnabled(false);
+
+        jTextField7.setEnabled(false);
 
         jLabel8.setText("N° Documento Rel");
 
@@ -179,12 +202,12 @@ public class ProducirDocGUI extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox5, 0, 319, Short.MAX_VALUE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(serieC, 0, 319, Short.MAX_VALUE)
+                    .addComponent(depOrigenC, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
+                            .addComponent(direccionT, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                            .addComponent(destinoT, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -197,7 +220,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                            .addComponent(ndocumentoT, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                             .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                             .addComponent(jComboBox1, 0, 154, Short.MAX_VALUE))
                         .addGap(30, 30, 30))
@@ -210,26 +233,26 @@ public class ProducirDocGUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(depOrigenC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(serieC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(destinoT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ndocumentoT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(direccionT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel8))
                     .addComponent(jLabel3))
@@ -240,11 +263,14 @@ public class ProducirDocGUI extends javax.swing.JFrame {
 
         jLabel6.setText("Asunto");
 
+        asuntoT.setEnabled(false);
+
         jLabel7.setText("Resumen");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        resumenT.setColumns(20);
+        resumenT.setRows(5);
+        resumenT.setEnabled(false);
+        jScrollPane1.setViewportView(resumenT);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -257,7 +283,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jTextField2)
+                    .addComponent(asuntoT)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -266,7 +292,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(asuntoT, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -282,7 +308,12 @@ public class ProducirDocGUI extends javax.swing.JFrame {
 
         jLabel11.setText("No de Folios");
 
-        jCheckBox1.setText("Anexos");
+        autorT.setEditable(false);
+
+        foliosN.setEnabled(false);
+
+        anexosCH.setText("Anexos");
+        anexosCH.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -292,24 +323,24 @@ public class ProducirDocGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel9)
                 .addGap(36, 36, 36)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(autorT, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(foliosN, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(jCheckBox1)
+                .addComponent(anexosCH)
                 .addContainerGap(123, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(autorT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(foliosN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(jCheckBox1))
+                    .addComponent(anexosCH))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -317,13 +348,14 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -331,21 +363,103 @@ public class ProducirDocGUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addGap(22, 22, 22))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void cerrarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarBActionPerformed
         // TODO add your handling code here:
-}//GEN-LAST:event_jButton4ActionPerformed
+        //this.setVisible(true);
+    }//GEN-LAST:event_cerrarBActionPerformed
+
+    private void Guardar(){
+    try {
+        DocInternoE d=new DocInternoE();
+        CparaCombo p = (CparaCombo) serieC.getSelectedItem();
+        //d.setAnexos(anexosCH.ch/);
+        d.setAsunto(asuntoT.getText());
+        d.setResumen(resumenT.getText());
+
+        d.setSerieTRD(p.getCodigo());
+        d.setAnexos(anexosCH.isSelected());
+        d.setFolios(Integer.parseInt(this.foliosN.getValue().toString()));
+        d.setNomDestino(destinoT.getText());
+
+        cd.setDoc(d);
+
+        cd.Guardar();
+
+        this.ndocumentoT.setText(String.valueOf(cd.getDoc().getNoDocumento()));
+
+        JOptionPane.showMessageDialog(this,"Se Guardó el Documento","MessageBox Title",JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception e) {
+        JOptionPane.showMessageDialog(this,e.getMessage(),"MessageBox Title",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    private void guardaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardaBActionPerformed
+        // TODO add your handling code here:
+        int r=JOptionPane.showConfirmDialog(this,"Desea Guardar y Enviar el Documento","MessageBox Title",JOptionPane.YES_NO_OPTION );
+        
+        System.out.print(r);
+        if(r==JOptionPane.YES_OPTION){
+           Guardar();
+           CargarMisDoc();
+        }
+        else
+        {
+        System.out.print("xxx");
+        }
+
+
+    }//GEN-LAST:event_guardaBActionPerformed
+
+    private void Habilitar(boolean val){
+          asuntoT.setEnabled(val);
+          resumenT.setEnabled(val);
+          anexosCH.setEnabled(val);
+          foliosN.setEnabled(val);
+          destinoT.setEnabled(val);
+          direccionT.setEnabled(val);
+          this.depOrigenC.setEnabled(val);
+          this.serieC.setEnabled(val);
+    }
+     private void Limpiar(String val){
+          asuntoT.setText(val);
+          resumenT.setText(val);
+          anexosCH.setText(val);
+          foliosN.setValue(0);
+          destinoT.setText(val);
+          direccionT.setText(val);
+          this.depOrigenC.setSelectedIndex(-1);
+          this.serieC.setSelectedIndex(-1);
+    }
+
+     private void CargarMisDoc(){
+        for (Documento d:Sistema.instancia().getLstDoc()){
+            this.misDocC.addItem(new CparaCombo(String.valueOf(d.getNoDocumento()) ,d.getAsunto()));
+            //System.out.print(serie.getSerie());
+        }
+     }
+    private void nuevoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoBActionPerformed
+        // TODO add your handling code here:
+        this.Habilitar(true);
+        this.Limpiar("");
+    }//GEN-LAST:event_nuevoBActionPerformed
+
+    private void cancelarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBActionPerformed
+        // TODO add your handling code here:
+        this.Habilitar(false);
+        this.Limpiar("");
+    }//GEN-LAST:event_cancelarBActionPerformed
 
     /**
     * @param args the command line arguments
@@ -359,18 +473,18 @@ public class ProducirDocGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton10;
+    private javax.swing.JCheckBox anexosCH;
+    private javax.swing.JTextField asuntoT;
+    private javax.swing.JTextField autorT;
+    private javax.swing.JButton cancelarB;
+    private javax.swing.JButton cerrarB;
+    private javax.swing.JComboBox depOrigenC;
+    private javax.swing.JTextField destinoT;
+    private javax.swing.JTextField direccionT;
+    private javax.swing.JSpinner foliosN;
+    private javax.swing.JButton guardaB;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox4;
-    private javax.swing.JComboBox jComboBox5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -387,20 +501,16 @@ public class ProducirDocGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
-    private javax.swing.JToolBar.Separator jSeparator4;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JComboBox misDocC;
+    private javax.swing.JTextField ndocumentoT;
+    private javax.swing.JButton nuevoB;
+    private javax.swing.JTextArea resumenT;
+    private javax.swing.JComboBox serieC;
     // End of variables declaration//GEN-END:variables
 
 }

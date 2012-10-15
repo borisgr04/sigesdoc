@@ -16,9 +16,25 @@ public class Sistema {
    private ArrayList<Documento> lstDoc = new ArrayList<Documento>();
    private ArrayList<Persona> lstPer = new ArrayList<Persona>();
    private ArrayList<Dependencia> lstDep = new ArrayList<Dependencia>();
+
+    public ArrayList<Dependencia> getLstDep() {
+        return lstDep;
+    }
+
+    public void setLstDep(ArrayList<Dependencia> lstDep) {
+        this.lstDep = lstDep;
+    }
    private ArrayList<ActaTraslado> lstActaT = new ArrayList<ActaTraslado>();
    private ArrayList<DistribucionDoc> lstDistriDoc = new ArrayList<DistribucionDoc>();
    private ArrayList<TRD> lstTRD = new ArrayList<TRD>();
+
+    public ArrayList<TRD> getLstTRD() {
+        return lstTRD;
+    }
+
+    public void setLstTRD(ArrayList<TRD> lstTRD) {
+        this.lstTRD = lstTRD;
+    }
    
    
    private Sistema(){
@@ -113,6 +129,10 @@ public class Sistema {
             }
         }
         return r;
+    }
+
+    public void actConsSerie(TRD t){
+        t.setNoCons(t.getNoCons()+1);
     }
 
 

@@ -7,7 +7,12 @@ import java.util.ArrayList;
 // </editor-fold> 
 public class TRD {
 
+
     private String Id_Serie;
+
+    public void actConsSerie() {
+        Sistema.instancia().actConsSerie(this);
+    }
 
     public String getId_Serie() {
         return Id_Serie;
@@ -147,6 +152,8 @@ public class TRD {
     public void setSerie (String val) {
         this.serie = val;
     }
+
+ 
 
 
 
