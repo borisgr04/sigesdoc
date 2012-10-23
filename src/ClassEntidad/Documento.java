@@ -18,6 +18,17 @@ public abstract class Documento {
     public void setFolios(int folios) {
         this.folios = folios;
     }
+
+    private String idPerProd;
+
+    public String getIdPerProd() {
+        return idPerProd;
+    }
+
+    public void setIdPerProd(String idPerProd) {
+        this.idPerProd = idPerProd;
+    }
+
     
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.471FA084-4D58-1305-829E-0C2B9A34201B]
@@ -206,6 +217,7 @@ public abstract class Documento {
     // #[regen=yes,regenBody=yes,id=DCE.D07C2AE2-3CE2-4A0B-5CC0-91797DA45FBF]
     // </editor-fold> 
     public Persona getProductor () {
+
         return mProductor;
     }
 

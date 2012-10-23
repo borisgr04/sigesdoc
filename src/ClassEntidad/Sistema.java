@@ -6,15 +6,24 @@
 package ClassEntidad;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  *
  * @author borisgr04
  */
-public class Sistema {
+public class Sistema extends  Observable  {
    public static Sistema instancia;// = new Sistema();
    private ArrayList<Documento> lstDoc = new ArrayList<Documento>();
    private ArrayList<Persona> lstPer = new ArrayList<Persona>();
+
+    public ArrayList<Persona> getLstPer() {
+        return lstPer;
+    }
+
+    public void setLstPer(ArrayList<Persona> lstPer) {
+        this.lstPer = lstPer;
+    }
    private ArrayList<Dependencia> lstDep = new ArrayList<Dependencia>();
    private String NomApp="SIGEDOC";
 
@@ -100,6 +109,10 @@ public class Sistema {
 
    public void Add(Documento d){
         getLstDoc().add(d);
+        this.setChanged();
+        this.notifyObservers();
+
+
    }
 
     /**
