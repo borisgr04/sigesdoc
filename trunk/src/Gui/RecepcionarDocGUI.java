@@ -11,6 +11,10 @@
 
 package Gui;
 
+import ClassEntidad.Dependencia;
+import ClassEntidad.Sistema;
+import util.CparaCombo;
+
 /**
  *
  * @author borisgr04
@@ -21,7 +25,19 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
     public RecepcionarDocGUI() {
         initComponents();
     }
+ void inicializar() {
+        //Llena Comobo Box Dependencia
+        for (Dependencia d : Sistema.instancia().getLstDep()) {
+            this.depOrigenC.addItem(new CparaCombo(d.getId(), d.getNombre()));
+        }
 
+        //Llena Comobo Box Serie
+        //Inicialziando
+        for (TRD serie : Sistema.instancia().getLstTRD()) {
+            this.serieC.addItem(new CparaCombo(serie.getId_Serie(), serie.getSerie().toUpperCase()));
+            //System.out.print(serie.getSerie());
+        }
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -274,8 +290,6 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
 
         jLabel7.setText("Dependencia Destino");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Despacho ", "Secretaria Gobierno", "Secretaria Infraestructura", "Oficina de Juridica", "Oficina de Planeación", "Control Interno Disciplinario", "Secretaria de TIC's" }));
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -324,7 +338,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 203, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
