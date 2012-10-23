@@ -78,21 +78,21 @@ public class Sistema extends  Observable  {
        
        PerExterna pe;
        pe= new PerExterna();
-       f.setApellidos("Umaña");
-       f.setNombres("Henry Ro");
-       f.setEmail("hrumaña@unal.edu.co");
-       f.setNroIde("123445");
-       f.setTelefono("3171121234");
-       f.setDireccion("Bogota");
+       pe.setApellidos("Umaña");
+       pe.setNombres("Henry Ro");
+       pe.setEmail("hrumaña@unal.edu.co");
+       pe.setNroIde("123445");
+       pe.setTelefono("3171121234");
+       pe.setDireccion("Bogota");
        lstPer.add(pe);
 
        pe= new PerExterna();
-       f.setApellidos("Sanchez");
-       f.setNombres("Jenny");
-       f.setEmail("jmsanchez@unal.edu.co");
-       f.setNroIde("123445");
-       f.setTelefono("3171121234");
-       f.setDireccion("Bogota");
+       pe.setApellidos("Sanchez");
+       pe.setNombres("Jenny");
+       pe.setEmail("jmsanchez@unal.edu.co");
+       pe.setNroIde("123445");
+       pe.setTelefono("3171121234");
+       pe.setDireccion("Bogota");
        lstPer.add(pe);
 
    }

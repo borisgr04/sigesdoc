@@ -10,7 +10,6 @@ public class DocInterno extends Documento {
     // #[regen=yes,id=DCE.9A6C97AE-3560-C9EF-0DD8-22A2AA01A235]
     // </editor-fold> 
 
-    private String IdeFunProd;
     private String IdeDepOrigen;
     private String TipoDocumento;
 
@@ -21,13 +20,6 @@ public class DocInterno extends Documento {
         this.IdeDepOrigen = IdeDepOrigen;
     }
 
-    public String getIdeFunProd() {
-        return IdeFunProd;
-    }
-    public void setIdeFunProd(String IdeFunProd) {
-        this.IdeFunProd = IdeFunProd;
-    }
-    
     public String getTipoDocumento() {
         return TipoDocumento;
     }

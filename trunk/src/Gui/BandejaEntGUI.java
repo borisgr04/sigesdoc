@@ -16,6 +16,8 @@ import ClassEntidad.Sistema;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
 
 
@@ -24,7 +26,7 @@ import javax.swing.JOptionPane;
  *
  * @author borisgr04
  */
-public class BandejaEntGUI extends javax.swing.JFrame implements Observer {
+public class BandejaEntGUI extends javax.swing.JFrame implements Observer, TableModelListener {
     //private DefaultTableModel modeloTabla;
     private TablaBandeja modeloTabla;
     
@@ -132,6 +134,27 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer {
         // TODO add your handling code here:
         InicializarB();
         JOptionPane.showMessageDialog(this,"actualizar",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+        
+        boolean avanzar = true;
+        
+        int registro = jTable1.getSelectedRow();
+        int columna = jTable1.getSelectedColumn();
+
+        if (registro == -1) {
+            avanzar = false;
+        } else if (columna == -1) {
+            avanzar = false;
+        }
+        if (avanzar) {
+            String strResultado =this.modeloTabla.getValueAt(
+                    jTable1.getSelectedRow(),
+                    jTable1.getSelectedColumn()).toString();
+            JOptionPane.showMessageDialog(null, "Dato seleccionado : " + strResultado);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado un registro");
+        }
+
+
 
     }//GEN-LAST:event_AbrirBActionPerformed
 
@@ -159,6 +182,11 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer {
         modeloTabla = new TablaBandeja();
         modeloTabla.setLstdoc(Sistema.instancia().getLstDoc());
         jTable1.setModel(modeloTabla);
+    }
+
+    public void tableChanged(TableModelEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+        JOptionPane.showMessageDialog(this,"actualizarTabla",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
     }
 
 

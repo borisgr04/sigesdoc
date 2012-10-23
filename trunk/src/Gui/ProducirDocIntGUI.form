@@ -160,15 +160,12 @@
                           <Component id="jTextField7" min="-2" pref="157" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="ndocumentoT" pref="154" max="32767" attributes="1"/>
-                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
                               <Component id="jTextField4" pref="154" max="32767" attributes="1"/>
-                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
