@@ -50,9 +50,8 @@ public class Sistema extends  Observable  {
         this.lstTRD = lstTRD;
     }
    
-   
-   private Sistema(){
-       Funcionario f= new Funcionario();
+   void funcionario(){
+      Funcionario f= new Funcionario();
        f.setApellidos("Bolaño");
        f.setNombres("Anya");
        f.setEmail("anyamiyeth@hotmail.com");
@@ -63,7 +62,7 @@ public class Sistema extends  Observable  {
        f.setUsuario("7573361");
        f.setDireccion("Cll 5 # 24 - 47");
        lstPer.add(f);
-       
+
        f= new Funcionario();
        f.setApellidos("Bolaño");
        f.setNombres("Anya");
@@ -75,8 +74,11 @@ public class Sistema extends  Observable  {
        f.setUsuario("7573361");
        f.setDireccion("Cll 5 # 24 - 47");
        lstPer.add(f);
-       
-       Dependencia dep = new Dependencia();
+
+   }
+
+   public void dependencia(){
+          Dependencia dep = new Dependencia();
        dep.setId("01");
        dep.setNombre("DESPACHO");
        lstDep.add(dep);
@@ -86,7 +88,10 @@ public class Sistema extends  Observable  {
        dep.setNombre("JURIDICA");
        lstDep.add(dep);
 
-       TRD serie = new TRD();
+   }
+
+   private void serie(){
+      TRD serie = new TRD();
         serie.setId_Serie("01");
        serie.setDispFinal("CT");
        serie.setSerie("Memorando");
@@ -102,7 +107,7 @@ public class Sistema extends  Observable  {
        serie.settRetenAC(2);
        serie.setNoCons(0);
        lstTRD.add(serie);
-       
+
        serie = new TRD();
        serie.setId_Serie("03");
        serie.setDispFinal("CT");
@@ -112,6 +117,12 @@ public class Sistema extends  Observable  {
        serie.setNoCons(0);
        lstTRD.add(serie);
 
+   }
+   private Sistema(){
+       funcionario() ;
+       dependencia();
+       serie();
+    
 
 
    }
@@ -119,7 +130,7 @@ public class Sistema extends  Observable  {
    public void Add(Documento d){
         getLstDoc().add(d);
         this.setChanged();
-        this.notifyObservers();        
+        this.notifyObservers();
    }
 
     /**
