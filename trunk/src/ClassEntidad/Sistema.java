@@ -120,9 +120,9 @@ public class Sistema extends  Observable  {
         getLstDoc().add(d);
         this.setChanged();
         this.notifyObservers();
-        int i=2;
 
-
+        int j=10;
+        
 
    }
 
