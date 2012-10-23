@@ -17,6 +17,27 @@ import ClassEntidad.TRD;
 public class CtrProdDoc {
 
     DocInterno doc = new DocInterno();
+    private IValidador validador;
+    private boolean valido;
+    private String mensaje;
+
+    public String getMensaje() {
+        return mensaje;
+    }
+    
+
+    public boolean isValido() {
+        return valido;
+    }
+
+
+    public IValidador getValidador() {
+        return validador;
+    }
+
+    public void setValidador(IValidador validador) {
+        this.validador = validador;
+    }
 
     public DocInterno getDoc() {
         return doc;
@@ -46,18 +67,28 @@ public class CtrProdDoc {
         return 0;
     }
 
-    public String Guardar(){
-
-        TRD t = TRD.buscarSerie(doc.getSerieTRD());
-        if(t!=null){
-            int ncons=t.getNoCons()+1;
-            doc.setNoDocumento(ncons);
-            t.actConsSerie();
-            return doc.crear();
-        }else
-        {
-        return "La Serie No pertenece a una TRD";
+    public String Guardar(IValidador validador){
+        valido=false;
+        this.mensaje=validador.Validar(doc);
+        if(mensaje.equals("OK")){
+            TRD t = TRD.buscarSerie(doc.getSerieTRD());
+            if(t!=null){
+                int ncons=t.getNoCons()+1;
+                doc.setNoDocumento(ncons);
+                t.actConsSerie();
+                valido=true;
+                mensaje=doc.crear();
+                return mensaje;
+            }else
+            {
+                return "La Serie No pertenece a una TRD";
+            }
         }
+        else
+        {
+          return mensaje;
+        }
+
 
 
     }

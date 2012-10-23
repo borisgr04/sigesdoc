@@ -8,10 +8,10 @@
  *
  * Created on 13/09/2012, 12:54:54 AM
  */
-
 package Gui;
 
 import ClassControl.CtrProdDoc;
+import ClassControl.ValDocInternoE;
 import ClassEntidad.Sistema;
 import ClassEntidad.Dependencia;
 import ClassEntidad.DocInternoE;
@@ -26,23 +26,24 @@ import util.CparaCombo;
  */
 public class ProducirDocGUI extends javax.swing.JFrame {
 
-    CtrProdDoc cd= new CtrProdDoc();
+    CtrProdDoc cd = new CtrProdDoc();
+
     /** Creates new form ProducirDocGUI */
     public ProducirDocGUI() {
         initComponents();
         inicializar();
     }
 
-    void inicializar(){
+    void inicializar() {
         //Llena Comobo Box Dependencia
-        for (Dependencia d:Sistema.instancia().getLstDep()){
-            this.depOrigenC.addItem(new CparaCombo(d.getId() ,d.getNombre()));
+        for (Dependencia d : Sistema.instancia().getLstDep()) {
+            this.depOrigenC.addItem(new CparaCombo(d.getId(), d.getNombre()));
         }
 
         //Llena Comobo Box Serie
         //Inicialziando
-        for (TRD serie:Sistema.instancia().getLstTRD()){
-            this.serieC.addItem(new CparaCombo(serie.getId_Serie() ,serie.getSerie().toUpperCase()));
+        for (TRD serie : Sistema.instancia().getLstTRD()) {
+            this.serieC.addItem(new CparaCombo(serie.getId_Serie(), serie.getSerie().toUpperCase()));
             //System.out.print(serie.getSerie());
         }
     }
@@ -380,75 +381,79 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         //this.setVisible(true);
     }//GEN-LAST:event_cerrarBActionPerformed
 
-    private void Guardar(){
-    try {
-        DocInternoE d=new DocInternoE();
-        CparaCombo p = (CparaCombo) serieC.getSelectedItem();
-        //d.setAnexos(anexosCH.ch/);
-        d.setAsunto(asuntoT.getText());
-        d.setResumen(resumenT.getText());
-
-        d.setSerieTRD(p.getCodigo());
-        d.setAnexos(anexosCH.isSelected());
-        d.setFolios(Integer.parseInt(this.foliosN.getValue().toString()));
-        d.setNomDestino(destinoT.getText());
-
-        cd.setDoc(d);
-
-        cd.Guardar();
-
-        this.ndocumentoT.setText(String.valueOf(cd.getDoc().getNoDocumento()));
-
-        JOptionPane.showMessageDialog(this,"Se Guardó el Documento","MessageBox Title",JOptionPane.INFORMATION_MESSAGE);
-
+    private void Guardar() {
+        try {
+            DocInternoE d = new DocInternoE();
+            CparaCombo p = (CparaCombo) serieC.getSelectedItem();
+            if (p==null){
+                JOptionPane.showMessageDialog(this,"Seleccione Serie",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            //d.setAnexos(anexosCH.ch/);
+            d.setAsunto(asuntoT.getText());
+            d.setResumen(resumenT.getText());
+            d.setDireccion(this.direccionT.getText());
+            d.setSerieTRD(p.getCodigo());
+            d.setAnexos(anexosCH.isSelected());
+            d.setFolios(Integer.parseInt(this.foliosN.getValue().toString()));
+            d.setNomDestino(destinoT.getText());
+            cd.setDoc(d);
+            cd.Guardar(new ValDocInternoE());
+            if(cd.isValido()){
+                this.ndocumentoT.setText(String.valueOf(cd.getDoc().getNoDocumento()));
+                JOptionPane.showMessageDialog(this, "Se Guardó el Documento", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+            }
+             else{
+                JOptionPane.showMessageDialog(this, cd.getMensaje(), Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+             }
+            
         } catch (Exception e) {
-        JOptionPane.showMessageDialog(this,e.getMessage(),"MessageBox Title",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), Sistema.instancia().getNomApp(), JOptionPane.ERROR_MESSAGE);
         }
     }
     private void guardaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardaBActionPerformed
         // TODO add your handling code here:
-        int r=JOptionPane.showConfirmDialog(this,"Desea Guardar y Enviar el Documento","MessageBox Title",JOptionPane.YES_NO_OPTION );
-        
+        int r = JOptionPane.showConfirmDialog(this, "Desea Guardar y Enviar el Documento", "MessageBox Title", JOptionPane.YES_NO_OPTION);
+
         System.out.print(r);
-        if(r==JOptionPane.YES_OPTION){
-           Guardar();
-           CargarMisDoc();
-        }
-        else
-        {
-        System.out.print("xxx");
+        if (r == JOptionPane.YES_OPTION) {
+            Guardar();
+            CargarMisDoc();
+        } else {
+            System.out.print("xxx");
         }
 
 
     }//GEN-LAST:event_guardaBActionPerformed
 
-    private void Habilitar(boolean val){
-          asuntoT.setEnabled(val);
-          resumenT.setEnabled(val);
-          anexosCH.setEnabled(val);
-          foliosN.setEnabled(val);
-          destinoT.setEnabled(val);
-          direccionT.setEnabled(val);
-          this.depOrigenC.setEnabled(val);
-          this.serieC.setEnabled(val);
-    }
-     private void Limpiar(String val){
-          asuntoT.setText(val);
-          resumenT.setText(val);
-          anexosCH.setText(val);
-          foliosN.setValue(0);
-          destinoT.setText(val);
-          direccionT.setText(val);
-          this.depOrigenC.setSelectedIndex(-1);
-          this.serieC.setSelectedIndex(-1);
+    private void Habilitar(boolean val) {
+        asuntoT.setEnabled(val);
+        resumenT.setEnabled(val);
+        anexosCH.setEnabled(val);
+        foliosN.setEnabled(val);
+        destinoT.setEnabled(val);
+        direccionT.setEnabled(val);
+        this.depOrigenC.setEnabled(val);
+        this.serieC.setEnabled(val);
     }
 
-     private void CargarMisDoc(){
-        for (Documento d:Sistema.instancia().getLstDoc()){
-            this.misDocC.addItem(new CparaCombo(String.valueOf(d.getNoDocumento()) ,d.getAsunto()));
+    private void Limpiar(String val) {
+        asuntoT.setText(val);
+        resumenT.setText(val);
+        anexosCH.setText(val);
+        foliosN.setValue(0);
+        destinoT.setText(val);
+        direccionT.setText(val);
+        this.depOrigenC.setSelectedIndex(-1);
+        this.serieC.setSelectedIndex(-1);
+    }
+
+    private void CargarMisDoc() {
+        for (Documento d : Sistema.instancia().getLstDoc()) {
+            this.misDocC.addItem(new CparaCombo(String.valueOf(d.getNoDocumento()), d.getAsunto()));
             //System.out.print(serie.getSerie());
         }
-     }
+    }
     private void nuevoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoBActionPerformed
         // TODO add your handling code here:
         this.Habilitar(true);
@@ -462,16 +467,16 @@ public class ProducirDocGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarBActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new ProducirDocGUI().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox anexosCH;
     private javax.swing.JTextField asuntoT;
@@ -512,5 +517,4 @@ public class ProducirDocGUI extends javax.swing.JFrame {
     private javax.swing.JTextArea resumenT;
     private javax.swing.JComboBox serieC;
     // End of variables declaration//GEN-END:variables
-
 }

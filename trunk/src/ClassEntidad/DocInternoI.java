@@ -12,6 +12,10 @@ package ClassEntidad;
 public class DocInternoI extends DocInterno {
     private String ideFunDestino;
 
+    public DocInternoI() {
+        this.setTipoDocumento("I");
+    }
+
     public String getIdeFunDestino() {
         return ideFunDestino;
     }

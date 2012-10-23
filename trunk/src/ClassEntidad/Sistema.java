@@ -16,7 +16,12 @@ public class Sistema {
    private ArrayList<Documento> lstDoc = new ArrayList<Documento>();
    private ArrayList<Persona> lstPer = new ArrayList<Persona>();
    private ArrayList<Dependencia> lstDep = new ArrayList<Dependencia>();
+   private String NomApp="SIGEDOC";
 
+    public String getNomApp() {
+        return NomApp;
+    }
+   
     public ArrayList<Dependencia> getLstDep() {
         return lstDep;
     }

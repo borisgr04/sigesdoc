@@ -3,16 +3,14 @@
  * and open the template in the editor.
  */
 
-package util;
+package ClassControl;
+
+import ClassEntidad.Documento;
 
 /**
  *
  * @author borisgr04
  */
-public class utilGUI {
-
-    boolean StringIsEmpty(String s)
-    {
-     return  (s == null || s.equals(""));
-    }
+public interface IValidador {
+    String Validar (Documento hg);
 }

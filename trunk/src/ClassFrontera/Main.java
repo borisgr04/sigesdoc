@@ -6,6 +6,7 @@
 package ClassFrontera;
 
 import ClassControl.CtrProdDoc;
+import ClassControl.ValDocInternoE;
 import ClassEntidad.Sistema;
 import ClassEntidad.DocInternoI;
 import ClassEntidad.Documento;
@@ -31,7 +32,7 @@ public class Main {
         d.setIdeFunDestino("49722106");
         CtrProdDoc cpd = new CtrProdDoc();
         cpd.setDoc(d);
-        cpd.Guardar();
+        cpd.Guardar(new ValDocInternoE());
         
         d= new DocInternoI();
         d.setAsunto("Prueba2");
@@ -43,7 +44,7 @@ public class Main {
         d.setIdeFunProd("7573361");
         d.setIdeFunDestino("49722106");
         cpd.setDoc(d);
-        cpd.Guardar();
+        cpd.Guardar(new ValDocInternoE());
         /*
         TRD t = TRD.buscarSerie("01");
         if(t!=null){
