@@ -24,6 +24,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
     /** Creates new form RecepcionarDocGUI */
     public RecepcionarDocGUI() {
         initComponents();
+        inicializar();
     }
  void inicializar() {
         //Llena Comobo Box Dependencia
@@ -33,10 +34,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
 
         //Llena Comobo Box Serie
         //Inicialziando
-        for (TRD serie : Sistema.instancia().getLstTRD()) {
-            this.serieC.addItem(new CparaCombo(serie.getId_Serie(), serie.getSerie().toUpperCase()));
-            //System.out.print(serie.getSerie());
-        }
+        
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -85,7 +83,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
         jTextField13 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox();
+        depOrigenC = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -301,7 +299,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(185, 185, 185)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(depOrigenC, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(194, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
@@ -313,7 +311,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(8, 8, 8)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(depOrigenC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -369,6 +367,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox depOrigenC;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton4;
@@ -377,7 +376,6 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
