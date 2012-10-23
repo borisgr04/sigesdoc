@@ -151,6 +151,11 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         });
         jToolBar1.add(cerrarB);
 
+        misDocC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                misDocCActionPerformed(evt);
+            }
+        });
         jToolBar1.add(misDocC);
 
         jLabel12.setText("Dependencia Origen");
@@ -374,6 +379,8 @@ public class ProducirDocGUI extends javax.swing.JFrame {
     private void cerrarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarBActionPerformed
         // TODO add your handling code here:
         //this.setVisible(true);
+        BandejaEntGUI fui= new BandejaEntGUI();
+        fui.setVisible(true);
     }//GEN-LAST:event_cerrarBActionPerformed
 
     private void Guardar() {
@@ -467,6 +474,10 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         this.Habilitar(false);
         this.Limpiar("");
     }//GEN-LAST:event_cancelarBActionPerformed
+
+    private void misDocCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_misDocCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_misDocCActionPerformed
 
     /**
      * @param args the command line arguments
