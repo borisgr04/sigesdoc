@@ -87,16 +87,24 @@ public class Sistema extends  Observable  {
        lstDep.add(dep);
 
        TRD serie = new TRD();
+        serie.setId_Serie("01");
+       serie.setDispFinal("CT");
+       serie.setSerie("Memorando");
+       serie.settRetAG(5);
+       serie.settRetenAC(2);
+       serie.setNoCons(0);
+       lstTRD.add(serie);
+
+       serie.setId_Serie("02");
        serie.setDispFinal("CT");
        serie.setSerie("Circular");
        serie.settRetAG(5);
        serie.settRetenAC(2);
        serie.setNoCons(0);
-       serie.setId_Serie("01");
        lstTRD.add(serie);
        
        serie = new TRD();
-       serie.setId_Serie("02");
+       serie.setId_Serie("03");
        serie.setDispFinal("CT");
        serie.setSerie("Memorando");
        serie.settRetAG(5);
@@ -105,12 +113,14 @@ public class Sistema extends  Observable  {
        lstTRD.add(serie);
 
 
+
    }
 
    public void Add(Documento d){
         getLstDoc().add(d);
         this.setChanged();
         this.notifyObservers();
+        int i=1;
 
 
    }
