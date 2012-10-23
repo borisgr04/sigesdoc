@@ -51,10 +51,11 @@ public class Sistema extends  Observable  {
     }
    
    void funcionario(){
-      Funcionario f= new Funcionario();
-       f.setApellidos("Bolaño");
-       f.setNombres("Anya");
-       f.setEmail("anyamiyeth@hotmail.com");
+       Funcionario f= new Funcionario();
+       
+       f.setApellidos("Gonzalez");
+       f.setNombres("Boris");
+       f.setEmail("borisgr04@hotmail.com");
        f.setNroIde("7573361");
        f.setRol("F");
        f.setTelefono("3174335758");
@@ -67,13 +68,32 @@ public class Sistema extends  Observable  {
        f.setApellidos("Bolaño");
        f.setNombres("Anya");
        f.setEmail("anyamiyeth@hotmail.com");
-       f.setNroIde("7573361");
+       f.setNroIde("49722106");
        f.setRol("A");
        f.setTelefono("3174335758");
        f.setClave("12345");
-       f.setUsuario("7573361");
+       f.setUsuario("49722106");
        f.setDireccion("Cll 5 # 24 - 47");
        lstPer.add(f);
+       
+       PerExterna pe;
+       pe= new PerExterna();
+       f.setApellidos("Umaña");
+       f.setNombres("Henry Ro");
+       f.setEmail("hrumaña@unal.edu.co");
+       f.setNroIde("123445");
+       f.setTelefono("3171121234");
+       f.setDireccion("Bogota");
+       lstPer.add(pe);
+
+       pe= new PerExterna();
+       f.setApellidos("Sanchez");
+       f.setNombres("Jenny");
+       f.setEmail("jmsanchez@unal.edu.co");
+       f.setNroIde("123445");
+       f.setTelefono("3171121234");
+       f.setDireccion("Bogota");
+       lstPer.add(pe);
 
    }
 
