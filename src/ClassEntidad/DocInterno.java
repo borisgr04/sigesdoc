@@ -11,6 +11,15 @@ public class DocInterno extends Documento {
     // </editor-fold> 
 
     private String IdeFunProd;
+    private String IdeDepOrigen;
+
+    public String getIdeDepOrigen() {
+        return IdeDepOrigen;
+    }
+
+    public void setIdeDepOrigen(String IdeDepOrigen) {
+        this.IdeDepOrigen = IdeDepOrigen;
+    }
 
     public String getIdeFunProd() {
         return IdeFunProd;
