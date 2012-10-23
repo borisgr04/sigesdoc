@@ -11,14 +11,34 @@
 
 package Gui;
 
+
+import ClassEntidad.Sistema;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.JOptionPane;
+
+
+
+
 /**
  *
  * @author borisgr04
  */
-public class BandejaEntGUI extends javax.swing.JFrame {
+public class BandejaEntGUI extends javax.swing.JFrame implements Observer {
+    //private DefaultTableModel modeloTabla;
+    private TablaBandeja modeloTabla;
+    
 
-    /** Creates new form TramitarGUI */
+    public void InicializarB(){
+        modeloTabla = new TablaBandeja();
+        modeloTabla.setLstdoc(Sistema.instancia().getLstDoc());
+
+    }
+
+   /** Creates new form TramitarGUI */
     public BandejaEntGUI() {
+        Sistema.instancia().addObserver(this);
+        InicializarB();
         initComponents();
     }
 
@@ -35,31 +55,26 @@ public class BandejaEntGUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        AbrirB = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tramite de Documento"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Tipo de Origen", "De", "Asunto", "Tiempo Rpta (Dias)", "Fecha "
-            }
-        ));
+        jTable1.setModel(modeloTabla);
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Email-Forward-icon.png"))); // NOI18N
         jButton1.setText("Reenviar");
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/open-icon.png"))); // NOI18N
-        jButton2.setText("Abrir");
+        AbrirB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/open-icon.png"))); // NOI18N
+        AbrirB.setText("Abrir");
+        AbrirB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AbrirBActionPerformed(evt);
+            }
+        });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Email-Reply-icon.png"))); // NOI18N
         jButton3.setText("Responder");
@@ -71,26 +86,26 @@ public class BandejaEntGUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(AbrirB)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(AbrirB)
                     .addComponent(jButton3)
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -113,6 +128,13 @@ public class BandejaEntGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void AbrirBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AbrirBActionPerformed
+        // TODO add your handling code here:
+        InicializarB();
+        JOptionPane.showMessageDialog(this,"actualizar",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+
+    }//GEN-LAST:event_AbrirBActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -125,12 +147,19 @@ public class BandejaEntGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AbrirB;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    public void update(Observable o, Object arg) {
+        modeloTabla = new TablaBandeja();
+        modeloTabla.setLstdoc(Sistema.instancia().getLstDoc());
+        jTable1.setModel(modeloTabla);
+    }
+
 
 }
