@@ -26,7 +26,6 @@ public class ValDocInternoE  implements  IValidador {
         String strVal="";
         this.setDoc((DocInternoE)doc);
 
-
         if(this.getDoc().getDireccion().isEmpty()){
             return "Falta Dirección";
         }
