@@ -19,7 +19,6 @@ public class DocInternoI extends DocInterno {
     public String getIdeFunDestino() {
         return ideFunDestino;
     }
-
     public void setIdeFunDestino(String ideFunDestino) {
         this.ideFunDestino = ideFunDestino;
     }
