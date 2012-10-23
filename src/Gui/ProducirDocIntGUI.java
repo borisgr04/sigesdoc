@@ -360,13 +360,13 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
             }
             CparaCombo depDest = (CparaCombo) destinoT.getSelectedItem();
             if (depDest==null){
-                JOptionPane.showMessageDialog(this,"Seleccione Serie",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this,"Seleccione Destino",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
              CparaCombo depOrg = (CparaCombo) depOrigenC.getSelectedItem();
             if (depOrg==null){
-                JOptionPane.showMessageDialog(this,"Seleccione Serie",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this,"Seleccione Dependencia Origen",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
             //d.setAnexos(anexosCH.ch/);
@@ -374,10 +374,10 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
             d.setResumen(resumenT.getText());
             d.setSerieTRD(ser.getCodigo());
             d.setIdeDepOrigen(depOrg.getCodigo());
-            d.setIdeFunDestino(depDest.getCodigo());
+            d.setIdPerDest(depDest.getCodigo());
             d.setAnexos(anexosCH.isSelected());
             d.setFolios(Integer.parseInt(this.foliosN.getValue().toString()));
-            d.setIdeFunDestino(destinoT.getSelectedItem().toString());
+            d.setIdPerProd(autorT.getText().toString());
             cd.setDoc(d);
             cd.Guardar(new ValDocInternoI());
             if(cd.isValido()){

@@ -10,17 +10,9 @@ package ClassEntidad;
  * @author borisgr04
  */
 public class DocInternoI extends DocInterno {
-    private String ideFunDestino;
-
     public DocInternoI() {
         this.setTipoDocumento("I");
     }
 
-    public String getIdeFunDestino() {
-        return ideFunDestino;
-    }
-    public void setIdeFunDestino(String ideFunDestino) {
-        this.ideFunDestino = ideFunDestino;
-    }
-    
+
 }

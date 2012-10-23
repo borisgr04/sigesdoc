@@ -1,6 +1,5 @@
 package ClassEntidad;
 
-import java.util.ArrayList;
 
 
 // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 

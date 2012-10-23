@@ -23,7 +23,6 @@ public class ValDocInternoE  implements  IValidador {
         this.doc = doc;
     }
     public String Validar(Documento doc) {
-        String strVal="";
         this.setDoc((DocInternoE)doc);
 
         if(this.getDoc().getDireccion().isEmpty()){
@@ -35,14 +34,16 @@ public class ValDocInternoE  implements  IValidador {
         else if(this.getDoc().getResumen().isEmpty()){
             return "Falta Resumen";
          }
-        else if(this.getDoc().getNomDestino().isEmpty()){
-            return "Falta Destino";
-         }
-        else if(this.getDoc().getSerieTRD().isEmpty()){
+        else if(this.getDoc().getIdPerDest().isEmpty()){
                 return "Falta Destino";
-        }
+         }
+        else if(this.getDoc().getIdPerProd().isEmpty()){
+                return "Falta Destino";
+         }
 
-        
+         else if(this.getDoc().getSerieTRD().isEmpty()){
+                return "Falta Destino";
+         }
         return "OK";
     }
 

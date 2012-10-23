@@ -6,6 +6,7 @@ package ClassEntidad;
 // </editor-fold> 
 public class DocExterno extends Documento {
 
+    
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.7536FE5E-E517-0D09-1A71-C78F7D4518C6]
     // </editor-fold> 

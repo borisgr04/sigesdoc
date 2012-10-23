@@ -23,26 +23,26 @@ public class Main {
         //Producir Documento
         DocInternoI d= new DocInternoI();
         d.setAsunto("Prueba");
-        d.setNoFolio(true);
+        //d.setNoFolio(true);
         d.setResumen("PRueba Interno 1");
         d.setTipoDocumento("I");
-        d.setEstado(1);
+        //d.setEstado(1);
         d.setSerieTRD("01");
-        d.setIdeFunProd("7573361");
-        d.setIdeFunDestino("49722106");
+        //d.setIdeFunProd("7573361");
+        //d.setIdeFunDestino("49722106");
         CtrProdDoc cpd = new CtrProdDoc();
         cpd.setDoc(d);
         cpd.Guardar(new ValDocInternoE());
         
         d= new DocInternoI();
         d.setAsunto("Prueba2");
-        d.setNoFolio(true);
+        //d.setNoFolio(true);
         d.setResumen("PRueba Interno 2");
         d.setTipoDocumento("I");
-        d.setEstado(1);
+       // d.setEstado(1);
         d.setSerieTRD("01");
-        d.setIdeFunProd("7573361");
-        d.setIdeFunDestino("49722106");
+        //d.setIdeFunProd("7573361");
+        //d.setIdeFunDestino("49722106");
         cpd.setDoc(d);
         cpd.Guardar(new ValDocInternoE());
         /*

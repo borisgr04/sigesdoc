@@ -6,6 +6,7 @@ package Gui;
 
 import ClassEntidad.Documento;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -14,17 +15,17 @@ import javax.swing.table.AbstractTableModel;
  */
 class TablaBandeja extends AbstractTableModel {
 
-    private String[] columnNames={"DE","PARA","ASUNTO","XXX"};
+    private String[] columnNames = {"DE", "PARA", "ASUNTO", "FECHA"};
     ArrayList<Documento> data;
 
     public ArrayList<Documento> getLstdoc() {
         return data;
     }
+
     public void setLstdoc(ArrayList<Documento> lstdoc) {
         this.data = lstdoc;
     }
 
-  
     public int getColumnCount() {
         return columnNames.length;
     }
@@ -32,7 +33,8 @@ class TablaBandeja extends AbstractTableModel {
     public int getRowCount() {
         return data.size();
     }
-@Override
+
+    @Override
     public String getColumnName(int col) {
         return columnNames[col];
     }
@@ -44,18 +46,18 @@ class TablaBandeja extends AbstractTableModel {
      * then the last column would contain text ("true"/"false"),
      * rather than a check box.
      */
-@Override
+    @Override
     public Class getColumnClass(int c) {
-        
-        Object value=this.getValueAt(0,c);
-        return (value==null?Object.class:value.getClass());
+
+        Object value = this.getValueAt(0, c);
+        return (value == null ? Object.class : value.getClass());
     }
 
     /*
      * Don't need to implement this method unless your table's
      * editable.
      */
-@Override
+    @Override
     public boolean isCellEditable(int row, int col) {
         //Note that the data/cell address is constant,
         //no matter where the cell appears onscreen.
@@ -65,40 +67,41 @@ class TablaBandeja extends AbstractTableModel {
             return true;
         }
     }
-@Override
-public void setValueAt(Object value, int row, int col) {
-      Documento macData = (Documento) (data.get(row));
-      Documento v=(Documento)value;
-      switch (col) {
-      case 0:
-        //macData.set;
-        break;
-      case 1:
-        //macData.set
-        break;
-      case 2:
-        macData.setAsunto(v.getAsunto());
-        break;
-      case 3:
-        macData.setFecha(v.getFecha());
-        break;
 
-      }
+    @Override
+    public void setValueAt(Object value, int row, int col) {
+        Documento macData = (Documento) (data.get(row));
+        
+        switch (col) {
+            case 0:
+                macData.setIdPerProd((String)value);
+                break;
+            case 1:
+                macData.setIdPerDest((String)value);
+                break;
+            case 2:
+                macData.setAsunto((String)value);
+                break;
+            case 3:
+                //macData.setf((Date)value);
+                break;
+
+        }
     }
 
-@Override
+    @Override
     public Object getValueAt(int row, int col) {
         Documento macData = (Documento) (data.get(row));
 
         switch (col) {
             case 0:
-                return "de";
+                return macData.getProductor().getNombres();
             case 1:
-                return "destino";
+                return macData.getDestino().getNombres();
             case 2:
                 return macData.getAsunto();
             case 3:
-                return macData.getFecha();
+                return macData.getFechaReg();
         }
 
         return new String();
