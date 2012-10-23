@@ -12,11 +12,11 @@ public class DocInterno extends Documento {
 
     private String IdeFunProd;
     private String IdeDepOrigen;
+    private String TipoDocumento;
 
     public String getIdeDepOrigen() {
         return IdeDepOrigen;
     }
-
     public void setIdeDepOrigen(String IdeDepOrigen) {
         this.IdeDepOrigen = IdeDepOrigen;
     }
@@ -24,20 +24,16 @@ public class DocInterno extends Documento {
     public String getIdeFunProd() {
         return IdeFunProd;
     }
-
     public void setIdeFunProd(String IdeFunProd) {
         this.IdeFunProd = IdeFunProd;
     }
-    private String TipoDocumento;
-
+    
     public String getTipoDocumento() {
         return TipoDocumento;
     }
-
     public void setTipoDocumento(String TipoDocumento) {
         this.TipoDocumento = TipoDocumento;
     }
-
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.25147397-0532-B586-8A08-6EF9969BFBE5]
     // </editor-fold> 

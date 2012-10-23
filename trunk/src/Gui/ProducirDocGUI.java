@@ -153,8 +153,6 @@ public class ProducirDocGUI extends javax.swing.JFrame {
 
         jToolBar1.add(misDocC);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos Documentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 51, 153))); // NOI18N
-
         jLabel12.setText("Dependencia Origen");
 
         depOrigenC.setEnabled(false);
@@ -260,8 +258,6 @@ public class ProducirDocGUI extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cuerpo del Documento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 51, 255)))); // NOI18N
-
         jLabel6.setText("Asunto");
 
         asuntoT.setEnabled(false);
@@ -286,7 +282,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(asuntoT)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,14 +299,13 @@ public class ProducirDocGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Productor", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
-
         jLabel9.setText("Autor");
 
         jLabel11.setText("No de Folios");
 
         autorT.setEditable(false);
 
+        foliosN.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
         foliosN.setEnabled(false);
 
         anexosCH.setText("Anexos");
@@ -389,7 +384,14 @@ public class ProducirDocGUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this,"Seleccione Serie",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
+
+            CparaCombo depOrg = (CparaCombo) depOrigenC.getSelectedItem();
+            if (depOrg==null){
+                JOptionPane.showMessageDialog(this,"Seleccione Serie",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+                return;
+            }
             //d.setAnexos(anexosCH.ch/);
+            d.setIdeDepOrigen(depOrg.getCodigo());
             d.setAsunto(asuntoT.getText());
             d.setResumen(resumenT.getText());
             d.setDireccion(this.direccionT.getText());
@@ -440,7 +442,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
     private void Limpiar(String val) {
         asuntoT.setText(val);
         resumenT.setText(val);
-        anexosCH.setText(val);
+        anexosCH.setSelected(false);
         foliosN.setValue(0);
         destinoT.setText(val);
         direccionT.setText(val);
