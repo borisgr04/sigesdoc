@@ -4,30 +4,37 @@
  */
 
 /*
- * buscarPersonaExGUI.java
+ * BuscarPerExtGUI.java
  *
- * Created on 23/10/2012, 10:34:56 PM
+ * Created on 24/10/2012, 11:35:34 PM
  */
 
 package Gui;
 
-import ClassEntidad.Sistema;
-
-
+import java.awt.HeadlessException;
 
 /**
  *
  * @author LENOVO
  */
-public class buscarPersonaExGUI extends javax.swing.JFrame {
+public class BuscarPerExtGUI extends javax.swing.JFrame {
 private ModeloTablaPersona modeloTabla;
-private seleccionarPerExt bPerExt= new seleccionarPerExt();
-private nuevaPerExt cPerExt = new nuevaPerExt ();
-    /** Creates new form buscarPersonaExGUI */
-    public buscarPersonaExGUI() {
-        initComponents();
-       // inicializacion();
+IRecibir rdg;
+
+    public IRecibir getRdg() {
+        return rdg;
     }
+
+    public void setRdg(IRecibir rdg) {
+        this.rdg = rdg;
+    }
+private seleccionarPerExt bPerExt= new seleccionarPerExt();
+private nuevaPerExt cPerExt= new nuevaPerExt ();;
+    /** Creates new form BuscarPerExtGUI */
+    public BuscarPerExtGUI() {
+        initComponents();
+    }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -40,37 +47,35 @@ private nuevaPerExt cPerExt = new nuevaPerExt ();
 
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
-        buscarJB = new javax.swing.JButton();
-        crearJB = new javax.swing.JButton();
+        buscarB = new javax.swing.JButton();
+        crearB = new javax.swing.JButton();
         panelPrincipal = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jToolBar1.setRollover(true);
 
-        buscarJB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/search-b-icon.png"))); // NOI18N
-        buscarJB.setText("Buscar");
-        buscarJB.setFocusable(false);
-        buscarJB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        buscarJB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        buscarJB.addActionListener(new java.awt.event.ActionListener() {
+        buscarB.setText("Buscar");
+        buscarB.setFocusable(false);
+        buscarB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        buscarB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        buscarB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarJBActionPerformed(evt);
+                buscarBActionPerformed(evt);
             }
         });
-        jToolBar1.add(buscarJB);
+        jToolBar1.add(buscarB);
 
-        crearJB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/New.png"))); // NOI18N
-        crearJB.setText("Crear");
-        crearJB.setFocusable(false);
-        crearJB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        crearJB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        crearJB.addActionListener(new java.awt.event.ActionListener() {
+        crearB.setText("Crear");
+        crearB.setFocusable(false);
+        crearB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        crearB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        crearB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                crearJBActionPerformed(evt);
+                crearBActionPerformed(evt);
             }
         });
-        jToolBar1.add(crearJB);
+        jToolBar1.add(crearB);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -78,31 +83,31 @@ private nuevaPerExt cPerExt = new nuevaPerExt ();
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(436, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
         );
 
+        panelPrincipal.setAutoscrolls(true);
         panelPrincipal.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(384, 384, 384)
-                        .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(20, 20, 20)
+                        .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -110,49 +115,46 @@ private nuevaPerExt cPerExt = new nuevaPerExt ();
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buscarJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarJBActionPerformed
+    private void buscarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarBActionPerformed
+        // TODO add your handling code here:
+
        panelPrincipal.setVisible(false);
        panelPrincipal.removeAll();
+       bPerExt.setIr(rdg);
        panelPrincipal.add(bPerExt);
-       panelPrincipal.setVisible(true);        // TODO add your handling code here:
-    }//GEN-LAST:event_buscarJBActionPerformed
+       panelPrincipal.setVisible(true);
+    }//GEN-LAST:event_buscarBActionPerformed
 
-    private void crearJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearJBActionPerformed
+    private void crearBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearBActionPerformed
         // TODO add your handling code here:
        panelPrincipal.setVisible(false);
        panelPrincipal.removeAll();
        panelPrincipal.add(cPerExt);
        panelPrincipal.setVisible(true);
-    }//GEN-LAST:event_crearJBActionPerformed
+    }//GEN-LAST:event_crearBActionPerformed
 
-    private void inicializacion(){
-    //modeloTabla = new ModeloTablaPersona();
-    //modeloTabla.setLstdoc(Sistema.instancia().getLstPer());
-
-
-    }
     /**
     * @param args the command line arguments
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new buscarPersonaExGUI().setVisible(true);
+                new BuscarPerExtGUI().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buscarJB;
-    private javax.swing.JButton crearJB;
+    private javax.swing.JButton buscarB;
+    private javax.swing.JButton crearB;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel panelPrincipal;

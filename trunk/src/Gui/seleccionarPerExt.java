@@ -11,6 +11,8 @@
 
 package Gui;
 
+import ClassEntidad.PerExterna;
+import ClassEntidad.Persona;
 import ClassEntidad.Sistema;
 
 /**
@@ -19,6 +21,15 @@ import ClassEntidad.Sistema;
  */
 public class seleccionarPerExt extends javax.swing.JPanel {
    private ModeloTablaPersona modeloTabla;
+   private IRecibir ir;
+
+    public IRecibir getIr() {
+        return ir;
+    }
+
+    public void setIr(IRecibir ir) {
+        this.ir = ir;
+    }
     /** Creates new form seleccionarPerExt */
     public seleccionarPerExt() {
         Inicializar();
@@ -26,10 +37,17 @@ public class seleccionarPerExt extends javax.swing.JPanel {
         
         
     }
+
+    public seleccionarPerExt(IRecibir ir) {
+        this.ir = ir;
+    }
+
+
 public void Inicializar(){
         modeloTabla = new ModeloTablaPersona();
+        PerExterna p = new PerExterna();
         System.out.println(Sistema.instancia().getLstPer().size());
-        modeloTabla.setLstdatos(Sistema.instancia().getLstPer());
+        modeloTabla.setLstdatos(p.getPerExterna());
         //this.PersonaJtab.setModel(modeloTabla);
 }
     /** This method is called from within the constructor to
@@ -45,6 +63,7 @@ public void Inicializar(){
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
+        enviarB = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         PersonaJtab = new javax.swing.JTable();
@@ -54,17 +73,29 @@ public void Inicializar(){
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/search-b-icon.png"))); // NOI18N
         jButton1.setText("Buscar");
 
+        enviarB.setText("Enviar");
+        enviarB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enviarBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(158, 158, 158)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(360, Short.MAX_VALUE)
+                        .addComponent(enviarB)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -75,7 +106,8 @@ public void Inicializar(){
                     .addComponent(jLabel1)
                     .addComponent(jButton1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(enviarB))
         );
 
         PersonaJtab.setModel(modeloTabla);
@@ -109,7 +141,7 @@ public void Inicializar(){
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,13 +150,28 @@ public void Inicializar(){
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void enviarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarBActionPerformed
+   Seleccionar();
+                  // TODO add your handling code here:
+    }//GEN-LAST:event_enviarBActionPerformed
+   private boolean Seleccionar() {
+        int registro = this.PersonaJtab.getSelectedRow();
+        boolean sw=false;
+        if (registro >= 0) {
+            Persona p = modeloTabla.getPer(registro);
+            ir.Recibir(p);
+            System.out.println(p.getApellidos());
+        }
+        return sw;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable PersonaJtab;
+    private javax.swing.JButton enviarB;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

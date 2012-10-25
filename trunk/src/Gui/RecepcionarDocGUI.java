@@ -12,15 +12,20 @@
 package Gui;
 
 import ClassEntidad.Dependencia;
+import ClassEntidad.DocExterno;
+import ClassEntidad.PerExterna;
+import ClassEntidad.Persona;
 import ClassEntidad.Sistema;
+import javax.swing.JOptionPane;
 import util.CparaCombo;
 
 /**
  *
  * @author borisgr04
  */
-public class RecepcionarDocGUI extends javax.swing.JFrame {
-
+public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
+private BuscarPerExtGUI guiPerExt =new BuscarPerExtGUI();
+private PerExterna PerExt= new PerExterna();
     /** Creates new form RecepcionarDocGUI */
     public RecepcionarDocGUI() {
         initComponents();
@@ -29,10 +34,12 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
  void inicializar() {
         //Llena Comobo Box Dependencia
         for (Dependencia d : Sistema.instancia().getLstDep()) {
-            this.depOrigenC.addItem(new CparaCombo(d.getId(), d.getNombre()));
+            this.depDestinoC.addItem(new CparaCombo(d.getId(), d.getNombre()));
         }
         
     }
+
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -43,25 +50,22 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
-        jButton6 = new javax.swing.JButton();
+        nuevoB = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
-        jButton5 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        cancelB = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
-        jButton4 = new javax.swing.JButton();
+        DistribuirB = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
-        jButton10 = new javax.swing.JButton();
+        cerrarB = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         fechaT = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        nRadicadoB = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         docRelacionadoT = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        relDocB = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         asuntoT = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -73,78 +77,63 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
         FoliosSp = new javax.swing.JSpinner();
         jPanel3 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        identPerRemB = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        nombresPEB = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
+        dirPEB = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
+        correoPEB = new javax.swing.JTextField();
+        buscarPerExtB = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        depOrigenC = new javax.swing.JComboBox();
+        depDestinoC = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jToolBar1.setRollover(true);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/New.png"))); // NOI18N
-        jButton6.setText("Nuevo");
-        jButton6.setFocusable(false);
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton6);
-        jToolBar1.add(jSeparator3);
-
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/open-icon.png"))); // NOI18N
-        jButton5.setText("Abrir");
-        jButton5.setFocusable(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton5);
-
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Edit.png"))); // NOI18N
-        jButton7.setText("Editar");
-        jButton7.setFocusable(false);
-        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton7);
-        jToolBar1.add(jSeparator4);
-
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
-        jButton8.setText("Guardar");
-        jButton8.setFocusable(false);
-        jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton8);
-
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/undo.png"))); // NOI18N
-        jButton9.setText("Cancelar");
-        jButton9.setFocusable(false);
-        jButton9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton9);
-        jToolBar1.add(jSeparator1);
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/email-send-icon.png"))); // NOI18N
-        jButton4.setText("Distribuir");
-        jButton4.setFocusable(false);
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        nuevoB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/New.png"))); // NOI18N
+        nuevoB.setText("Nuevo");
+        nuevoB.setFocusable(false);
+        nuevoB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        nuevoB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        nuevoB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                nuevoBActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton4);
+        jToolBar1.add(nuevoB);
+        jToolBar1.add(jSeparator3);
+        jToolBar1.add(jSeparator4);
+
+        cancelB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/undo.png"))); // NOI18N
+        cancelB.setText("Cancelar");
+        cancelB.setFocusable(false);
+        cancelB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        cancelB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(cancelB);
+        jToolBar1.add(jSeparator1);
+
+        DistribuirB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/email-send-icon.png"))); // NOI18N
+        DistribuirB.setText("Distribuir");
+        DistribuirB.setFocusable(false);
+        DistribuirB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        DistribuirB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        DistribuirB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DistribuirBActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(DistribuirB);
         jToolBar1.add(jSeparator2);
 
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Log Out_32x32.png"))); // NOI18N
-        jButton10.setText("Cerrar");
-        jButton10.setFocusable(false);
-        jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton10.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton10);
+        cerrarB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Log Out_32x32.png"))); // NOI18N
+        cerrarB.setText("Cerrar");
+        cerrarB.setFocusable(false);
+        cerrarB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        cerrarB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(cerrarB);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Recepción de Documentos"));
 
@@ -154,7 +143,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
 
         jLabel3.setText("Relacionar Documento");
 
-        jButton1.setText("...");
+        relDocB.setText("...");
 
         jLabel4.setText("Asunto");
 
@@ -191,12 +180,12 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(nRadicadoB, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(docRelacionadoT, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
+                                .addComponent(relDocB))
                             .addComponent(asuntoT, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -216,13 +205,13 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nRadicadoB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fechaT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(docRelacionadoT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(relDocB))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -250,6 +239,13 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
 
         jLabel15.setText("Correo");
 
+        buscarPerExtB.setText("...");
+        buscarPerExtB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarPerExtBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -263,29 +259,32 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
                     .addComponent(jLabel15))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jTextField14)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE))
-                .addContainerGap(130, Short.MAX_VALUE))
+                    .addComponent(correoPEB)
+                    .addComponent(dirPEB, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nombresPEB, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(identPerRemB, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buscarPerExtB)
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(identPerRemB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscarPerExtB))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nombresPEB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dirPEB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(correoPEB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)))
         );
 
@@ -304,7 +303,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(185, 185, 185)
-                    .addComponent(depOrigenC, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(depDestinoC, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(194, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
@@ -316,7 +315,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(8, 8, 8)
-                    .addComponent(depOrigenC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(depDestinoC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -342,7 +341,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -357,10 +356,80 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void DistribuirBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DistribuirBActionPerformed
         // TODO add your handling code here:
-}//GEN-LAST:event_jButton4ActionPerformed
 
+        try {
+            DocExterno d = new DocExterno();
+
+
+            CparaCombo depDes = (CparaCombo) depDestinoC.getSelectedItem();
+            if (depDes==null){
+                JOptionPane.showMessageDialog(this,"Seleccione Destinatario",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            /*d.setAnexos(anexosCH.ch/);
+            d.setIdeDepOrigen(depDes.getCodigo());
+            d.setAsunto(asuntoT.getText());
+            d.setResumen(resumenT.getText());
+            d.setIdPerDest(depDes.getCodigo());
+            d.setIdPerProd("7573361");
+            d.setDireccion(this.direccionT.getText());
+            d.setSerieTRD(p.getCodigo());
+            d.setAnexos(anexosCH.isSelected());
+            d.setFolios(Integer.parseInt(this.foliosN.getValue().toString()));
+            //d.setNomDestino(depDes.getCodigo());
+            cd.setDoc(d);
+            cd.Guardar(new ValDocInternoE());
+
+            if(cd.isValido()){
+                this.ndocumentoT.setText(String.valueOf(cd.getDoc().getNoDocumento()));
+                JOptionPane.showMessageDialog(this, "Se Guardó el Documento", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+            }
+             else{
+                JOptionPane.showMessageDialog(this, cd.getMensaje(), Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+             }
+*/
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), Sistema.instancia().getNomApp(), JOptionPane.ERROR_MESSAGE);
+        }
+}//GEN-LAST:event_DistribuirBActionPerformed
+
+    private void buscarPerExtBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarPerExtBActionPerformed
+        // TODO add your handling code here:
+         this.guiPerExt.setRdg(this);
+     this.guiPerExt.setVisible(true);
+
+    }//GEN-LAST:event_buscarPerExtBActionPerformed
+
+    private void nuevoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoBActionPerformed
+     this.Habilitar(true);        // TODO add your handling code here:
+     this.limipiar();
+
+    }//GEN-LAST:event_nuevoBActionPerformed
+private void Habilitar(boolean var){
+        this.cancelB.setEnabled(var);
+        this.DistribuirB.setEnabled(var);
+        this.relDocB.setEnabled(var);
+        this.buscarPerExtB.setEnabled(var);
+
+}
+
+
+private void limipiar (){
+this.fechaT.setText("");
+this.asuntoT.setText("");
+this.docRelacionadoT.setText("");
+this.nRadicadoB.setText("");
+this.identPerRemB.setText("");
+this.nombresPEB.setText("");
+this.dirPEB.setText("");
+this.tVencimintoSp.setValue(-1);
+this.depDestinoC.setSelectedIndex(-1);
+this.correoPEB.setText("");
+this.FoliosSp.setValue(-1);
+
+}
     /**
     * @param args the command line arguments
     */
@@ -373,19 +442,18 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton DistribuirB;
     private javax.swing.JSpinner FoliosSp;
     private javax.swing.JTextField asuntoT;
-    private javax.swing.JComboBox depOrigenC;
+    private javax.swing.JButton buscarPerExtB;
+    private javax.swing.JButton cancelB;
+    private javax.swing.JButton cerrarB;
+    private javax.swing.JTextField correoPEB;
+    private javax.swing.JComboBox depDestinoC;
+    private javax.swing.JTextField dirPEB;
     private javax.swing.JTextField docRelacionadoT;
     private javax.swing.JTextField fechaT;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JTextField identPerRemB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -406,14 +474,19 @@ public class RecepcionarDocGUI extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTextField nRadicadoB;
+    private javax.swing.JTextField nombresPEB;
+    private javax.swing.JButton nuevoB;
+    private javax.swing.JButton relDocB;
     private javax.swing.JTextArea resumenT;
     private javax.swing.JSpinner tVencimintoSp;
     // End of variables declaration//GEN-END:variables
+
+    public void Recibir(Persona o) {
+         PerExterna pe=(PerExterna)o;
+    }
+
+  
 
 }
