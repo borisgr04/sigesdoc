@@ -1,8 +1,10 @@
 package ClassControl;
 
 
+import ClassEntidad.DistribucionDoc;
 import java.util.ArrayList;
 import ClassEntidad.DocInterno;
+import ClassEntidad.Sistema;
 import ClassEntidad.TRD;
 
 
@@ -75,6 +77,13 @@ public class CtrProdDoc {
             if(t!=null){
                 int ncons=t.getNoCons()+1;
                 doc.setNoDocumento(ncons);
+                //
+                DistribucionDoc dd=new DistribucionDoc();
+                dd.setDistribuidor(doc.getProductor());//Por Primera Vez
+                dd.setReceptor(doc.getDestino());//Por primera Vez
+                dd.setDocumento(doc);
+                Sistema.instancia().getLstDistriDoc().add(dd);
+                ////
                 t.actConsSerie();
                 valido=true;
                 mensaje=doc.crear();

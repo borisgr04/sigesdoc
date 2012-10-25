@@ -1,5 +1,7 @@
 package ClassEntidad;
 
+import java.util.ArrayList;
+
 
 // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
 // #[regen=yes,id=DCE.4A2ED1A7-9902-9429-7D3D-5C1AE868F528]
@@ -67,6 +69,18 @@ public class Funcionario extends Persona {
     // </editor-fold> 
     public void setUsuario (String val) {
         this.usuario = val;
+    }
+
+
+    public ArrayList<Persona> getFuncionario() {
+        ArrayList<Persona> pe = new ArrayList<Persona>();
+        for (Persona per : Sistema.instancia().getLstPer()) {
+            if (per instanceof Funcionario) {
+                pe.add(per);
+            }
+        }
+
+        return pe;
     }
 
 }

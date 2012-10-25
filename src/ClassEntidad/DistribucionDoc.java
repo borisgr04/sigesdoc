@@ -21,10 +21,23 @@ public class DistribucionDoc {
     // </editor-fold> 
     private Documento mDocumento;
 
+    private DDEstado Estado;
+
+    public DDEstado getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(DDEstado mEstado) {
+        this.Estado = mEstado;
+    }
+
+
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.9C6C535F-939F-B4DE-4359-4118C0A50304]
     // </editor-fold> 
     public DistribucionDoc () {
+        super();
+        this.Estado=DDEstado.ENVIADO;
     }
 
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 

@@ -36,25 +36,31 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         inicializar();
     }
 
+     public ProducirDocGUI(Documento doc) {
+        initComponents();
+        inicializar();
+        this.docRelT.setText(String.valueOf(doc.getNoDocumento()));
+        
+    }
+
     void inicializar() {
         //Llena Comobo Box Dependencia
-        for (Dependencia d : Sistema.instancia().getLstDep()) {
+        Dependencia dep = new Dependencia();
+        for (Dependencia d : dep.getDependencias()) {
             this.depOrigenC.addItem(new CparaCombo(d.getId(), d.getNombre()));
         }
 
         //Llena Comobo Box Serie
         //Inicialziando
-        for (TRD serie : Sistema.instancia().getLstTRD()) {
+        TRD trd= new TRD();
+        for (TRD serie : trd.getTRD()) {
             this.serieC.addItem(new CparaCombo(serie.getId_Serie(), serie.getSerie().toUpperCase()));
             //System.out.print(serie.getSerie());
         }
         //LLena Combo Box Personas Externas
-        for (Persona per : Sistema.instancia().getLstPer()) {
-            if(per instanceof PerExterna){
+        PerExterna pe= new PerExterna();
+        for (Persona per : pe.getPerExterna()) {
                 this.destinoC.addItem(new CparaCombo(per.getNroIde(), per.getNombres().toUpperCase()));
-            }
-            
-            //System.out.print(serie.getSerie());
         }
 
     }
@@ -90,7 +96,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         direccionT = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        docRelT = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         destinoC = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
@@ -195,7 +201,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
 
         direccionT.setEnabled(false);
 
-        jTextField7.setEnabled(false);
+        docRelT.setEnabled(false);
 
         jLabel8.setText("N° Documento Rel");
 
@@ -234,7 +240,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
                             .addComponent(jComboBox1, 0, 154, Short.MAX_VALUE))
                         .addGap(30, 30, 30))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(docRelT, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
@@ -261,7 +267,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(direccionT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(docRelT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel8))
                     .addComponent(jLabel3))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -420,6 +426,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
             //d.setNomDestino(depDes.getCodigo());
             cd.setDoc(d);
             cd.Guardar(new ValDocInternoE());
+
             if(cd.isValido()){
                 this.ndocumentoT.setText(String.valueOf(cd.getDoc().getNoDocumento()));
                 JOptionPane.showMessageDialog(this, "Se Guardó el Documento", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
@@ -511,6 +518,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
     private javax.swing.JComboBox depOrigenC;
     private javax.swing.JComboBox destinoC;
     private javax.swing.JTextField direccionT;
+    private javax.swing.JTextField docRelT;
     private javax.swing.JSpinner foliosN;
     private javax.swing.JButton guardaB;
     private javax.swing.JComboBox jComboBox1;
@@ -533,7 +541,6 @@ public class ProducirDocGUI extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JComboBox misDocC;
     private javax.swing.JTextField ndocumentoT;

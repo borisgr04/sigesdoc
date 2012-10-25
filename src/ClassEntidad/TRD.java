@@ -154,7 +154,9 @@ public class TRD {
     }
 
  
-
+    public ArrayList<TRD> getTRD(){
+        return Sistema.instancia().getLstTRD();
+    }
 
 
 }

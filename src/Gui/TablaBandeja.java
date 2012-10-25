@@ -4,9 +4,8 @@
  */
 package Gui;
 
-import ClassEntidad.Documento;
+import ClassEntidad.DistribucionDoc;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -15,14 +14,14 @@ import javax.swing.table.AbstractTableModel;
  */
 class TablaBandeja extends AbstractTableModel {
 
-    private String[] columnNames = {"DE", "PARA", "ASUNTO", "FECHA"};
-    ArrayList<Documento> data;
+    private String[] columnNames = {"DE", "PARA", "ASUNTO", "FECHA","ESTADO"};
+    ArrayList<DistribucionDoc> data;
 
-    public ArrayList<Documento> getLstdoc() {
+    public ArrayList<DistribucionDoc> getLstdoc() {
         return data;
     }
 
-    public void setLstdoc(ArrayList<Documento> lstdoc) {
+    public void setLstdoc(ArrayList<DistribucionDoc> lstdoc) {
         this.data = lstdoc;
     }
 
@@ -70,8 +69,8 @@ class TablaBandeja extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object value, int row, int col) {
-        Documento macData = (Documento) (data.get(row));
-        
+        /*
+        DistribucionDoc macData = (DistribucionDoc) (data.get(row));
         switch (col) {
             case 0:
                 macData.setIdPerProd((String)value);
@@ -85,23 +84,32 @@ class TablaBandeja extends AbstractTableModel {
             case 3:
                 //macData.setf((Date)value);
                 break;
+            case 4:
+                macData.setEstado((String) value);
+                break;
 
-        }
+        }*/
     }
 
+    public  DistribucionDoc getDoc(int row){
+        return (DistribucionDoc) (data.get(row));
+    }
+ 
     @Override
     public Object getValueAt(int row, int col) {
-        Documento macData = (Documento) (data.get(row));
+        DistribucionDoc macData = (DistribucionDoc) (data.get(row));
 
         switch (col) {
             case 0:
-                return macData.getProductor().getNombres();
+                return macData.getDistribuidor().getNombres();
             case 1:
-                return macData.getDestino().getNombres();
+                return macData.getReceptor().getNombres();
             case 2:
-                return macData.getAsunto();
+                return macData.getDocumento().getAsunto();
             case 3:
-                return macData.getFechaReg();
+                return macData.getDocumento().getFechaReg();
+            case 4:
+                return macData.getEstado();
         }
 
         return new String();
