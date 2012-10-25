@@ -16,9 +16,18 @@ public class Sistema extends  Observable  {
    public static Sistema instancia;// = new Sistema();
    private ArrayList<Documento> lstDoc = new ArrayList<Documento>();
    private ArrayList<Persona> lstPer = new ArrayList<Persona>();
+   
 
     public ArrayList<Persona> getLstPer() {
         return lstPer;
+    }
+
+    public ArrayList<DistribucionDoc> getLstDistriDoc() {
+        return lstDistriDoc;
+    }
+
+    public void setLstDistriDoc(ArrayList<DistribucionDoc> lstDistriDoc) {
+        this.lstDistriDoc = lstDistriDoc;
     }
 
     public void setLstPer(ArrayList<Persona> lstPer) {

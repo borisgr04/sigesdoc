@@ -8,10 +8,10 @@
  *
  * Created on 13/09/2012, 01:20:43 AM
  */
-
 package Gui;
 
-
+import ClassControl.CtrTramite;
+import ClassEntidad.DistribucionDoc;
 import ClassEntidad.Sistema;
 import java.util.Observable;
 import java.util.Observer;
@@ -19,25 +19,23 @@ import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
-
-
-
 /**
  *
  * @author borisgr04
  */
 public class BandejaEntGUI extends javax.swing.JFrame implements Observer, TableModelListener {
     //private DefaultTableModel modeloTabla;
+
     private TablaBandeja modeloTabla;
-    
+    DistribucionDoc dd;
+    CtrTramite ct= new CtrTramite();
 
-    public void InicializarB(){
+    public void InicializarB() {
         modeloTabla = new TablaBandeja();
-        modeloTabla.setLstdoc(Sistema.instancia().getLstDoc());
-
+        modeloTabla.setLstdoc(Sistema.instancia().getLstDistriDoc());
     }
 
-   /** Creates new form TramitarGUI */
+    /** Creates new form TramitarGUI */
     public BandejaEntGUI() {
         Sistema.instancia().addObserver(this);
         InicializarB();
@@ -58,7 +56,8 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         AbrirB = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        responderB = new javax.swing.JButton();
+        archivarB = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,8 +77,21 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Email-Reply-icon.png"))); // NOI18N
-        jButton3.setText("Responder");
+        responderB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Email-Reply-icon.png"))); // NOI18N
+        responderB.setText("Responder");
+        responderB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                responderBActionPerformed(evt);
+            }
+        });
+
+        archivarB.setIcon(new javax.swing.ImageIcon("C:\\Users\\borisgr04\\Downloads\\document-archive-icon.png")); // NOI18N
+        archivarB.setText("Archivar");
+        archivarB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                archivarBActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -88,13 +100,15 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(AbrirB)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE))
+                        .addComponent(archivarB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(responderB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -103,11 +117,12 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AbrirB)
-                    .addComponent(jButton3)
+                    .addComponent(archivarB)
+                    .addComponent(responderB)
                     .addComponent(jButton1))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -124,7 +139,7 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -132,11 +147,11 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
 
     private void AbrirBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AbrirBActionPerformed
         // TODO add your handling code here:
-        InicializarB();
-        JOptionPane.showMessageDialog(this,"actualizar",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
-        
+        //InicializarB();
+        //JOptionPane.showMessageDialog(this,"actualizar",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+
         boolean avanzar = true;
-        
+
         int registro = jTable1.getSelectedRow();
         int columna = jTable1.getSelectedColumn();
 
@@ -146,7 +161,7 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
             avanzar = false;
         }
         if (avanzar) {
-            String strResultado =this.modeloTabla.getValueAt(
+            String strResultado = this.modeloTabla.getValueAt(
                     jTable1.getSelectedRow(),
                     jTable1.getSelectedColumn()).toString();
             JOptionPane.showMessageDialog(null, "Dato seleccionado : " + strResultado);
@@ -158,36 +173,82 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
 
     }//GEN-LAST:event_AbrirBActionPerformed
 
+    private void archivar() {
+        ct.setDd(dd);
+        ct.Archivar();
+        actualizarGrid();
+    }
+
+
+    private void archivarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_archivarBActionPerformed
+        // TODO add your handling code here:
+        if(isSeleccionado())
+            archivar();
+    }//GEN-LAST:event_archivarBActionPerformed
+
+    private void responderBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_responderBActionPerformed
+        // TODO add your handling code here:
+       if(isSeleccionado())
+        responder();
+    }//GEN-LAST:event_responderBActionPerformed
+
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new BandejaEntGUI().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AbrirB;
+    private javax.swing.JButton archivarB;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton responderB;
     // End of variables declaration//GEN-END:variables
 
-    public void update(Observable o, Object arg) {
+
+
+    public void actualizarGrid() {
         modeloTabla = new TablaBandeja();
-        modeloTabla.setLstdoc(Sistema.instancia().getLstDoc());
+        modeloTabla.setLstdoc(Sistema.instancia().getLstDistriDoc());
         jTable1.setModel(modeloTabla);
+    }
+
+    public void update(Observable o, Object arg) {
+        actualizarGrid();
     }
 
     public void tableChanged(TableModelEvent e) {
         //throw new UnsupportedOperationException("Not supported yet.");
-        JOptionPane.showMessageDialog(this,"actualizarTabla",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "actualizarTabla", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
     }
 
+    private void responder() {
 
+        ProducirDocGUI p=new ProducirDocGUI(dd.getDocumento());
+        p.setVisible(true);
+    }
+
+    private boolean isSeleccionado() {
+        int registro = jTable1.getSelectedRow();
+        boolean sw=false;
+        if (registro >= 0) {
+            dd = modeloTabla.getDoc(registro);
+            int strResultado = dd.getDocumento().getNoDocumento();
+            int r = JOptionPane.showConfirmDialog(this, "Desea Guardar y Enviar el Documento N°" + strResultado, "MessageBox Title", JOptionPane.YES_NO_OPTION);
+            if (r == JOptionPane.YES_OPTION) {
+                archivar();
+                sw=true;
+            }
+        }
+        return sw;
+    }
+ 
 }

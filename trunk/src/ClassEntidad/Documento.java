@@ -27,7 +27,25 @@ public abstract class Documento {
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.048FDAEA-C383-1BC3-9EF1-40B83548D5DE]
     // </editor-fold> 
-    private String estado;
+    private DDEstado estado;
+
+    private int noDocRel;
+
+    public int getNoDocRel() {
+        return noDocRel;
+    }
+
+    public void setNoDocRel(int noDocRel) {
+        this.noDocRel = noDocRel;
+    }
+
+    public DDEstado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(DDEstado estado) {
+        this.estado = estado;
+    }
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.C1611B51-725F-4889-BBA1-1059696EB368]
     // </editor-fold> 
@@ -83,20 +101,7 @@ public abstract class Documento {
         this.asunto = val;
     }
 
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,regenBody=yes,id=DCE.6ACD8034-0B24-249B-E025-D7BF47A45FFD]
-    // </editor-fold> 
-    public String getEstado() {
-        return estado;
-    }
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,regenBody=yes,id=DCE.550CE830-499F-5C63-177F-582B73E65BB6]
-    // </editor-fold> 
-    public void setEstado(String val) {
-        this.estado = val;
-    }
-
+  
 
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,regenBody=yes,id=DCE.33586D89-C288-912B-AF8E-1EFF57027F35]
