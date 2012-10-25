@@ -112,8 +112,6 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         foliosN = new javax.swing.JSpinner();
         anexosCH = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jToolBar1.setRollover(true);
 
         nuevoB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/New.png"))); // NOI18N

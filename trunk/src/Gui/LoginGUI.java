@@ -8,11 +8,12 @@
  *
  * Created on 23/10/2012, 12:50:54 AM
  */
-
 package Gui;
 
+import ClassControl.CtrLogin;
 import ClassEntidad.Funcionario;
-import ClassEntidad.Persona;
+import ClassEntidad.Sistema;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -48,8 +49,6 @@ public class LoginGUI extends javax.swing.JFrame {
         jLabel1.setText("Usuario");
 
         jLabel2.setText("Contraseña");
-
-        contraseniaT.setText("jPasswordField1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -124,26 +123,35 @@ public class LoginGUI extends javax.swing.JFrame {
 
     private void aceptarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBActionPerformed
         // TODO add your handling code here:
-        String usuario= usuarioT.getText();
-        String clave= contraseniaT.getPassword().toString();
-        Funcionario f=new Funcionario();
-        for(Persona fun: f.getFuncionario()){
-           ///Funcionario fp=(Funcionario)fun;
-            //if(fp.getUsuario().equals(usuario)&&
+        CtrLogin cl = new CtrLogin();
+        if (!cl.validar(usuarioT.getText(), contraseniaT.getText())) {
+            JOptionPane.showMessageDialog(this, cl.getMsg(), Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+//            Sistema.instancia().setUsuAct(cl.getUsuarioActual());
+        }
+        else
+        {
+        Ppal p= new Ppal();
+        
+        p.setVisible(true);
+        
+        this.setVisible(false);
         }
     }//GEN-LAST:event_aceptarBActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
-                new LoginGUI().setVisible(true);
+                LoginGUI l=new LoginGUI();
+                l.setVisible(true);
+                l.setLocationRelativeTo(null);
+
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptarB;
     private javax.swing.JButton cancelarB;
@@ -153,5 +161,4 @@ public class LoginGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField usuarioT;
     // End of variables declaration//GEN-END:variables
-
 }
