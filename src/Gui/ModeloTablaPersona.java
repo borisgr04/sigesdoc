@@ -55,6 +55,10 @@ class ModeloTablaPersona extends AbstractTableModel {
         return (value == null ? Object.class : value.getClass());
     }
 
+
+     public  Persona getPer(int row){
+        return (Persona) (data.get(row));
+    }
     /*
      * Don't need to implement this method unless your table's
      * editable.
