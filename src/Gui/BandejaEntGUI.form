@@ -67,7 +67,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="archivarB" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <Component id="reenviarB" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="responderB" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -84,7 +84,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="AbrirB" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="archivarB" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="reenviarB" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="responderB" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -252,13 +252,16 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="responderBActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="reenviarB">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/recursos/Email-Forward-icon.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Reenviar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reenviarBActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

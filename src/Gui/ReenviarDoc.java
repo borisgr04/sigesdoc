@@ -8,30 +8,45 @@
  *
  * Created on 25/10/2012, 10:56:47 PM
  */
-
 package Gui;
 
 import ClassEntidad.DistribucionDoc;
-import java.util.Observer;
+import ClassEntidad.Funcionario;
+import ClassEntidad.Persona;
+import ClassEntidad.Sistema;
+import javax.swing.JOptionPane;
+import util.CparaCombo;
 
 /**
  *
  * @author borisgr04
  */
-public class ReenviarDoc extends javax.swing.JFrame  {
+public class ReenviarDoc extends javax.swing.JFrame {
 
     DistribucionDoc dd;
+    Funcionario f;
+
     /** Creates new form ReenviarDoc */
+    public void inicialziarDoc() {
+        f = new Funcionario();
+        for (Persona d : f.getFuncionarioSinActual()) {
+            this.destinoC.addItem(new CparaCombo(d.getNroIde(), d.getNombres()));
+        }
+    }
+
     public ReenviarDoc() {
         initComponents();
+        inicialziarDoc();
+
     }
 
     public ReenviarDoc(DistribucionDoc dd) {
         this.dd = dd;
         initComponents();
-        this.documentL.setText(dd.getDocumento().getNoDocumento()+dd.getDocumento().getAsunto());
-    }
+        this.documentL.setText(dd.getDocumento().getNoDocumento() + "-" + dd.getDocumento().getAsunto());
+        inicialziarDoc();
 
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -134,20 +149,32 @@ public class ReenviarDoc extends javax.swing.JFrame  {
 
     private void reenviarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reenviarBActionPerformed
         // TODO add your handling code here:
-        
+        try {
+            dd.setDistribuidor(f.getUsuarioActual());
+            CparaCombo depDes = (CparaCombo) destinoC.getSelectedItem();
+            if (depDes == null) {
+                JOptionPane.showMessageDialog(this, "Seleccione Destinatario", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+            }
+            dd.setIdPerDest(depDes.getCodigo());
+            //dd.crear();
+
+            JOptionPane.showMessageDialog(this, "Se Reenvio el Documento", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), Sistema.instancia().getNomApp(), JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_reenviarBActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new ReenviarDoc().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelarB;
     private javax.swing.JComboBox destinoC;
@@ -159,5 +186,4 @@ public class ReenviarDoc extends javax.swing.JFrame  {
     private javax.swing.JTextArea obserJT;
     private javax.swing.JButton reenviarB;
     // End of variables declaration//GEN-END:variables
-
 }

@@ -22,7 +22,20 @@ public class DistribucionDoc {
     private Documento mDocumento;
 
     private Date fechaEnviado;
+    private String idPerDest;
 
+    public String getIdPerDest() {
+        return idPerDest;
+    }
+
+    public void setIdPerDest(String idPerDest) {
+        this.idPerDest = idPerDest;
+         for (Persona per : Sistema.instancia().getLstPer()) {
+            if (per.getNroIde().equals(idPerDest)) {
+                this.mReceptor = per;
+            }
+        }
+    }
     public Date getFechaEnviado() {
         return fechaEnviado;
     }
@@ -30,7 +43,7 @@ public class DistribucionDoc {
     public void setFechaEnviado(Date fechaEnviado) {
         this.fechaEnviado = fechaEnviado;
     }
-    
+
     private DDEstado Estado;
 
     public DDEstado getEstado() {
@@ -67,7 +80,9 @@ public class DistribucionDoc {
     }
 
     public void crear(){
+        
         Sistema.instancia().getLstDistriDoc().add(this);
+
     }
     public ArrayList<DistribucionDoc> getMiBandejaSalida(String ide_usuario) {
         ArrayList<DistribucionDoc> be = new ArrayList<DistribucionDoc>();
