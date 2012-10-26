@@ -12,9 +12,9 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author borisgr04
  */
-class TablaBandeja extends AbstractTableModel {
+class TablaBandejaEnviados extends AbstractTableModel {
 
-    private String[] columnNames = {"DE", "ASUNTO", "FECHA","ESTADO"};
+    private String[] columnNames = {"PARA", "ASUNTO", "FECHA","ESTADO"};
     ArrayList<DistribucionDoc> data;
 
     public ArrayList<DistribucionDoc> getLstdoc() {
@@ -100,10 +100,10 @@ class TablaBandeja extends AbstractTableModel {
         DistribucionDoc macData = (DistribucionDoc) (data.get(row));
 
         switch (col) {
-            case 0:
-                return macData.getDistribuidor().getNombres();
             /*case 0:
-                return macData.getReceptor().getNombres();*/
+                return macData.getDistribuidor().getNombres();*/
+            case 0:
+                return macData.getReceptor().getNombres();
             case 1:
                 return macData.getDocumento().getAsunto();
             case 2:

@@ -1,6 +1,7 @@
 package ClassEntidad;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
 // #[regen=yes,id=DCE.B95C2765-74F1-32D8-8908-9AE8875FD5F3]
@@ -19,6 +20,17 @@ public class DistribucionDoc {
     // #[regen=yes,id=DCE.8BCF99FC-8994-8B49-E546-4F66F1B27022]
     // </editor-fold> 
     private Documento mDocumento;
+
+    private Date fechaEnviado;
+
+    public Date getFechaEnviado() {
+        return fechaEnviado;
+    }
+
+    public void setFechaEnviado(Date fechaEnviado) {
+        this.fechaEnviado = fechaEnviado;
+    }
+    
     private DDEstado Estado;
 
     public DDEstado getEstado() {
@@ -36,19 +48,46 @@ public class DistribucionDoc {
     public ArrayList<DistribucionDoc> getMiBandejaEntrada(String ide_usuario) {
         ArrayList<DistribucionDoc> be = new ArrayList<DistribucionDoc>();
         for (DistribucionDoc d : this.getLstDistriDoc()) {
-            if (d.getReceptor().getNroIde().equals(ide_usuario)) {
+            if (d.getReceptor().getNroIde().equals(ide_usuario)&&(d.getEstado()==DDEstado.SIN_RECIBIR) ) {
                 be.add(d);
             }
         }
         return be;
     }
 
+     public ArrayList<DistribucionDoc> getMiBandejaArchivados(String ide_usuario) {
+        ArrayList<DistribucionDoc> be = new ArrayList<DistribucionDoc>();
+        for (DistribucionDoc d : this.getLstDistriDoc()) {
+            if (d.getReceptor().getNroIde().equals(ide_usuario)&&(d.getEstado()==DDEstado.ARCHIVADO)) {
+                be.add(d);
+                
+            }
+        }
+        return be;
+    }
+
+    public void crear(){
+        Sistema.instancia().getLstDistriDoc().add(this);
+    }
+    public ArrayList<DistribucionDoc> getMiBandejaSalida(String ide_usuario) {
+        ArrayList<DistribucionDoc> be = new ArrayList<DistribucionDoc>();
+        for (DistribucionDoc d : this.getLstDistriDoc()) {
+            if (d.getDistribuidor().getNroIde().equals(ide_usuario)) {
+                be.add(d);
+            }
+        }
+        return be;
+    }
+
+
+
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.9C6C535F-939F-B4DE-4359-4118C0A50304]
     // </editor-fold> 
     public DistribucionDoc() {
         super();
-        this.Estado = DDEstado.ENVIADO;
+        this.Estado = DDEstado.SIN_RECIBIR;
+        this.fechaEnviado= new Date();
     }
 
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 

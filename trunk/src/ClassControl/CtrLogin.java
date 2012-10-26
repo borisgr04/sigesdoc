@@ -1,4 +1,3 @@
-<<<<<<< .mine
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -45,19 +44,3 @@ public class CtrLogin {
         return false;
     }
 }
-=======
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package ClassControl;
-
-/**
- *
- * @author LENOVO
- */
-public class CtrLogin {
-
-}
->>>>>>> .r33

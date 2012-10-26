@@ -11,11 +11,11 @@
 package Gui;
 
 import ClassControl.CtrProdDoc;
+import ClassControl.CtrProdDocIntI;
 import ClassControl.ValDocInternoI;
 import ClassEntidad.Sistema;
 import ClassEntidad.Dependencia;
 import ClassEntidad.DocInternoI;
-import ClassEntidad.Documento;
 import ClassEntidad.Funcionario;
 import ClassEntidad.Persona;
 import ClassEntidad.TRD;
@@ -28,7 +28,7 @@ import util.CparaCombo;
  */
 public class ProducirDocIntGUI extends javax.swing.JFrame {
 
-    CtrProdDoc cd = new CtrProdDoc();
+    CtrProdDocIntI cd = new CtrProdDocIntI();
 
     /** Creates new form ProducirDocGUI */
     public ProducirDocIntGUI() {
@@ -42,17 +42,25 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
             this.depOrigenC.addItem(new CparaCombo(d.getId(), d.getNombre()));
         }
         Funcionario f= new Funcionario();
-        for (Persona d : f.getFuncionario()) {
+        for (Persona d : f.getFuncionarioSinActual()) {
             this.destinoC.addItem(new CparaCombo(d.getNroIde(), d.getNombres()));
         }
 
         //Llena Comobo Box Serie
         //Inicialziando
         TRD trd= new TRD();
+        int i=0;
         for (TRD serie : trd.getTRD()) {
+            if(i>0){
             this.serieC.addItem(new CparaCombo(serie.getId_Serie(), serie.getSerie().toUpperCase()));
+            }
+            i++;
+
             //System.out.print(serie.getSerie());
         }
+        
+        this.Habilitar(false);
+        iniFormularios.mostrarUsuarioActual(this.autorT);
     }
 
     /** This method is called from within the constructor to
@@ -71,7 +79,6 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
         cancelarB = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         cerrarB = new javax.swing.JButton();
-        misDocC = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         depOrigenC = new javax.swing.JComboBox();
@@ -94,9 +101,9 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        autorT = new javax.swing.JTextField();
         foliosN = new javax.swing.JSpinner();
         anexosCH = new javax.swing.JCheckBox();
+        autorT = new javax.swing.JLabel();
 
         jToolBar1.setRollover(true);
 
@@ -150,8 +157,6 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(cerrarB);
-
-        jToolBar1.add(misDocC);
 
         jLabel12.setText("Dependencia Origen");
 
@@ -274,13 +279,13 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
 
         jLabel11.setText("No de Folios");
 
-        autorT.setEditable(false);
-
         foliosN.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
         foliosN.setEnabled(false);
 
         anexosCH.setText("Anexos");
         anexosCH.setEnabled(false);
+
+        autorT.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -289,9 +294,9 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9)
-                .addGap(36, 36, 36)
-                .addComponent(autorT, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(31, 31, 31)
+                .addComponent(autorT)
+                .addGap(213, 213, 213)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(foliosN, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,11 +308,11 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(autorT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(foliosN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(anexosCH))
+                    .addComponent(anexosCH)
+                    .addComponent(autorT))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -344,7 +349,7 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
 
     private void cerrarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarBActionPerformed
         // TODO add your handling code here:
-        //this.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_cerrarBActionPerformed
 
     private void Guardar() {
@@ -367,17 +372,18 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this,"Seleccione Dependencia Origen",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
+            Funcionario f = new Funcionario();
             //d.setAnexos(anexosCH.ch/);
             d.setAsunto(asuntoT.getText());
             d.setResumen(resumenT.getText());
             d.setSerieTRD(ser.getCodigo());
             d.setIdeDepOrigen(depOrg.getCodigo());
             d.setIdPerDest(depDest.getCodigo());
+            d.setIdPerProd(f.getUsuarioActual().getNroIde());
             d.setAnexos(anexosCH.isSelected());
             d.setFolios(Integer.parseInt(this.foliosN.getValue().toString()));
-            d.setIdPerProd(autorT.getText().toString());
             cd.setDoc(d);
-            cd.Guardar(new ValDocInternoI());
+            cd.Guardar();
             if(cd.isValido()){
                 this.ndocumentoT.setText(String.valueOf(cd.getDoc().getNoDocumento()));
                 JOptionPane.showMessageDialog(this, "Se Guardó el Documento", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
@@ -397,7 +403,8 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
         System.out.print(r);
         if (r == JOptionPane.YES_OPTION) {
             Guardar();
-            CargarMisDoc();
+            this.Limpiar("");
+            this.Habilitar(false);
         } else {
             System.out.print("xxx");
         }
@@ -413,11 +420,13 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
         destinoC.setEnabled(val);
         this.depOrigenC.setEnabled(val);
         this.serieC.setEnabled(val);
+
     }
 
     private void Limpiar(String val) {
         asuntoT.setText(val);
         resumenT.setText(val);
+        this.ndocumentoT.setText(val);
         anexosCH.setSelected(false);
         foliosN.setValue(0);
         destinoC.setSelectedIndex(-1);
@@ -425,12 +434,6 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
         this.serieC.setSelectedIndex(-1);
     }
 
-    private void CargarMisDoc() {
-        for (Documento d : Sistema.instancia().getLstDoc()) {
-            this.misDocC.addItem(new CparaCombo(String.valueOf(d.getNoDocumento()), d.getAsunto()));
-            //System.out.print(serie.getSerie());
-        }
-    }
     private void nuevoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoBActionPerformed
         // TODO add your handling code here:
         this.Habilitar(true);
@@ -457,7 +460,7 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox anexosCH;
     private javax.swing.JTextField asuntoT;
-    private javax.swing.JTextField autorT;
+    private javax.swing.JLabel autorT;
     private javax.swing.JButton cancelarB;
     private javax.swing.JButton cerrarB;
     private javax.swing.JComboBox depOrigenC;
@@ -483,7 +486,6 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JComboBox misDocC;
     private javax.swing.JTextField ndocumentoT;
     private javax.swing.JButton nuevoB;
     private javax.swing.JTextArea resumenT;
