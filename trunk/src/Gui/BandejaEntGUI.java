@@ -76,7 +76,7 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
         jTable1 = new javax.swing.JTable();
         archivarB = new javax.swing.JButton();
         responderB = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        reenviarB = new javax.swing.JButton();
         UsuarioActual = new javax.swing.JLabel();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tramite de Documento"));
@@ -153,8 +153,13 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Email-Forward-icon.png"))); // NOI18N
-        jButton1.setText("Reenviar");
+        reenviarB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Email-Forward-icon.png"))); // NOI18N
+        reenviarB.setText("Reenviar");
+        reenviarB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reenviarBActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -168,7 +173,7 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(archivarB)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(reenviarB)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(responderB))
                     .addComponent(jTabbedPane1))
@@ -181,7 +186,7 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AbrirB)
                     .addComponent(archivarB)
-                    .addComponent(jButton1)
+                    .addComponent(reenviarB)
                     .addComponent(responderB))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
@@ -252,15 +257,24 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
 
     private void archivarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_archivarBActionPerformed
         // TODO add your handling code here:
-        if(isSeleccionado())
+        if(isSeleccionado(" Archivar "))
             archivar();
     }//GEN-LAST:event_archivarBActionPerformed
 
     private void responderBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_responderBActionPerformed
         // TODO add your handling code here:
-       if(isSeleccionado())
+       if(isSeleccionado(" Responder "))
         responder();
     }//GEN-LAST:event_responderBActionPerformed
+
+    private void reenviarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reenviarBActionPerformed
+        // TODO add your handling code here:
+        if(isSeleccionado(" Reenviar ")){
+           ReenviarDoc rd=new ReenviarDoc(dd);
+           rd.setVisible(true);
+        }
+           
+    }//GEN-LAST:event_reenviarBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,7 +293,6 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
     private javax.swing.JTable archivadorJT;
     private javax.swing.JButton archivarB;
     private javax.swing.JTable enviadosJT;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -288,6 +301,7 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton reenviarB;
     private javax.swing.JButton responderB;
     // End of variables declaration//GEN-END:variables
 
@@ -295,17 +309,6 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
 
     public void actualizarGrid() {
 
-/*
-        modeloTabla = new TablaBandeja();
-        modeloTablaE = new TablaBandejaEnviados();
-        modeloTablaA= new TablaBandejaArchivados();
-
-        dd= new DistribucionDoc();
-
-        modeloTabla.setLstdoc(dd.getMiBandejaEntrada(f.getUsuarioActual().getNroIde()));
-        modeloTablaE.setLstdoc(dd.getMiBandejaSalida(f.getUsuarioActual().getNroIde()));
-        modeloTablaA.setLstdoc(dd.getMiBandejaArchivados(f.getUsuarioActual().getNroIde()));
-*/
         InicializarB();
         jTable1.setModel(modeloTabla);
         this.enviadosJT.setModel(modeloTablaE);
@@ -327,17 +330,19 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
         p.setVisible(true);
     }
 
-    private boolean isSeleccionado() {
+    private boolean isSeleccionado(String s) {
         int registro = jTable1.getSelectedRow();
         boolean sw=false;
         if (registro >= 0) {
             dd = modeloTabla.getDoc(registro);
             int strResultado = dd.getDocumento().getNoDocumento();
-            int r = JOptionPane.showConfirmDialog(this, "Desea Guardar y Enviar el Documento N°" + strResultado, "MessageBox Title", JOptionPane.YES_NO_OPTION);
+            int r = JOptionPane.showConfirmDialog(this, "Desea "+s+" el Documento N°" + strResultado, "MessageBox Title", JOptionPane.YES_NO_OPTION);
             return (r == JOptionPane.YES_OPTION) ;
-                
         }
         return sw;
     }
+
+ 
+
  
 }
