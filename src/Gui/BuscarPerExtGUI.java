@@ -130,6 +130,7 @@ private nuevaPerExt cPerExt= new nuevaPerExt ();;
        panelPrincipal.removeAll();
        bPerExt.setIr(rdg);
        panelPrincipal.add(bPerExt);
+       bPerExt.setjFPapa(this);
        panelPrincipal.setVisible(true);
     }//GEN-LAST:event_buscarBActionPerformed
 
@@ -137,8 +138,12 @@ private nuevaPerExt cPerExt= new nuevaPerExt ();;
         // TODO add your handling code here:
        panelPrincipal.setVisible(false);
        panelPrincipal.removeAll();
+
        panelPrincipal.add(cPerExt);
+
        panelPrincipal.setVisible(true);
+
+
     }//GEN-LAST:event_crearBActionPerformed
 
     /**

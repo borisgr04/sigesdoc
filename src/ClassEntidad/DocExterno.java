@@ -16,27 +16,41 @@ public class DocExterno extends Documento {
     // #[regen=yes,id=DCE.A74710FC-2600-DB17-6E1D-5F02908AE0F7]
     // </editor-fold> 
     private PerExterna Origen;
+    private int PlazoVec;
+    private int direccion;
 
+    public int getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(int direccion) {
+        this.direccion = direccion;
+    }
+   
+
+    public int getPlazoVec() {
+        return PlazoVec;
+    }
+    public void setPlazoVec(int PlazoVec) {
+        this.PlazoVec = PlazoVec;
+    }
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.C534DADE-23D4-8B9F-40A2-DA2BFFFBD6E2]
     // </editor-fold> 
     public DocExterno () {
     }
-
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,regenBody=yes,id=DCE.ABBF68FB-C44C-70B6-36FA-DF269845C753]
     // </editor-fold> 
     public PerExterna getIde () {
         return Origen;
     }
-
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,regenBody=yes,id=DCE.1B30ACAC-84C2-B7A9-0C33-DEF7A2D0E408]
     // </editor-fold> 
     public void setIde (PerExterna val) {
         this.Origen = val;
     }
-
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,regenBody=yes,id=DCE.A215E812-31F9-7CC2-696C-EC4A52312AFC]
     // </editor-fold> 

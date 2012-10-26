@@ -11,8 +11,10 @@
 
 package Gui;
 
+import ClassControl.CtrRecepcion;
 import ClassEntidad.Dependencia;
 import ClassEntidad.DocExterno;
+import ClassEntidad.Funcionario;
 import ClassEntidad.PerExterna;
 import ClassEntidad.Persona;
 import ClassEntidad.Sistema;
@@ -24,19 +26,26 @@ import util.CparaCombo;
  * @author borisgr04
  */
 public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
-private BuscarPerExtGUI guiPerExt =new BuscarPerExtGUI();
-private PerExterna PerExt= new PerExterna();
+    private BuscarPerExtGUI guiPerExt =new BuscarPerExtGUI();
+    private PerExterna PerExt= new PerExterna();
+    PerExterna pe;
+    private int serieTRD;
+    CtrRecepcion cd;// = new CtrRecepcion();
     /** Creates new form RecepcionarDocGUI */
     public RecepcionarDocGUI() {
         initComponents();
         inicializar();
-    }
- void inicializar() {
-        //Llena Comobo Box Dependencia
-        for (Dependencia d : Sistema.instancia().getLstDep()) {
-            this.depDestinoC.addItem(new CparaCombo(d.getId(), d.getNombre()));
-        }
         
+    }
+
+    void inicializar() {
+        //Llena Comobo Box Dependencia
+         Funcionario fun= new Funcionario();
+         for (Persona f : fun.getFuncionario()) {
+            this.depDestinoC.addItem(new CparaCombo(f.getNroIde(), f.getNombres()));
+        }
+        iniFormularios.mostrarUsuarioActual(autorT);
+        Habilitar(false);
     }
 
 
@@ -88,6 +97,7 @@ private PerExterna PerExt= new PerExterna();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         depDestinoC = new javax.swing.JComboBox();
+        autorT = new javax.swing.JLabel();
 
         jToolBar1.setRollover(true);
 
@@ -189,7 +199,7 @@ private PerExterna PerExt= new PerExterna();
                         .addContainerGap()
                         .addComponent(jLabel10)
                         .addGap(18, 18, 18)
-                        .addComponent(FoliosSp, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(FoliosSp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(17, 17, 17)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -329,6 +339,10 @@ private PerExterna PerExt= new PerExterna();
                         .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(20, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(96, 96, 96)
+                .addComponent(autorT)
+                .addContainerGap(533, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -339,11 +353,12 @@ private PerExterna PerExt= new PerExterna();
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 219, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addGap(11, 11, 11)
+                .addComponent(autorT))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(39, 39, 39)
@@ -356,38 +371,36 @@ private PerExterna PerExt= new PerExterna();
 
     private void DistribuirBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DistribuirBActionPerformed
         // TODO add your handling code here:
-
+        cd= new CtrRecepcion();
         try {
-            DocExterno d = new DocExterno();
-
-
-            CparaCombo depDes = (CparaCombo) depDestinoC.getSelectedItem();
-            if (depDes==null){
-                JOptionPane.showMessageDialog(this,"Seleccione Destinatario",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+             CparaCombo depDes = (CparaCombo) depDestinoC.getSelectedItem();
+            if (depDes == null) {
+                JOptionPane.showMessageDialog(this, "Seleccione Destinatario", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            /*d.setAnexos(anexosCH.ch/);
-            d.setIdeDepOrigen(depDes.getCodigo());
+
+            DocExterno d = new DocExterno();
+            Funcionario f = new Funcionario();
             d.setAsunto(asuntoT.getText());
             d.setResumen(resumenT.getText());
+            d.setPlazoVec(Integer.parseInt(this.tVencimintoSp.getValue().toString()));
+            d.setFolios(Integer.parseInt(this.FoliosSp.getValue().toString()));
+            d.setIde(pe);
             d.setIdPerDest(depDes.getCodigo());
-            d.setIdPerProd("7573361");
-            d.setDireccion(this.direccionT.getText());
-            d.setSerieTRD(p.getCodigo());
-            d.setAnexos(anexosCH.isSelected());
-            d.setFolios(Integer.parseInt(this.foliosN.getValue().toString()));
-            //d.setNomDestino(depDes.getCodigo());
+            d.setIdPerProd(f.getUsuarioActual().getNroIde());
+            d.setSerieTRD("01");
+           //d.setNomDestino(depDes.getCodigo());
             cd.setDoc(d);
-            cd.Guardar(new ValDocInternoE());
+            cd.Guardar();
 
             if(cd.isValido()){
-                this.ndocumentoT.setText(String.valueOf(cd.getDoc().getNoDocumento()));
+                this.nRadicadoB.setText(String.valueOf(cd.getDoc().getNoDocumento()));
                 JOptionPane.showMessageDialog(this, "Se Guardó el Documento", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
             }
              else{
                 JOptionPane.showMessageDialog(this, cd.getMensaje(), Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
              }
-*/
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), Sistema.instancia().getNomApp(), JOptionPane.ERROR_MESSAGE);
         }
@@ -395,7 +408,9 @@ private PerExterna PerExt= new PerExterna();
 
     private void buscarPerExtBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarPerExtBActionPerformed
         // TODO add your handling code here:
-         this.guiPerExt.setRdg(this);
+
+     this.guiPerExt.setRdg(this);
+
      this.guiPerExt.setVisible(true);
 
     }//GEN-LAST:event_buscarPerExtBActionPerformed
@@ -443,6 +458,7 @@ this.FoliosSp.setValue(-1);
     private javax.swing.JButton DistribuirB;
     private javax.swing.JSpinner FoliosSp;
     private javax.swing.JTextField asuntoT;
+    private javax.swing.JLabel autorT;
     private javax.swing.JButton buscarPerExtB;
     private javax.swing.JButton cancelB;
     private javax.swing.JButton cerrarB;
@@ -482,7 +498,13 @@ this.FoliosSp.setValue(-1);
     // End of variables declaration//GEN-END:variables
 
     public void Recibir(Persona o) {
-         PerExterna pe=(PerExterna)o;
+         pe=(PerExterna)o;
+         this.dirPEB.setText(pe.getDireccion());
+         this.identPerRemB.setText(pe.getNroIde());
+         this.nombresPEB.setText(pe.getNombres());
+         this.correoPEB.setText(pe.getEmail());
+
+
     }
 
   
