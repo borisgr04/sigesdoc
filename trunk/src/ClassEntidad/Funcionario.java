@@ -23,12 +23,23 @@ public class Funcionario extends Persona {
     // </editor-fold> 
     private String rol;
 
+    public void setUsuarioActual(){
+        Sistema.instancia().setUsuAct(this);
+        Sistema.instancia().setUsuActual(this.getNroIde());
+    }
+
+    public Funcionario getUsuarioActual(){
+       return Sistema.instancia().getUsuAct();
+    }
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.C5C46D26-26D8-B047-CA33-2CCBF621C0A8]
     // </editor-fold> 
     public Funcionario () {
     }
 
+    public String getUsActual(){
+        return Sistema.instancia().getUsuActual();
+    }
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,regenBody=yes,id=DCE.0A3D322D-A7D9-4D10-6CC0-8E1194724D09]
     // </editor-fold> 
@@ -82,6 +93,8 @@ public class Funcionario extends Persona {
 
         return pe;
     }
+
+
 
 }
 
