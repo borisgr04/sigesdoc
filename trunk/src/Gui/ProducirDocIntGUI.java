@@ -16,6 +16,8 @@ import ClassEntidad.Sistema;
 import ClassEntidad.Dependencia;
 import ClassEntidad.DocInternoI;
 import ClassEntidad.Documento;
+import ClassEntidad.Funcionario;
+import ClassEntidad.Persona;
 import ClassEntidad.TRD;
 import javax.swing.JOptionPane;
 import util.CparaCombo;
@@ -39,13 +41,15 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
         for (Dependencia d : Sistema.instancia().getLstDep()) {
             this.depOrigenC.addItem(new CparaCombo(d.getId(), d.getNombre()));
         }
-        for (Dependencia d : Sistema.instancia().getLstDep()) {
-            this.destinoT.addItem(new CparaCombo(d.getId(), d.getNombre()));
+        Funcionario f= new Funcionario();
+        for (Persona d : f.getFuncionario()) {
+            this.destinoC.addItem(new CparaCombo(d.getNroIde(), d.getNombres()));
         }
 
         //Llena Comobo Box Serie
         //Inicialziando
-        for (TRD serie : Sistema.instancia().getLstTRD()) {
+        TRD trd= new TRD();
+        for (TRD serie : trd.getTRD()) {
             this.serieC.addItem(new CparaCombo(serie.getId_Serie(), serie.getSerie().toUpperCase()));
             //System.out.print(serie.getSerie());
         }
@@ -80,7 +84,7 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        destinoT = new javax.swing.JComboBox();
+        destinoC = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         asuntoT = new javax.swing.JTextField();
@@ -171,13 +175,11 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
 
         jLabel8.setText("N° Documento Rel");
 
-        destinoT.setEnabled(false);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
@@ -187,7 +189,7 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(serieC, 0, 319, Short.MAX_VALUE)
                     .addComponent(depOrigenC, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(destinoT, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(destinoC, 0, 319, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
@@ -221,9 +223,9 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(destinoT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(destinoC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
@@ -354,7 +356,7 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this,"Seleccione Serie",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            CparaCombo depDest = (CparaCombo) destinoT.getSelectedItem();
+            CparaCombo depDest = (CparaCombo) destinoC.getSelectedItem();
             if (depDest==null){
                 JOptionPane.showMessageDialog(this,"Seleccione Destino",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
@@ -408,7 +410,7 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
         resumenT.setEnabled(val);
         anexosCH.setEnabled(val);
         foliosN.setEnabled(val);
-        destinoT.setEnabled(val);
+        destinoC.setEnabled(val);
         this.depOrigenC.setEnabled(val);
         this.serieC.setEnabled(val);
     }
@@ -418,7 +420,7 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
         resumenT.setText(val);
         anexosCH.setSelected(false);
         foliosN.setValue(0);
-        destinoT.setSelectedIndex(-1);
+        destinoC.setSelectedIndex(-1);
         this.depOrigenC.setSelectedIndex(-1);
         this.serieC.setSelectedIndex(-1);
     }
@@ -459,7 +461,7 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
     private javax.swing.JButton cancelarB;
     private javax.swing.JButton cerrarB;
     private javax.swing.JComboBox depOrigenC;
-    private javax.swing.JComboBox destinoT;
+    private javax.swing.JComboBox destinoC;
     private javax.swing.JSpinner foliosN;
     private javax.swing.JButton guardaB;
     private javax.swing.JLabel jLabel1;

@@ -16,6 +16,7 @@ import ClassEntidad.Sistema;
 import ClassEntidad.Dependencia;
 import ClassEntidad.DocInternoE;
 import ClassEntidad.Documento;
+import ClassEntidad.Funcionario;
 import ClassEntidad.PerExterna;
 import ClassEntidad.Persona;
 import ClassEntidad.TRD;
@@ -36,11 +37,12 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         inicializar();
     }
 
-     public ProducirDocGUI(Documento doc) {
+    public ProducirDocGUI(Documento doc) {
         initComponents();
         inicializar();
         this.docRelT.setText(String.valueOf(doc.getNoDocumento()));
-        
+
+
     }
 
     void inicializar() {
@@ -52,17 +54,23 @@ public class ProducirDocGUI extends javax.swing.JFrame {
 
         //Llena Comobo Box Serie
         //Inicialziando
-        TRD trd= new TRD();
+        TRD trd = new TRD();
+        int i = 0;
         for (TRD serie : trd.getTRD()) {
-            this.serieC.addItem(new CparaCombo(serie.getId_Serie(), serie.getSerie().toUpperCase()));
+            if (i > 0) {
+                this.serieC.addItem(new CparaCombo(serie.getId_Serie(), serie.getSerie().toUpperCase()));
+            }
+            i++;
             //System.out.print(serie.getSerie());
         }
         //LLena Combo Box Personas Externas
-        PerExterna pe= new PerExterna();
+        PerExterna pe = new PerExterna();
         for (Persona per : pe.getPerExterna()) {
-                this.destinoC.addItem(new CparaCombo(per.getNroIde(), per.getNombres().toUpperCase()));
+            this.destinoC.addItem(new CparaCombo(per.getNroIde(), per.getNombres().toUpperCase()));
         }
 
+        iniFormularios.mostrarUsuarioActual(autorT);
+        Habilitar(false);
     }
 
     /** This method is called from within the constructor to
@@ -81,7 +89,6 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         cancelarB = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         cerrarB = new javax.swing.JButton();
-        misDocC = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         depOrigenC = new javax.swing.JComboBox();
@@ -108,9 +115,9 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        autorT = new javax.swing.JTextField();
         foliosN = new javax.swing.JSpinner();
         anexosCH = new javax.swing.JCheckBox();
+        autorT = new javax.swing.JLabel();
 
         jToolBar1.setRollover(true);
 
@@ -164,13 +171,6 @@ public class ProducirDocGUI extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(cerrarB);
-
-        misDocC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                misDocCActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(misDocC);
 
         jLabel12.setText("Dependencia Origen");
 
@@ -316,13 +316,13 @@ public class ProducirDocGUI extends javax.swing.JFrame {
 
         jLabel11.setText("No de Folios");
 
-        autorT.setEditable(false);
-
         foliosN.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
         foliosN.setEnabled(false);
 
         anexosCH.setText("Anexos");
         anexosCH.setEnabled(false);
+
+        autorT.setText("usuarioActual");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -331,9 +331,9 @@ public class ProducirDocGUI extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9)
-                .addGap(36, 36, 36)
-                .addComponent(autorT, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(29, 29, 29)
+                .addComponent(autorT, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(foliosN, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -345,11 +345,11 @@ public class ProducirDocGUI extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(autorT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(foliosN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(anexosCH))
+                    .addComponent(anexosCH)
+                    .addComponent(autorT))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -387,7 +387,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
     private void cerrarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarBActionPerformed
         // TODO add your handling code here:
         //this.setVisible(true);
-        BandejaEntGUI fui= new BandejaEntGUI();
+        BandejaEntGUI fui = new BandejaEntGUI();
         fui.setVisible(true);
     }//GEN-LAST:event_cerrarBActionPerformed
 
@@ -395,28 +395,29 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         try {
             DocInternoE d = new DocInternoE();
             CparaCombo p = (CparaCombo) serieC.getSelectedItem();
-            if (p==null){
-                JOptionPane.showMessageDialog(this,"Seleccione Serie",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+            if (p == null) {
+                JOptionPane.showMessageDialog(this, "Seleccione Serie", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
             CparaCombo depOrg = (CparaCombo) depOrigenC.getSelectedItem();
-            if (depOrg==null){
-                JOptionPane.showMessageDialog(this,"Seleccione Dependencia Origen",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+            if (depOrg == null) {
+                JOptionPane.showMessageDialog(this, "Seleccione Dependencia Origen", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
             CparaCombo depDes = (CparaCombo) destinoC.getSelectedItem();
-            if (depOrg==null){
-                JOptionPane.showMessageDialog(this,"Seleccione Destinatario",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+            if (depOrg == null) {
+                JOptionPane.showMessageDialog(this, "Seleccione Destinatario", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
+            Funcionario f = new Funcionario();
             //d.setAnexos(anexosCH.ch/);
             d.setIdeDepOrigen(depOrg.getCodigo());
             d.setAsunto(asuntoT.getText());
             d.setResumen(resumenT.getText());
             d.setIdPerDest(depDes.getCodigo());
-            d.setIdPerProd("7573361");
+            d.setIdPerProd(f.getUsuarioActual().getNroIde());
             d.setDireccion(this.direccionT.getText());
             d.setSerieTRD(p.getCodigo());
             d.setAnexos(anexosCH.isSelected());
@@ -425,26 +426,24 @@ public class ProducirDocGUI extends javax.swing.JFrame {
             cd.setDoc(d);
             cd.Guardar(new ValDocInternoE());
 
-            if(cd.isValido()){
+            if (cd.isValido()) {
                 this.ndocumentoT.setText(String.valueOf(cd.getDoc().getNoDocumento()));
                 JOptionPane.showMessageDialog(this, "Se Guardó el Documento", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
-            }
-             else{
+            } else {
                 JOptionPane.showMessageDialog(this, cd.getMensaje(), Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
-             }
-            
+            }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), Sistema.instancia().getNomApp(), JOptionPane.ERROR_MESSAGE);
         }
     }
     private void guardaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardaBActionPerformed
         // TODO add your handling code here:
-        int r = JOptionPane.showConfirmDialog(this, "Desea Guardar y Enviar el Documento", "MessageBox Title", JOptionPane.YES_NO_OPTION);
+        int r = JOptionPane.showConfirmDialog(this, "Desea Guardar y Enviar el Documento", Sistema.instancia().getNomApp(), JOptionPane.YES_NO_OPTION);
 
         System.out.print(r);
         if (r == JOptionPane.YES_OPTION) {
             Guardar();
-            CargarMisDoc();
         } else {
             System.out.print("xxx");
         }
@@ -461,6 +460,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         direccionT.setEnabled(val);
         this.depOrigenC.setEnabled(val);
         this.serieC.setEnabled(val);
+        this.destinoC.setEnabled(val);
     }
 
     private void Limpiar(String val) {
@@ -472,14 +472,9 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         direccionT.setText(val);
         this.depOrigenC.setSelectedIndex(-1);
         this.serieC.setSelectedIndex(-1);
+        destinoC.setSelectedIndex(-1);
     }
 
-    private void CargarMisDoc() {
-        for (Documento d : Sistema.instancia().getLstDoc()) {
-            this.misDocC.addItem(new CparaCombo(String.valueOf(d.getNoDocumento()), d.getAsunto()));
-            //System.out.print(serie.getSerie());
-        }
-    }
     private void nuevoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoBActionPerformed
         // TODO add your handling code here:
         this.Habilitar(true);
@@ -491,10 +486,6 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         this.Habilitar(false);
         this.Limpiar("");
     }//GEN-LAST:event_cancelarBActionPerformed
-
-    private void misDocCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_misDocCActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_misDocCActionPerformed
 
     /**
      * @param args the command line arguments
@@ -510,7 +501,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox anexosCH;
     private javax.swing.JTextField asuntoT;
-    private javax.swing.JTextField autorT;
+    private javax.swing.JLabel autorT;
     private javax.swing.JButton cancelarB;
     private javax.swing.JButton cerrarB;
     private javax.swing.JComboBox depOrigenC;
@@ -540,7 +531,6 @@ public class ProducirDocGUI extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JComboBox misDocC;
     private javax.swing.JTextField ndocumentoT;
     private javax.swing.JButton nuevoB;
     private javax.swing.JTextArea resumenT;

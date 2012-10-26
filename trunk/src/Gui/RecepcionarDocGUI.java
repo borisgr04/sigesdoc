@@ -89,8 +89,6 @@ private PerExterna PerExt= new PerExterna();
         jLabel7 = new javax.swing.JLabel();
         depDestinoC = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jToolBar1.setRollover(true);
 
         nuevoB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/New.png"))); // NOI18N
@@ -350,7 +348,7 @@ private PerExterna PerExt= new PerExterna();
                 .addGroup(layout.createSequentialGroup()
                     .addGap(39, 39, 39)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(220, Short.MAX_VALUE)))
+                    .addContainerGap(228, Short.MAX_VALUE)))
         );
 
         pack();
