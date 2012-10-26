@@ -16,7 +16,26 @@ public class Sistema extends  Observable  {
    public static Sistema instancia;// = new Sistema();
    private ArrayList<Documento> lstDoc = new ArrayList<Documento>();
    private ArrayList<Persona> lstPer = new ArrayList<Persona>();
-   
+   Funcionario usuAct=new Funcionario();
+
+    public Funcionario getUsuAct() {
+        return usuAct;
+    }
+
+    public void setUsuAct(Funcionario usuAct) {
+        this.usuAct = usuAct;
+    }
+
+    public  static String UsuActual;
+
+    public String getUsuActual() {
+        return UsuActual;
+    }
+
+    public void setUsuActual(String UsuAct) {
+        Sistema.UsuActual = UsuAct;
+    }
+    
 
     public ArrayList<Persona> getLstPer() {
         return lstPer;
@@ -199,6 +218,7 @@ public class Sistema extends  Observable  {
     public void actConsSerie(TRD t){
         t.setNoCons(t.getNoCons()+1);
     }
+
 
 
 }
