@@ -28,6 +28,8 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
     //private DefaultTableModel modeloTabla;
 
     private TablaBandeja modeloTabla;
+    private TablaBandejaEnviados modeloTablaE;
+    private TablaBandejaArchivados modeloTablaA;
     DistribucionDoc dd;
     Funcionario f= new Funcionario();
     CtrTramite ct= new CtrTramite();
@@ -35,8 +37,13 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
     
     public void InicializarB() {
         modeloTabla = new TablaBandeja();
+        modeloTablaE = new TablaBandejaEnviados();
+        modeloTablaA= new TablaBandejaArchivados();
         dd= new DistribucionDoc();
         modeloTabla.setLstdoc(dd.getMiBandejaEntrada(f.getUsuarioActual().getNroIde()));
+        modeloTablaE.setLstdoc(dd.getMiBandejaSalida(f.getUsuarioActual().getNroIde()));
+        modeloTablaA.setLstdoc(dd.getMiBandejaArchivados(f.getUsuarioActual().getNroIde()));
+        //enviadosJT
     }
 
     /** Creates new form TramitarGUI */
@@ -57,27 +64,84 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        AbrirB = new javax.swing.JButton();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        enviadosJT = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        archivadorJT = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        AbrirB = new javax.swing.JButton();
-        responderB = new javax.swing.JButton();
         archivarB = new javax.swing.JButton();
+        responderB = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         UsuarioActual = new javax.swing.JLabel();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tramite de Documento"));
-
-        jTable1.setModel(modeloTabla);
-        jScrollPane1.setViewportView(jTable1);
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Email-Forward-icon.png"))); // NOI18N
-        jButton1.setText("Reenviar");
 
         AbrirB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/open-icon.png"))); // NOI18N
         AbrirB.setText("Abrir");
         AbrirB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AbrirBActionPerformed(evt);
+            }
+        });
+
+        enviadosJT.setModel(modeloTablaE);
+        jScrollPane2.setViewportView(enviadosJT);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Bandeja de Salida", jPanel2);
+
+        archivadorJT.setModel(modeloTablaA);
+        jScrollPane3.setViewportView(archivadorJT);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Bandeja de Archivado", jPanel3);
+
+        jTable1.setModel(modeloTabla);
+        jScrollPane1.setViewportView(jTable1);
+
+        jTabbedPane1.addTab("Bandeja de Entrada", jScrollPane1);
+
+        archivarB.setIcon(new javax.swing.ImageIcon("C:\\Users\\borisgr04\\Downloads\\document-archive-icon.png")); // NOI18N
+        archivarB.setText("Archivar");
+        archivarB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                archivarBActionPerformed(evt);
             }
         });
 
@@ -89,13 +153,8 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
             }
         });
 
-        archivarB.setIcon(new javax.swing.ImageIcon("C:\\Users\\borisgr04\\Downloads\\document-archive-icon.png")); // NOI18N
-        archivarB.setText("Archivar");
-        archivarB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                archivarBActionPerformed(evt);
-            }
-        });
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Email-Forward-icon.png"))); // NOI18N
+        jButton1.setText("Reenviar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -103,17 +162,17 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(AbrirB)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(archivarB)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(responderB)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
-                .addContainerGap())
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(responderB))
+                    .addComponent(jTabbedPane1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,10 +181,10 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AbrirB)
                     .addComponent(archivarB)
-                    .addComponent(responderB)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1)
+                    .addComponent(responderB))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -140,8 +199,8 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
                         .addComponent(UsuarioActual))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,10 +276,17 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AbrirB;
     private javax.swing.JLabel UsuarioActual;
+    private javax.swing.JTable archivadorJT;
     private javax.swing.JButton archivarB;
+    private javax.swing.JTable enviadosJT;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton responderB;
     // End of variables declaration//GEN-END:variables
@@ -228,9 +294,22 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
 
 
     public void actualizarGrid() {
+
+/*
         modeloTabla = new TablaBandeja();
-        modeloTabla.setLstdoc(Sistema.instancia().getLstDistriDoc());
+        modeloTablaE = new TablaBandejaEnviados();
+        modeloTablaA= new TablaBandejaArchivados();
+
+        dd= new DistribucionDoc();
+
+        modeloTabla.setLstdoc(dd.getMiBandejaEntrada(f.getUsuarioActual().getNroIde()));
+        modeloTablaE.setLstdoc(dd.getMiBandejaSalida(f.getUsuarioActual().getNroIde()));
+        modeloTablaA.setLstdoc(dd.getMiBandejaArchivados(f.getUsuarioActual().getNroIde()));
+*/
+        InicializarB();
         jTable1.setModel(modeloTabla);
+        this.enviadosJT.setModel(modeloTablaE);
+        this.archivadorJT.setModel(modeloTablaA);
     }
 
     public void update(Observable o, Object arg) {
@@ -255,10 +334,8 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
             dd = modeloTabla.getDoc(registro);
             int strResultado = dd.getDocumento().getNoDocumento();
             int r = JOptionPane.showConfirmDialog(this, "Desea Guardar y Enviar el Documento N°" + strResultado, "MessageBox Title", JOptionPane.YES_NO_OPTION);
-            if (r == JOptionPane.YES_OPTION) {
-                archivar();
-                sw=true;
-            }
+            return (r == JOptionPane.YES_OPTION) ;
+                
         }
         return sw;
     }

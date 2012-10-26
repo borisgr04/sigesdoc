@@ -10,8 +10,7 @@
  */
 package Gui;
 
-import ClassControl.CtrProdDoc;
-import ClassControl.ValDocInternoE;
+import ClassControl.CtrProdDocIntE;
 import ClassEntidad.Sistema;
 import ClassEntidad.Dependencia;
 import ClassEntidad.DocInternoE;
@@ -29,7 +28,7 @@ import util.CparaCombo;
  */
 public class ProducirDocGUI extends javax.swing.JFrame {
 
-    CtrProdDoc cd = new CtrProdDoc();
+    CtrProdDocIntE cd = new CtrProdDocIntE();
 
     /** Creates new form ProducirDocGUI */
     public ProducirDocGUI() {
@@ -407,7 +406,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
             }
 
             CparaCombo depDes = (CparaCombo) destinoC.getSelectedItem();
-            if (depOrg == null) {
+            if (depDes == null) {
                 JOptionPane.showMessageDialog(this, "Seleccione Destinatario", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
@@ -422,9 +421,10 @@ public class ProducirDocGUI extends javax.swing.JFrame {
             d.setSerieTRD(p.getCodigo());
             d.setAnexos(anexosCH.isSelected());
             d.setFolios(Integer.parseInt(this.foliosN.getValue().toString()));
+
             //d.setNomDestino(depDes.getCodigo());
             cd.setDoc(d);
-            cd.Guardar(new ValDocInternoE());
+            cd.Guardar();
 
             if (cd.isValido()) {
                 this.ndocumentoT.setText(String.valueOf(cd.getDoc().getNoDocumento()));

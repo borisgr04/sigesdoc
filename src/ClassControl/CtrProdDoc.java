@@ -1,10 +1,9 @@
 package ClassControl;
 
 
+
 import ClassEntidad.DistribucionDoc;
-import java.util.ArrayList;
-import ClassEntidad.DocInterno;
-import ClassEntidad.Sistema;
+import ClassEntidad.Documento;
 import ClassEntidad.TRD;
 
 
@@ -16,9 +15,9 @@ import ClassEntidad.TRD;
 // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
 // #[regen=yes,id=DCE.80F6EA50-E23F-D29D-B14D-181D560CD7CF]
 // </editor-fold> 
-public class CtrProdDoc {
+public abstract class CtrProdDoc {
 
-    DocInterno doc = new DocInterno();
+    Documento doc;
     private IValidador validador;
     private boolean valido;
     private String mensaje;
@@ -41,11 +40,11 @@ public class CtrProdDoc {
         this.validador = validador;
     }
 
-    public DocInterno getDoc() {
+    public Documento getDoc() {
         return doc;
     }
 
-    public void setDoc(DocInterno doc) {
+    public void setDoc(Documento doc) {
         this.doc = doc;
     }
 
@@ -54,22 +53,10 @@ public class CtrProdDoc {
     // </editor-fold> 
     public CtrProdDoc () {
     }
+    
+    public abstract String Guardar();
 
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.16FF95CC-2726-55AE-4E21-3294FE1A7F66]
-    // </editor-fold> 
-    public int Recibir (ArrayList<DocInterno> Doc) {
-        return 0;
-    }
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.C1722A42-7E35-FD8F-016C-2BDA517B23D4]
-    // </editor-fold> 
-    public int Validar (ArrayList<DocInterno> DI) {
-        return 0;
-    }
-
-    public String Guardar(IValidador validador){
+    protected String Guardar(IValidador validador){
         valido=false;
         this.mensaje=validador.Validar(doc);
         if(mensaje.equals("OK")){
@@ -82,7 +69,7 @@ public class CtrProdDoc {
                 dd.setDistribuidor(doc.getProductor());//Por Primera Vez
                 dd.setReceptor(doc.getDestino());//Por primera Vez
                 dd.setDocumento(doc);
-                Sistema.instancia().getLstDistriDoc().add(dd);
+                dd.crear();
                 ////
                 t.actConsSerie();
                 valido=true;

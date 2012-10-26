@@ -94,6 +94,19 @@ public class Funcionario extends Persona {
         return pe;
     }
 
+    public ArrayList<Persona> getFuncionarioSinActual() {
+        ArrayList<Persona> pe = new ArrayList<Persona>();
+        for (Persona per : Sistema.instancia().getLstPer()) {
+            if (per instanceof Funcionario) {
+                if(!per.getNroIde().equals(this.getUsuarioActual().getNroIde())){
+                    pe.add(per);
+                }
+            }
+        }
+
+        return pe;
+    }
+
 
 
 }

@@ -12,9 +12,9 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author borisgr04
  */
-class TablaBandeja extends AbstractTableModel {
+class TablaBandejaArchivados extends AbstractTableModel {
 
-    private String[] columnNames = {"DE", "ASUNTO", "FECHA","ESTADO"};
+    private String[] columnNames = {"PARA", "ASUNTO", "FECHA","ESTADO"};
     ArrayList<DistribucionDoc> data;
 
     public ArrayList<DistribucionDoc> getLstdoc() {

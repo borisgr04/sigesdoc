@@ -24,6 +24,8 @@ public class LoginGUI extends javax.swing.JFrame {
     /** Creates new form LoginGUI */
     public LoginGUI() {
         initComponents();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
