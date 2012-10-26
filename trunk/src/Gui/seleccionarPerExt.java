@@ -14,6 +14,7 @@ package Gui;
 import ClassEntidad.PerExterna;
 import ClassEntidad.Persona;
 import ClassEntidad.Sistema;
+import javax.swing.JFrame;
 
 /**
  *
@@ -21,6 +22,15 @@ import ClassEntidad.Sistema;
  */
 public class seleccionarPerExt extends javax.swing.JPanel {
    private ModeloTablaPersona modeloTabla;
+   private JFrame jFPapa;
+
+    public JFrame getjFPapa() {
+        return jFPapa;
+    }
+
+    public void setjFPapa(JFrame jFPapa) {
+        this.jFPapa = jFPapa;
+    }
    private IRecibir ir;
 
     public IRecibir getIr() {
@@ -156,6 +166,7 @@ public void Inicializar(){
 
     private void enviarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarBActionPerformed
    Seleccionar();
+   jFPapa.setVisible(false);
                   // TODO add your handling code here:
     }//GEN-LAST:event_enviarBActionPerformed
    private boolean Seleccionar() {
