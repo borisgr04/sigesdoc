@@ -45,11 +45,14 @@ public class CtrReenviar {
     public String reenviar(String para ){
         try {
             dd.setEstado(DDEstado.REENVIADO);
+
             DistribucionDoc dnuevo= new DistribucionDoc();
             Funcionario f= new Funcionario();
             dnuevo.setDistribuidor(f.getUsuarioActual());
             dnuevo.setIdPerDest(para);
+            dnuevo.setDocumento(dd.getDocumento());
             dnuevo.crear();
+
             msg="Se realizó el Reenvio de Documento";
             valido= true;
         }catch(Exception ex){

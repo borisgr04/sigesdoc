@@ -77,7 +77,9 @@ public abstract class CtrProdDoc {
                 return mensaje;
             }else
             {
-                return "La Serie No pertenece a una TRD";
+                this.valido=false;
+                mensaje="La Serie No pertenece a una TRD";
+                return mensaje;
             }
         }
         else
