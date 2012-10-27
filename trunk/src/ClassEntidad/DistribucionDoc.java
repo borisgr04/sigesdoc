@@ -79,9 +79,26 @@ public class DistribucionDoc {
         return be;
     }
 
+     public ArrayList<DistribucionDoc> getMiBandejaReenviado(String ide_usuario) {
+        ArrayList<DistribucionDoc> be = new ArrayList<DistribucionDoc>();
+        for (DistribucionDoc d : this.getLstDistriDoc()) {
+            if (d.getReceptor().getNroIde().equals(ide_usuario)&&(d.getEstado()==DDEstado.REENVIADO) ) {
+                be.add(d);
+            }
+        }
+        return be;
+    }
+      public ArrayList<DistribucionDoc> getMiBandejaResp(String ide_usuario) {
+        ArrayList<DistribucionDoc> be = new ArrayList<DistribucionDoc>();
+        for (DistribucionDoc d : this.getLstDistriDoc()) {
+            if (d.getReceptor().getNroIde().equals(ide_usuario)&&(d.getEstado()==DDEstado.RESPONDIDO) ) {
+                be.add(d);
+            }
+        }
+        return be;
+    }
     public void crear(){
-        
-        Sistema.instancia().getLstDistriDoc().add(this);
+        Sistema.instancia().Add(this);
 
     }
     public ArrayList<DistribucionDoc> getMiBandejaSalida(String ide_usuario) {

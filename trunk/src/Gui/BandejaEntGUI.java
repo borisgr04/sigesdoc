@@ -29,7 +29,10 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
 
     private TablaBandeja modeloTabla;
     private TablaBandejaEnviados modeloTablaE;
-    private TablaBandejaArchivados modeloTablaA;
+    private TablaBandeja modeloTablaA;
+    private TablaBandeja modeloTablaResp;
+    private TablaBandeja modeloTablaReen;
+    
     DistribucionDoc dd;
     Funcionario f= new Funcionario();
     CtrTramite ct= new CtrTramite();
@@ -38,11 +41,15 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
     public void InicializarB() {
         modeloTabla = new TablaBandeja();
         modeloTablaE = new TablaBandejaEnviados();
-        modeloTablaA= new TablaBandejaArchivados();
+        modeloTablaA= new TablaBandeja();
+        modeloTablaResp= new TablaBandeja();
+        modeloTablaReen= new TablaBandeja();
         dd= new DistribucionDoc();
         modeloTabla.setLstdoc(dd.getMiBandejaEntrada(f.getUsuarioActual().getNroIde()));
         modeloTablaE.setLstdoc(dd.getMiBandejaSalida(f.getUsuarioActual().getNroIde()));
         modeloTablaA.setLstdoc(dd.getMiBandejaArchivados(f.getUsuarioActual().getNroIde()));
+        modeloTablaResp.setLstdoc(dd.getMiBandejaResp(f.getUsuarioActual().getNroIde()));
+        modeloTablaReen.setLstdoc(dd.getMiBandejaReenviado(f.getUsuarioActual().getNroIde()));
         //enviadosJT
     }
 
@@ -66,14 +73,20 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
         jPanel1 = new javax.swing.JPanel();
         AbrirB = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         enviadosJT = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         archivadorJT = new javax.swing.JTable();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        ReenviadosJT = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        respondidosJT = new javax.swing.JTable();
         archivarB = new javax.swing.JButton();
         responderB = new javax.swing.JButton();
         reenviarB = new javax.swing.JButton();
@@ -89,6 +102,11 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
             }
         });
 
+        jTable1.setModel(modeloTabla);
+        jScrollPane1.setViewportView(jTable1);
+
+        jTabbedPane1.addTab("Bandeja de Entrada", jScrollPane1);
+
         enviadosJT.setModel(modeloTablaE);
         jScrollPane2.setViewportView(enviadosJT);
 
@@ -98,14 +116,14 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 787, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -114,28 +132,60 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
         archivadorJT.setModel(modeloTablaA);
         jScrollPane3.setViewportView(archivadorJT);
 
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 787, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Documento Archivados", jPanel5);
+
+        ReenviadosJT.setModel(modeloTablaResp);
+        jScrollPane4.setViewportView(ReenviadosJT);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Documentos Reenviados", jPanel3);
+
+        respondidosJT.setModel(modeloTablaReen);
+        jScrollPane5.setViewportView(respondidosJT);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 787, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Bandeja de Archivado", jPanel3);
-
-        jTable1.setModel(modeloTabla);
-        jScrollPane1.setViewportView(jTable1);
-
-        jTabbedPane1.addTab("Bandeja de Entrada", jScrollPane1);
+        jTabbedPane1.addTab("Documentos Respondidos", jPanel4);
 
         archivarB.setIcon(new javax.swing.ImageIcon("C:\\Users\\borisgr04\\Downloads\\document-archive-icon.png")); // NOI18N
         archivarB.setText("Archivar");
@@ -167,7 +217,10 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 812, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(AbrirB)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -175,9 +228,8 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
                         .addGap(18, 18, 18)
                         .addComponent(reenviarB)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(responderB))
-                    .addComponent(jTabbedPane1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(responderB)
+                        .addGap(356, 356, 356))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,9 +240,9 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
                     .addComponent(archivarB)
                     .addComponent(reenviarB)
                     .addComponent(responderB))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -198,21 +250,19 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(UsuarioActual))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(UsuarioActual)
+                .addContainerGap(824, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(UsuarioActual)
                 .addContainerGap())
         );
@@ -289,6 +339,7 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AbrirB;
+    private javax.swing.JTable ReenviadosJT;
     private javax.swing.JLabel UsuarioActual;
     private javax.swing.JTable archivadorJT;
     private javax.swing.JButton archivarB;
@@ -296,13 +347,18 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton reenviarB;
     private javax.swing.JButton responderB;
+    private javax.swing.JTable respondidosJT;
     // End of variables declaration//GEN-END:variables
 
 

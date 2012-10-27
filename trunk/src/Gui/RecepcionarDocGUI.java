@@ -12,12 +12,13 @@
 package Gui;
 
 import ClassControl.CtrRecepcion;
-import ClassEntidad.Dependencia;
 import ClassEntidad.DocExterno;
 import ClassEntidad.Funcionario;
 import ClassEntidad.PerExterna;
 import ClassEntidad.Persona;
 import ClassEntidad.Sistema;
+import ClassEntidad.TRD;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import util.CparaCombo;
 
@@ -26,10 +27,11 @@ import util.CparaCombo;
  * @author borisgr04
  */
 public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
-    private BuscarPerExtGUI guiPerExt =new BuscarPerExtGUI();
+    private BuscarPerExtGUI guiPerExt;
     private PerExterna PerExt= new PerExterna();
     PerExterna pe;
     private int serieTRD;
+
     CtrRecepcion cd;// = new CtrRecepcion();
     /** Creates new form RecepcionarDocGUI */
     public RecepcionarDocGUI() {
@@ -38,14 +40,26 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
         
     }
 
+    
+
     void inicializar() {
         //Llena Comobo Box Dependencia
          Funcionario fun= new Funcionario();
          for (Persona f : fun.getFuncionario()) {
             this.depDestinoC.addItem(new CparaCombo(f.getNroIde(), f.getNombres()));
         }
-        iniFormularios.mostrarUsuarioActual(autorT);
+        iniFormularios.mostrarUsuarioActual(usuarioLabel);
         Habilitar(false);
+
+        TRD trd = new TRD();
+        int i = 0;
+        for (TRD serie : trd.getTRD()) {
+            if (i == 0) {
+                this.serieC.addItem(new CparaCombo(serie.getId_Serie(), serie.getSerie().toUpperCase()));
+            }
+            i++;
+            //System.out.print(serie.getSerie());
+        }
     }
 
 
@@ -61,11 +75,9 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
         jToolBar1 = new javax.swing.JToolBar();
         nuevoB = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
-        jSeparator4 = new javax.swing.JToolBar.Separator();
+        DistribuirB = new javax.swing.JButton();
         cancelB = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
-        DistribuirB = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JToolBar.Separator();
         cerrarB = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -74,7 +86,6 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
         nRadicadoB = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         docRelacionadoT = new javax.swing.JTextField();
-        relDocB = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         asuntoT = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -97,7 +108,10 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         depDestinoC = new javax.swing.JComboBox();
+        UsuarioL = new javax.swing.JLabel();
+        usuarioLabel = new javax.swing.JLabel();
         autorT = new javax.swing.JLabel();
+        serieC = new javax.swing.JComboBox();
 
         jToolBar1.setRollover(true);
 
@@ -113,18 +127,9 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
         });
         jToolBar1.add(nuevoB);
         jToolBar1.add(jSeparator3);
-        jToolBar1.add(jSeparator4);
 
-        cancelB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/undo.png"))); // NOI18N
-        cancelB.setText("Cancelar");
-        cancelB.setFocusable(false);
-        cancelB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        cancelB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(cancelB);
-        jToolBar1.add(jSeparator1);
-
-        DistribuirB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/email-send-icon.png"))); // NOI18N
-        DistribuirB.setText("Distribuir");
+        DistribuirB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
+        DistribuirB.setText("Guardar");
         DistribuirB.setFocusable(false);
         DistribuirB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         DistribuirB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -134,7 +139,14 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
             }
         });
         jToolBar1.add(DistribuirB);
-        jToolBar1.add(jSeparator2);
+
+        cancelB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/undo.png"))); // NOI18N
+        cancelB.setText("Cancelar");
+        cancelB.setFocusable(false);
+        cancelB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        cancelB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(cancelB);
+        jToolBar1.add(jSeparator1);
 
         cerrarB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Log Out_32x32.png"))); // NOI18N
         cerrarB.setText("Cerrar");
@@ -147,11 +159,13 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
 
         jLabel1.setText("Fecha y Hora");
 
+        fechaT.setEnabled(false);
+
         jLabel2.setText("N° Radicado");
 
-        jLabel3.setText("Relacionar Documento");
+        nRadicadoB.setEnabled(false);
 
-        relDocB.setText("...");
+        jLabel3.setText("Documento Relacionado");
 
         jLabel4.setText("Asunto");
 
@@ -183,18 +197,15 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(fechaT, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(fechaT, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(nRadicadoB, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(docRelacionadoT, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(relDocB))
-                            .addComponent(asuntoT, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(docRelacionadoT, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(asuntoT, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel10)
@@ -212,14 +223,13 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2)
+                    .addComponent(fechaT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nRadicadoB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fechaT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(docRelacionadoT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(relDocB))
+                    .addComponent(docRelacionadoT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -273,7 +283,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
                     .addComponent(identPerRemB, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buscarPerExtB)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,7 +308,11 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Destino"));
 
-        jLabel7.setText("Dependencia Destino");
+        jLabel7.setText("Funcionario");
+
+        UsuarioL.setText("Usuario Actual:");
+
+        usuarioLabel.setText("....");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -307,63 +321,67 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7)
-                .addContainerGap(476, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(185, 185, 185)
-                    .addComponent(depDestinoC, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(194, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addComponent(depDestinoC, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(UsuarioL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(usuarioLabel)
+                .addContainerGap(201, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7)
-                .addContainerGap(14, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(8, 8, 8)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
                     .addComponent(depDestinoC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(UsuarioL)
+                    .addComponent(usuarioLabel))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
+
+        serieC.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(autorT))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(20, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addComponent(autorT)
-                .addContainerGap(533, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
+                        .addComponent(serieC, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 219, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(serieC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(autorT))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(39, 39, 39)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(228, Short.MAX_VALUE)))
         );
 
         pack();
@@ -378,6 +396,11 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
                 JOptionPane.showMessageDialog(this, "Seleccione Destinatario", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
+                CparaCombo p = (CparaCombo) serieC.getSelectedItem();
+            if (p == null) {
+                JOptionPane.showMessageDialog(this, "Seleccione Serie", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
             DocExterno d = new DocExterno();
             Funcionario f = new Funcionario();
@@ -385,14 +408,13 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
             d.setResumen(resumenT.getText());
             d.setPlazoVec(Integer.parseInt(this.tVencimintoSp.getValue().toString()));
             d.setFolios(Integer.parseInt(this.FoliosSp.getValue().toString()));
-            d.setIde(pe);
+            d.setIdeRemitente(pe.getNroIde());
             d.setIdPerDest(depDes.getCodigo());
             d.setIdPerProd(f.getUsuarioActual().getNroIde());
-            d.setSerieTRD("01");
+            d.setSerieTRD(p.getCodigo());
            //d.setNomDestino(depDes.getCodigo());
             cd.setDoc(d);
             cd.Guardar();
-
             if(cd.isValido()){
                 this.nRadicadoB.setText(String.valueOf(cd.getDoc().getNoDocumento()));
                 JOptionPane.showMessageDialog(this, "Se Guardó el Documento", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
@@ -408,9 +430,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
 
     private void buscarPerExtBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarPerExtBActionPerformed
         // TODO add your handling code here:
-
-     this.guiPerExt.setRdg(this);
-
+     guiPerExt=new BuscarPerExtGUI(this);
      this.guiPerExt.setVisible(true);
 
     }//GEN-LAST:event_buscarPerExtBActionPerformed
@@ -423,14 +443,16 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
 private void Habilitar(boolean var){
         this.cancelB.setEnabled(var);
         this.DistribuirB.setEnabled(var);
-        this.relDocB.setEnabled(var);
+//        this.relDocB.setEnabled(var);
         this.buscarPerExtB.setEnabled(var);
+        this.fechaT.setEnabled(false);
 
 }
 
 
 private void limipiar (){
 this.fechaT.setText("");
+this.fechaT.setEnabled(false);
 this.asuntoT.setText("");
 this.docRelacionadoT.setText("");
 this.nRadicadoB.setText("");
@@ -438,9 +460,12 @@ this.identPerRemB.setText("");
 this.nombresPEB.setText("");
 this.dirPEB.setText("");
 this.tVencimintoSp.setValue(-1);
+this.tVencimintoSp.setValue(0);
 this.depDestinoC.setSelectedIndex(-1);
 this.correoPEB.setText("");
-this.FoliosSp.setValue(-1);
+this.FoliosSp.setValue(0);
+Date f=new Date();
+this.fechaT.setText(f.toString());
 
 }
     /**
@@ -457,6 +482,7 @@ this.FoliosSp.setValue(-1);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DistribuirB;
     private javax.swing.JSpinner FoliosSp;
+    private javax.swing.JLabel UsuarioL;
     private javax.swing.JTextField asuntoT;
     private javax.swing.JLabel autorT;
     private javax.swing.JButton buscarPerExtB;
@@ -485,16 +511,15 @@ this.FoliosSp.setValue(-1);
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
-    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
-    private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextField nRadicadoB;
     private javax.swing.JTextField nombresPEB;
     private javax.swing.JButton nuevoB;
-    private javax.swing.JButton relDocB;
     private javax.swing.JTextArea resumenT;
+    private javax.swing.JComboBox serieC;
     private javax.swing.JSpinner tVencimintoSp;
+    private javax.swing.JLabel usuarioLabel;
     // End of variables declaration//GEN-END:variables
 
     public void Recibir(Persona o) {

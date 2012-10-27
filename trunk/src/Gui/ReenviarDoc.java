@@ -10,6 +10,7 @@
  */
 package Gui;
 
+import ClassControl.CtrReenviar;
 import ClassEntidad.DistribucionDoc;
 import ClassEntidad.Funcionario;
 import ClassEntidad.Persona;
@@ -25,6 +26,7 @@ public class ReenviarDoc extends javax.swing.JFrame {
 
     DistribucionDoc dd;
     Funcionario f;
+    CtrReenviar cr;
 
     /** Creates new form ReenviarDoc */
     public void inicialziarDoc() {
@@ -149,15 +151,16 @@ public class ReenviarDoc extends javax.swing.JFrame {
 
     private void reenviarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reenviarBActionPerformed
         // TODO add your handling code here:
+        cr= new CtrReenviar();
         try {
-            dd.setDistribuidor(f.getUsuarioActual());
+
             CparaCombo depDes = (CparaCombo) destinoC.getSelectedItem();
             if (depDes == null) {
                 JOptionPane.showMessageDialog(this, "Seleccione Destinatario", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
             }
-            dd.setIdPerDest(depDes.getCodigo());
-            //dd.crear();
 
+            cr.setDd(dd);
+            cr.reenviar(depDes.getCodigo());
             JOptionPane.showMessageDialog(this, "Se Reenvio el Documento", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), Sistema.instancia().getNomApp(), JOptionPane.ERROR_MESSAGE);

@@ -140,7 +140,8 @@ public class Sistema extends  Observable  {
 
    private void serie(){
       TRD serie = new TRD();
-        serie.setId_Serie("01");
+
+       serie.setId_Serie("01");
        serie.setDispFinal("CT");
        serie.setSerie("Memorando");
        serie.settRetAG(5);
@@ -181,6 +182,12 @@ public class Sistema extends  Observable  {
         this.notifyObservers();
    }
 
+   public void Add(DistribucionDoc dd){
+        this.getLstDistriDoc().add(dd);
+        this.setChanged();
+        this.notifyObservers();
+   }
+
     /**
      * @return the lstDoc
      */
@@ -205,10 +212,10 @@ public class Sistema extends  Observable  {
 
     public TRD buscarSerie(String Id_Serie){
         TRD r=null;
-        for(TRD d:lstTRD){
-            if(d.getId_Serie().equals(Id_Serie))
+        for(TRD tr:lstTRD){
+            if(tr.getId_Serie().equals(Id_Serie))
             {
-            r=d;
+            r=tr;
             break;
             }
         }
