@@ -1,48 +1,71 @@
 package ClassEntidad;
 
 import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 
 // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
 // #[regen=yes,id=DCE.4A2ED1A7-9902-9429-7D3D-5C1AE868F528]
 // </editor-fold> 
+@Entity
+@DiscriminatorValue("Funcionario")
 public class Funcionario extends Persona {
 
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.8679179D-957B-6617-504D-973062A57284]
-    // </editor-fold> 
     private String usuario;
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.C32BA2A8-64A4-26D3-D12D-974961652754]
-    // </editor-fold> 
     private String clave;
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.2BB45C71-1CE2-087A-440A-9274F30A7D1E]
-    // </editor-fold> 
     private String rol;
 
-    public void setUsuarioActual(){
-        Sistema.instancia().setUsuAct(this);
-        Sistema.instancia().setUsuActual(this.getNroIde());
+    @ManyToOne(cascade= CascadeType.PERSIST)
+    private Dependencia dependencia;
+    
+     @OneToMany(mappedBy = "mProductor")
+    private List<DocInterno> docInternos;
+    
+    @OneToMany(mappedBy = "mDestino")
+    private List<DocInternoI> docInternoIs;
+
+    public Dependencia getDependencia() {
+        return dependencia;
     }
 
-    public Funcionario getUsuarioActual(){
-       return Sistema.instancia().getUsuAct();
+    public void setDependencia(Dependencia dependencia) {
+        this.dependencia = dependencia;
     }
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.C5C46D26-26D8-B047-CA33-2CCBF621C0A8]
-    // </editor-fold> 
+
+    public List<DocInterno> getDocInternos() {
+        return docInternos;
+    }
+
+    public void setDocInternos(List<DocInterno> docInternos) {
+        this.docInternos = docInternos;
+    }
+
+    public List<DocInternoI> getDocInternoIs() {
+        return docInternoIs;
+    }
+
+    public void setDocInternoIs(List<DocInternoI> docInternoIs) {
+        this.docInternoIs = docInternoIs;
+    }
+    
+   
+//    public void setUsuarioActual(){
+//        Sistema.instancia().setUsuAct(this);
+//        Sistema.instancia().setUsuActual(this.getNroIde());
+//    }
+
+//    public Funcionario getUsuarioActual(){
+//       return Sistema.instancia().getUsuAct();
+//    }
+    
     public Funcionario () {
     }
 
-    public String getUsActual(){
-        return Sistema.instancia().getUsuActual();
-    }
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,regenBody=yes,id=DCE.0A3D322D-A7D9-4D10-6CC0-8E1194724D09]
-    // </editor-fold> 
     public String getClave () {
         return clave;
     }
@@ -83,29 +106,29 @@ public class Funcionario extends Persona {
     }
 
 
-    public ArrayList<Persona> getFuncionario() {
-        ArrayList<Persona> pe = new ArrayList<Persona>();
-        for (Persona per : Sistema.instancia().getLstPer()) {
-            if (per instanceof Funcionario) {
-                pe.add(per);
-            }
-        }
+//    public ArrayList<Persona> getFuncionario() {
+//        ArrayList<Persona> pe = new ArrayList<Persona>();
+//        for (Persona per : Sistema.instancia().getLstPer()) {
+//            if (per instanceof Funcionario) {
+//                pe.add(per);
+//            }
+//        }
+//
+//        return pe;
+//    }
 
-        return pe;
-    }
-
-    public ArrayList<Persona> getFuncionarioSinActual() {
-        ArrayList<Persona> pe = new ArrayList<Persona>();
-        for (Persona per : Sistema.instancia().getLstPer()) {
-            if (per instanceof Funcionario) {
-                if(!per.getNroIde().equals(this.getUsuarioActual().getNroIde())){
-                    pe.add(per);
-                }
-            }
-        }
-
-        return pe;
-    }
+//    public ArrayList<Persona> getFuncionarioSinActual() {
+//        ArrayList<Persona> pe = new ArrayList<Persona>();
+//        for (Persona per : Sistema.instancia().getLstPer()) {
+//            if (per instanceof Funcionario) {
+//                if(!per.getNroIde().equals(this.getUsuarioActual().getNroIde())){
+//                    pe.add(per);
+//                }
+//            }
+//        }
+//
+//        return pe;
+//    }
 
 
 

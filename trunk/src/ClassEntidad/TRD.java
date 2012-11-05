@@ -1,15 +1,57 @@
 package ClassEntidad;
 
+import java.io.Serializable;
 import java.util.ArrayList; 
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-// <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-// #[regen=yes,id=DCE.8E51194F-DF62-0DF0-F794-3780A204129C]
-// </editor-fold> 
-public class TRD {
-
-
+@Entity
+public class TRD implements Serializable {
+    
+    @Id
+    private Long id;
+    
     private String Id_Serie;
+    
+    @ManyToOne(cascade= CascadeType.PERSIST)
+    private Dependencia dependencia;
+    
+    @OneToMany(mappedBy = "Serie")
+    private List<Documento> documentos;
 
+    public List<Documento> getDocumentos() {
+        return documentos;
+    }
+
+    public void setDocumentos(List<Documento> documentos) {
+        this.documentos = documentos;
+    }
+    
+    private int noCons;
+
+    private String serie;
+
+    private int tRetenAC;
+    
+    private int tRetAG;
+
+    private String dispFinal;
+
+    private int proced;
+
+    
+    public Dependencia getDependencia() {
+        return dependencia;
+    }
+
+    public void setDependencia(Dependencia dependencia) {
+        this.dependencia = dependencia;
+    }
+    
     public void actConsSerie() {
         Sistema.instancia().actConsSerie(this);
     }
@@ -21,6 +63,8 @@ public class TRD {
     public void setId_Serie(String Id_Serie) {
         this.Id_Serie = Id_Serie;
     }
+    
+   
 
     public int getNoCons() {
         return noCons;
@@ -29,21 +73,6 @@ public class TRD {
     public void setNoCons(int noCons) {
         this.noCons = noCons;
     }
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.27738132-413A-82BB-B4BA-D2B2117B88DF]
-    // </editor-fold> 
-    private int noCons;
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.108516EA-98D2-0884-20CD-712BF6BA476D]
-    // </editor-fold> 
-    private String serie;
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.E13BFBEE-78A8-34CA-8110-7D8210137040]
-    // </editor-fold> 
-    private int tRetenAC;
 
     public int gettRetAG() {
         return tRetAG;
@@ -61,42 +90,14 @@ public class TRD {
         this.tRetenAC = tRetenAC;
     }
 
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.93E10889-82C3-7DB4-1FFD-66DC40DD137F]
-    // </editor-fold> 
-    private int tRetAG;
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.81C7A6A4-FC53-9F19-B136-9EEAA158E1B5]
-    // </editor-fold> 
-    private String dispFinal;
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.CEE817B9-C278-F0E7-347C-5D8B830BFBA9]
-    // </editor-fold> 
-    private int proced;
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.7C497303-8AC9-B5B1-7944-310AC1DEB54A]
-    // </editor-fold> 
-    private ArrayList<Documento> mDocumento;
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.4A26C873-3DF5-3F88-3365-B60D5218CCBB]
-    // </editor-fold> 
     public TRD () {
     }
 
     
-    public static TRD buscarSerie(String Id_Serie) {
-        return Sistema.instancia().buscarSerie(Id_Serie);
-    }
-
-   
-
-
+//    public static TRD buscarSerie(String Id_Serie) {
+//        return Sistema.instancia().buscarSerie(Id_Serie);
+//    }
     
-
    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,regenBody=yes,id=DCE.23474759-16A9-280C-E91D-DFB3EE5194AD]
     // </editor-fold> 
@@ -111,20 +112,7 @@ public class TRD {
         this.dispFinal = val;
     }
 
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,regenBody=yes,id=DCE.F68E6ED8-0F47-D68C-F7CB-48975E676001]
-    // </editor-fold> 
-    public ArrayList<Documento> getDocumento () {
-        return mDocumento;
-    }
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,regenBody=yes,id=DCE.1F175316-5685-8081-EF32-E383F2CA4288]
-    // </editor-fold> 
-    public void setDocumento (ArrayList<Documento> val) {
-        this.mDocumento = val;
-    }
-
+    
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,regenBody=yes,id=DCE.22393D07-70C4-4B99-8D14-5B01646A55E2]
     // </editor-fold> 
@@ -154,8 +142,16 @@ public class TRD {
     }
 
  
-    public ArrayList<TRD> getTRD(){
-        return Sistema.instancia().getLstTRD();
+//    public ArrayList<TRD> getTRD(){
+//        return Sistema.instancia().getLstTRD();
+//    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 
