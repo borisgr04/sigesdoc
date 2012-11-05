@@ -1,11 +1,34 @@
 package ClassEntidad;
 
 import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
-// <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-// #[regen=yes,id=DCE.D71E8A35-852D-FD33-D70B-C49A9FF92E55]
-// </editor-fold> 
+@Entity
+@DiscriminatorValue("PerExterna") 
 public class PerExterna extends Persona {
+    @OneToMany(mappedBy = "Origen")
+    private List<DocExterno> docExternos;
+
+    public List<DocExterno> getDocExternos() {
+        return docExternos;
+    }
+
+    public void setDocExternos(List<DocExterno> docExternos) {
+        this.docExternos = docExternos;
+    }
+
+    public List<DocInternoE> getDocInternoEs() {
+        return docInternoEs;
+    }
+
+    public void setDocInternoEs(List<DocInternoE> docInternoEs) {
+        this.docInternoEs = docInternoEs;
+    }
+    @OneToMany(mappedBy = "mDestino")
+    private List<DocInternoE> docInternoEs;
 
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.3636DBCF-73BB-01EB-89BB-FAFB228D30FA]

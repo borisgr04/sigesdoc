@@ -2,16 +2,28 @@ package ClassEntidad;
 
 // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 // #[regen=yes,id=DCE.27E8B16E-E306-583D-291A-C6971D1E98F6]
 // </editor-fold> 
-public class Persona {
+@Entity
+@Inheritance(strategy= InheritanceType.JOINED)
+public class Persona implements Serializable {
 
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.CD62677D-1A2B-501B-5068-A32217C745CC]
     // </editor-fold> 
+    @Id
     private String nroIde;
+    
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.74623870-AE34-E5DE-D48C-E2947D969FB3]
     // </editor-fold> 
@@ -32,7 +44,31 @@ public class Persona {
     // #[regen=yes,id=DCE.BDDBF973-95C4-1E0B-5664-2613178999E7]
     // </editor-fold> 
     private String email;
+    
+    @OneToMany(mappedBy = "mReceptor")
+    private List<DistribucionDoc> distDocRecep;
+    @OneToMany(mappedBy = "mDistribuidor")
+    private List<DistribucionDoc> distDocDistri;
+    
+   
+     public List<DistribucionDoc> getDistDocRecep() {
+        return distDocRecep;
+    }
 
+    public void setDistDocRecep(List<DistribucionDoc> distDocRecep) {
+        this.distDocRecep = distDocRecep;
+    }
+
+    public List<DistribucionDoc> getDistDocDistri() {
+        return distDocDistri;
+    }
+
+    public void setDistDocDistri(List<DistribucionDoc> distDocDistri) {
+        this.distDocDistri = distDocDistri;
+    }
+    
+   
+    
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.A3BF31F8-8782-1EE1-1425-749A1D926E4B]
     // </editor-fold> 

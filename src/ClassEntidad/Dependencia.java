@@ -1,15 +1,37 @@
 package ClassEntidad;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlRootElement;
 
 // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
 // #[regen=yes,id=DCE.771E0EFF-5F22-0A7F-1A4B-375E355A17C4]
 // </editor-fold> 
-public class Dependencia {
+@Entity
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Dependencia.findAll", query = "SELECT d FROM Dependencia d"),
+    @NamedQuery(name = "Dependencia.findById", query = "SELECT d FROM Dependencia d WHERE d.id = :id"),
+    @NamedQuery(name = "Dependencia.findByNombre", query = "SELECT d FROM Dependencia d WHERE d.nombre = :nombre")})
+public class Dependencia implements Serializable {
 
+    @Override
+    public String toString() {
+        return "Dependencia{" + "id=" + id + ", nombre=" + nombre + ", docInternos=" + docInternos + ", tRDs=" + tRDs + ", actaTraslados=" + actaTraslados + '}';
+    }
+
+    
+    
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.DCCA2FCD-80FF-B575-68C6-D33DE711D09F]
     // </editor-fold> 
+    @Id
     private String id;
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.A061354F-C5CA-D821-AAE2-68E8F614CE39]
@@ -18,15 +40,42 @@ public class Dependencia {
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.E0653357-B05F-CD73-3407-9E3B9E6F8A23]
     // </editor-fold> 
-    private ArrayList<Funcionario> mFuncionario;
+    @OneToMany(mappedBy = "depOrigen")
+    private List<DocInterno> docInternos;
+
+    public List<DocInterno> getDocInternos() {
+        return docInternos;
+    }
+
+    public void setDocInternos(List<DocInterno> docInternos) {
+        this.docInternos = docInternos;
+    }
+
+    public List<TRD> gettRDs() {
+        return tRDs;
+    }
+
+    public void settRDs(List<TRD> tRDs) {
+        this.tRDs = tRDs;
+    }
+
+    public List<ActaTraslado> getActaTraslados() {
+        return actaTraslados;
+    }
+
+    public void setActaTraslados(List<ActaTraslado> actaTraslados) {
+        this.actaTraslados = actaTraslados;
+    }
+    @OneToMany(mappedBy = "dependencia")
+    private List<TRD> tRDs;
+    @OneToMany(mappedBy = "dependencia")
+    private List<ActaTraslado> actaTraslados;
+    
+    
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.8A89EB81-A388-112C-9B23-DEF655F298EC]
     // </editor-fold> 
-    private ArrayList<TRD> mTRD;
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.BFF09961-C151-B25F-6ED6-63F6694DCF29]
-    // </editor-fold> 
-    private ArrayList<ActaTraslado> mActaTraslado;
+    
 
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.72041AFC-2A6A-D8D2-33A8-90220A1B3BAE]
@@ -48,47 +97,7 @@ public class Dependencia {
         this.id = val;
     }
 
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,regenBody=yes,id=DCE.6FADAFC7-5269-F69B-B4AC-0A9552733102]
-    // </editor-fold> 
-    public ArrayList<ActaTraslado> getActaTraslado() {
-        return mActaTraslado;
-    }
 
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,regenBody=yes,id=DCE.91DE949B-2422-BC39-DBCD-90A5D41F1468]
-    // </editor-fold> 
-    public void setActaTraslado(ArrayList<ActaTraslado> val) {
-        this.mActaTraslado = val;
-    }
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,regenBody=yes,id=DCE.F772E744-069A-C7CD-E135-6A962BAEC733]
-    // </editor-fold> 
-    public ArrayList<Funcionario> getFuncionario() {
-        return mFuncionario;
-    }
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,regenBody=yes,id=DCE.8B37FA70-BDCE-2F23-1334-66DE797B81B7]
-    // </editor-fold> 
-    public void setFuncionario(ArrayList<Funcionario> val) {
-        this.mFuncionario = val;
-    }
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,regenBody=yes,id=DCE.B2629332-FC33-7AB1-94D0-AED971A2C266]
-    // </editor-fold> 
-    public ArrayList<TRD> getTRD() {
-        return mTRD;
-    }
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,regenBody=yes,id=DCE.E89023EB-4560-0181-B07C-63C82DB986FE]
-    // </editor-fold> 
-    public void setTRD(ArrayList<TRD> val) {
-        this.mTRD = val;
-    }
 
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,regenBody=yes,id=DCE.B209F1FC-5BDD-5CC8-F1E8-D0372A5E84B7]
@@ -107,5 +116,14 @@ public class Dependencia {
     public ArrayList<Dependencia> getDependencias() {
         return Sistema.instancia().getLstDep();
     }
+
+    public Dependencia(String id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
+    
+    
+    
 }
 

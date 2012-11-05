@@ -4,33 +4,33 @@
  */
 package ClassEntidad;
 
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
 /**
  *
  * @author borisgr04
  */
+@Entity
+@DiscriminatorValue("DocInternoE")
 public class DocInternoE extends DocInterno {
 
     public DocInternoE() {
-
         this.setTipoDocumento("E");
     }
+        
+    @ManyToOne(cascade= CascadeType.PERSIST)
+    private PerExterna mDestino;
 
-    private String nomDestino;
-    private String direccion;
-
-    public String getDireccion() {
-        return direccion;
+    public PerExterna getmDestino() {
+        return mDestino;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setmDestino(PerExterna mDestino) {
+        this.mDestino = mDestino;
     }
 
-    public String getNomDestino() {
-        return nomDestino;
-    }
 
-    public void setNomDestino(String nomDestino) {
-        this.nomDestino = nomDestino;
-    }
 }
