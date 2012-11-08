@@ -36,15 +36,9 @@ public class PerExterna extends Persona {
     public PerExterna() {
     }
 
-    public ArrayList<Persona> getPerExterna() {
-        ArrayList<Persona> pe = new ArrayList<Persona>();
-        for (Persona per : Sistema.instancia().getLstPer()) {
-            if (per instanceof PerExterna) {
-                pe.add(per);
-            }
-        }
-
-        return pe;
+    public PerExterna(String nroIde, String nombres, String apellidos, String telefono, String email) {
+        super(nroIde, nombres, apellidos, telefono, email);
     }
+
 }
 

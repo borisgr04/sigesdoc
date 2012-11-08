@@ -5,8 +5,15 @@
 
 package ClassEntidad;
 
+import Servicios.DependenciaService;
+import Servicios.PerExternaService;
+import Servicios.TRDService;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -17,8 +24,19 @@ public class Sistema extends  Observable  {
    private ArrayList<Documento> lstDoc = new ArrayList<Documento>();
    private ArrayList<Persona> lstPer = new ArrayList<Persona>();
    Funcionario usuAct=new Funcionario();
+   static String UnidadPersistencia="SGD2012PU";
+   EntityManagerFactory emf;
 
-    public Funcionario getUsuAct() {
+    public EntityManagerFactory getEmf() {
+        return emf;
+    }
+
+    public void setEmf(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
+   
+    
+   public Funcionario getUsuAct() {
         return usuAct;
     }
 
@@ -168,6 +186,7 @@ public class Sistema extends  Observable  {
 
    }
    private Sistema(){
+       emf = Persistence.createEntityManagerFactory("SGD2012PU");
        funcionario() ;
        dependencia();
        serie();
@@ -205,6 +224,7 @@ public class Sistema extends  Observable  {
     public static Sistema instancia() {
         if (instancia == null) {
         instancia = new Sistema();
+        
         }
         return instancia;
         }
@@ -226,6 +246,25 @@ public class Sistema extends  Observable  {
         t.setNoCons(t.getNoCons()+1);
     }
 
+    public List<Dependencia> getDependencias(){
+        emf = Persistence.createEntityManagerFactory(UnidadPersistencia);
+        EntityManager  em = emf.createEntityManager();
+        DependenciaService ds = new DependenciaService(emf);
+        return ds.findDependenciaEntities();
+    }
+    
+    public List<TRD> getTRD(){
+        emf = Persistence.createEntityManagerFactory(UnidadPersistencia);
+        EntityManager em = emf.createEntityManager();
+        TRDService ds = new TRDService(emf);
+        return ds.findTRDEntities();
+    }
 
+     public List<PerExterna> getPerExternas(){
+        emf = Persistence.createEntityManagerFactory(UnidadPersistencia);
+        EntityManager em = emf.createEntityManager();
+        PerExternaService ds = new PerExternaService(emf);
+        return ds.findPerExternaEntities();
+    }
 
 }

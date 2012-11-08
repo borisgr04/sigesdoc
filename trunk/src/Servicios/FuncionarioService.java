@@ -4,7 +4,7 @@
  */
 package Servicios;
 
-import ClassEntidad.Persona;
+import ClassEntidad.Funcionario;
 import Servicios.exceptions.NonexistentEntityException;
 import Servicios.exceptions.PreexistingEntityException;
 import java.io.Serializable;
@@ -20,9 +20,9 @@ import javax.persistence.criteria.Root;
  *
  * @author Boris
  */
-public class PersonaJpaController implements Serializable {
+public class FuncionarioService implements Serializable {
 
-    public PersonaJpaController(EntityManagerFactory emf) {
+    public FuncionarioService(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -31,16 +31,16 @@ public class PersonaJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Persona persona) throws PreexistingEntityException, Exception {
+    public void create(Funcionario funcionario) throws PreexistingEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(persona);
+            em.persist(funcionario);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            if (findPersona(persona.getNroIde()) != null) {
-                throw new PreexistingEntityException("Persona " + persona + " already exists.", ex);
+            if (findFuncionario(funcionario.getNroIde()) != null) {
+                throw new PreexistingEntityException("Funcionario " + funcionario + " already exists.", ex);
             }
             throw ex;
         } finally {
@@ -50,19 +50,19 @@ public class PersonaJpaController implements Serializable {
         }
     }
 
-    public void edit(Persona persona) throws NonexistentEntityException, Exception {
+    public void edit(Funcionario funcionario) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            persona = em.merge(persona);
+            funcionario = em.merge(funcionario);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                String id = persona.getNroIde();
-                if (findPersona(id) == null) {
-                    throw new NonexistentEntityException("The persona with id " + id + " no longer exists.");
+                String id = funcionario.getNroIde();
+                if (findFuncionario(id) == null) {
+                    throw new NonexistentEntityException("The funcionario with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -78,14 +78,14 @@ public class PersonaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Persona persona;
+            Funcionario funcionario;
             try {
-                persona = em.getReference(Persona.class, id);
-                persona.getNroIde();
+                funcionario = em.getReference(Funcionario.class, id);
+                funcionario.getNroIde();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The persona with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The funcionario with id " + id + " no longer exists.", enfe);
             }
-            em.remove(persona);
+            em.remove(funcionario);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -94,19 +94,19 @@ public class PersonaJpaController implements Serializable {
         }
     }
 
-    public List<Persona> findPersonaEntities() {
-        return findPersonaEntities(true, -1, -1);
+    public List<Funcionario> findFuncionarioEntities() {
+        return findFuncionarioEntities(true, -1, -1);
     }
 
-    public List<Persona> findPersonaEntities(int maxResults, int firstResult) {
-        return findPersonaEntities(false, maxResults, firstResult);
+    public List<Funcionario> findFuncionarioEntities(int maxResults, int firstResult) {
+        return findFuncionarioEntities(false, maxResults, firstResult);
     }
 
-    private List<Persona> findPersonaEntities(boolean all, int maxResults, int firstResult) {
+    private List<Funcionario> findFuncionarioEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Persona.class));
+            cq.select(cq.from(Funcionario.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -118,20 +118,20 @@ public class PersonaJpaController implements Serializable {
         }
     }
 
-    public Persona findPersona(String id) {
+    public Funcionario findFuncionario(String id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Persona.class, id);
+            return em.find(Funcionario.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getPersonaCount() {
+    public int getFuncionarioCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Persona> rt = cq.from(Persona.class);
+            Root<Funcionario> rt = cq.from(Funcionario.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

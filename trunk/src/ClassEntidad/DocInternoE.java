@@ -21,7 +21,7 @@ public class DocInternoE extends DocInterno {
         this.setTipoDocumento("E");
     }
         
-    @ManyToOne(cascade= CascadeType.PERSIST)
+    @ManyToOne(cascade= CascadeType.MERGE)
     private PerExterna mDestino;
 
     public PerExterna getmDestino() {

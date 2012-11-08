@@ -24,9 +24,9 @@ import javax.persistence.EntityManagerFactory;
  *
  * @author Boris
  */
-public class DependenciaJpaController implements Serializable {
+public class DependenciaService implements Serializable {
 
-    public DependenciaJpaController(EntityManagerFactory emf) {
+    public DependenciaService(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;

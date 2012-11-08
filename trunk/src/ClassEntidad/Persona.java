@@ -18,31 +18,17 @@ import javax.persistence.OneToOne;
 @Inheritance(strategy= InheritanceType.JOINED)
 public class Persona implements Serializable {
 
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.CD62677D-1A2B-501B-5068-A32217C745CC]
-    // </editor-fold> 
     @Id
     private String nroIde;
     
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.74623870-AE34-E5DE-D48C-E2947D969FB3]
-    // </editor-fold> 
     private String nombres;
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.D990C328-D249-DF81-142F-5BB6F0ADB146]
-    // </editor-fold> 
+
     private String apellidos;
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.DBE16F04-EFA8-7BCB-8747-B32705EDF86B]
-    // </editor-fold> 
+    
     private String direccion;
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.BE516522-4D45-7E3D-B5FD-6037765E9203]
-    // </editor-fold> 
+    
     private String telefono;
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.BDDBF973-95C4-1E0B-5664-2613178999E7]
-    // </editor-fold> 
+    
     private String email;
     
     @OneToMany(mappedBy = "mReceptor")
@@ -159,8 +145,16 @@ public class Persona implements Serializable {
         this.telefono = val;
     }
 
-    public ArrayList<Persona> getPersonas() {
-        return Sistema.instancia().getLstPer();
+//    public ArrayList<Persona> getPersonas() {
+//        return Sistema.instancia().getLstPer();
+//    }
+
+    public Persona(String nroIde, String nombres, String apellidos, String telefono, String email) {
+        this.nroIde = nroIde;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.email = email;
     }
 }
 

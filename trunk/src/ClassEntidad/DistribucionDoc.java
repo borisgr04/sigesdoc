@@ -1,10 +1,11 @@
 package ClassEntidad;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -12,18 +13,42 @@ import javax.persistence.Temporal;
 @Entity
 public class DistribucionDoc implements Serializable {
 
-    @Id
+    @Id    
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(cascade= CascadeType.PERSIST)
+    @ManyToOne(cascade= CascadeType.MERGE)
     private Persona mReceptor;
     
-    
-    @ManyToOne(cascade= CascadeType.PERSIST)
+    @ManyToOne(cascade= CascadeType.MERGE)
     private Persona mDistribuidor;
     
-    @ManyToOne(cascade= CascadeType.PERSIST)
+    @ManyToOne(cascade=CascadeType.MERGE)
     private Documento mDocumento;
+
+    public Persona getmReceptor() {
+        return mReceptor;
+    }
+
+    public void setmReceptor(Persona mReceptor) {
+        this.mReceptor = mReceptor;
+    }
+
+    public Persona getmDistribuidor() {
+        return mDistribuidor;
+    }
+
+    public void setmDistribuidor(Persona mDistribuidor) {
+        this.mDistribuidor = mDistribuidor;
+    }
+
+    public Documento getmDocumento() {
+        return mDocumento;
+    }
+
+    public void setmDocumento(Documento mDocumento) {
+        this.mDocumento = mDocumento;
+    }
 
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaEnviado;

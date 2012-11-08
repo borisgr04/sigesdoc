@@ -1,13 +1,13 @@
 package ClassEntidad;
 
 import java.io.Serializable;
-import java.util.ArrayList; 
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
 
 @Entity
 public class TRD implements Serializable {
@@ -20,17 +20,6 @@ public class TRD implements Serializable {
     @ManyToOne(cascade= CascadeType.PERSIST)
     private Dependencia dependencia;
     
-    @OneToMany(mappedBy = "Serie")
-    private List<Documento> documentos;
-
-    public List<Documento> getDocumentos() {
-        return documentos;
-    }
-
-    public void setDocumentos(List<Documento> documentos) {
-        this.documentos = documentos;
-    }
-    
     private int noCons;
 
     private String serie;
@@ -42,6 +31,16 @@ public class TRD implements Serializable {
     private String dispFinal;
 
     private int proced;
+    @OneToMany(mappedBy = "serie")
+    private List<Documento> documentos;
+
+    public List<Documento> getDocumentos() {
+        return documentos;
+    }
+
+    public void setDocumentos(List<Documento> documentos) {
+        this.documentos = documentos;
+    }
 
     
     public Dependencia getDependencia() {
@@ -51,13 +50,17 @@ public class TRD implements Serializable {
     public void setDependencia(Dependencia dependencia) {
         this.dependencia = dependencia;
     }
-    
-    public void actConsSerie() {
-        Sistema.instancia().actConsSerie(this);
-    }
+//    
+//    public void actConsSerie() {
+//        Sistema.instancia().actConsSerie(this);
+//    }
 
     public String getId_Serie() {
         return Id_Serie;
+    }
+
+    public TRD(String Id_Serie) {
+        this.Id_Serie = Id_Serie;
     }
 
     public void setId_Serie(String Id_Serie) {
@@ -151,6 +154,10 @@ public class TRD implements Serializable {
     }
 
     public void setId(Long id) {
+        this.id = id;
+    }
+
+    public TRD(Long id) {
         this.id = id;
     }
 

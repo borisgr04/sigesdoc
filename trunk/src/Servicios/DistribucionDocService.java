@@ -6,7 +6,6 @@ package Servicios;
 
 import ClassEntidad.DistribucionDoc;
 import Servicios.exceptions.NonexistentEntityException;
-import Servicios.exceptions.PreexistingEntityException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -20,9 +19,9 @@ import javax.persistence.criteria.Root;
  *
  * @author Boris
  */
-public class DistribucionDocJpaController implements Serializable {
+public class DistribucionDocService implements Serializable {
 
-    public DistribucionDocJpaController(EntityManagerFactory emf) {
+    public DistribucionDocService(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -31,18 +30,13 @@ public class DistribucionDocJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(DistribucionDoc distribucionDoc) throws PreexistingEntityException, Exception {
+    public void create(DistribucionDoc distribucionDoc) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(distribucionDoc);
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findDistribucionDoc(distribucionDoc.getId()) != null) {
-                throw new PreexistingEntityException("DistribucionDoc " + distribucionDoc + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();

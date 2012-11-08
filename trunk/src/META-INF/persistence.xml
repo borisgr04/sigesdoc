@@ -16,6 +16,7 @@
     <class>ClassEntidad.DistribucionDoc</class>
     <class>ClassEntidad.DocActa</class>
     <class>ClassFrontera.Dependencia</class>
+    <validation-mode>NONE</validation-mode>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sgd2012?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value="mysql"/>

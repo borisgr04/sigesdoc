@@ -26,29 +26,55 @@ public abstract class Documento implements Serializable {
     private int noDocumento;
     private int folios;
     private DDEstado estado;
-    private int noDocRel;
     private String asunto;
     private String resumen;
     private boolean anexos;
     
-    @OneToMany(mappedBy = "mDocumento")
-    private List<DistribucionDoc> distribucionDocs;
-        
+      
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date FechaReg;
         
-    @ManyToOne(cascade= CascadeType.PERSIST)
-    private TRD Serie;
-            
+    @ManyToOne
+    private Documento DocOriginador;
+    
+    @OneToMany(mappedBy = "DocOriginador")
+    private List<Documento> DocOriginados= new ArrayList<Documento>();
+
+
+    public Documento getDocOriginador() {
+        return DocOriginador;
+    }
+
+    public void setDocOriginador(Documento DocOriginador) {
+        this.DocOriginador = DocOriginador;
+    }
+
+    public List<Documento> getDocOriginados() {
+        return DocOriginados;
+    }
+
+    public void setDocOriginados(List<Documento> DocOriginados) {
+        this.DocOriginados = DocOriginados;
+    }
+    
+    
     @OneToOne(mappedBy = "mDocumento")
     private DocActa docActa;
 
+    @ManyToOne(cascade= CascadeType.REFRESH)
+    private TRD serie;
+    
+    @OneToMany(mappedBy = "mDocumento",cascade= CascadeType.PERSIST )
+    private List<DistribucionDoc> distribucionDocs= new ArrayList<DistribucionDoc>();
+    
+    
+
     public TRD getSerie() {
-        return Serie;
+        return serie;
     }
 
-    public void setSerie(TRD Serie) {
-        this.Serie = Serie;
+    public void setSerie(TRD serie) {
+        this.serie = serie;
     }
 
     public DocActa getDocActa() {
@@ -66,15 +92,7 @@ public abstract class Documento implements Serializable {
     public void setDistribucionDocs(List<DistribucionDoc> distribucionDocs) {
         this.distribucionDocs = distribucionDocs;
     }
-    
-    public int getNoDocRel() {
-        return noDocRel;
-    }
-
-    public void setNoDocRel(int noDocRel) {
-        this.noDocRel = noDocRel;
-    }
-
+  
     public DDEstado getEstado() {
         return estado;
     }
