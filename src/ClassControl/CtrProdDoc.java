@@ -2,9 +2,23 @@ package ClassControl;
 
 
 
+import ClassEntidad.Dependencia;
 import ClassEntidad.DistribucionDoc;
 import ClassEntidad.Documento;
 import ClassEntidad.TRD;
+import Servicios.DependenciaService;
+import Servicios.DistribucionDocService;
+import Servicios.DocumentoService;
+import Servicios.TRDService;
+import Servicios.exceptions.PreexistingEntityException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 
 /**
@@ -21,7 +35,39 @@ public abstract class CtrProdDoc {
     private IValidador validador;
     private boolean valido;
     private String mensaje;
+    public long IdSerie;
 
+    public long getIdSerie() {
+        return IdSerie;
+    }
+
+    public void setIdSerie(long IdSerie) {
+        this.IdSerie = IdSerie;
+    }
+    
+   private TRD InicializarSerie() {
+        TRDService trds= new TRDService(emf);
+        TRD trdserie=trds.findTRD(this.IdSerie);
+        return trdserie;
+    }
+
+    public CtrProdDoc(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
+    protected EntityManagerFactory emf = null;
+
+    public EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
+
+    
+    protected EntityManager em;
+
+    
+    
+    Map<String, String> properties = new HashMap();
+    
+    
     public String getMensaje() {
         return mensaje;
     }
@@ -31,14 +77,6 @@ public abstract class CtrProdDoc {
         return valido;
     }
 
-
-    public IValidador getValidador() {
-        return validador;
-    }
-
-    public void setValidador(IValidador validador) {
-        this.validador = validador;
-    }
 
     public Documento getDoc() {
         return doc;
@@ -52,6 +90,14 @@ public abstract class CtrProdDoc {
     // #[regen=yes,id=DCE.05128E10-507F-BF34-68F7-7CCDDB4957FF]
     // </editor-fold> 
     public CtrProdDoc () {
+        
+               
+    }
+    
+    public List<Dependencia> getDependencias(){
+        em = this.getEntityManager();
+        DependenciaService ds = new DependenciaService(emf);
+        return ds.findDependenciaEntities();
     }
     
     public abstract String Guardar();
@@ -60,35 +106,39 @@ public abstract class CtrProdDoc {
         valido=false;
         this.mensaje=validador.Validar(doc);
         if(mensaje.equals("OK")){
-            TRD t = TRD.buscarSerie(doc.getSerieTRD());
-            if(t!=null){
-                int ncons=t.getNoCons()+1;
-                doc.setNoDocumento(ncons);
-                //
-                DistribucionDoc dd=new DistribucionDoc();
-                dd.setDistribuidor(doc.getProductor());//Por Primera Vez
-                dd.setReceptor(doc.getDestino());//Por primera Vez
-                dd.setDocumento(doc);
-                dd.crear();
-                ////
-                t.actConsSerie();
-                valido=true;
-                mensaje=doc.crear();
-                return mensaje;
-            }else
-            {
-                this.valido=false;
-                mensaje="La Serie No pertenece a una TRD";
-                return mensaje;
-            }
+            em= this.getEntityManager();
+            TRD t=this.InicializarSerie();
+            doc.setSerie(t);
+            TRDService trdS=new TRDService(emf);
+            DocumentoService ds=new DocumentoService(emf);
+            DistribucionDocService ddS=new DistribucionDocService(emf);
+            
+//            try {
+                    int ncons=doc.getSerie().getNoCons()+1;
+                    doc.setNoDocumento(ncons);
+                    DistribucionDoc dd= validador.DistribuirDoc(doc);
+                    doc.getDistribucionDocs().add(dd);
+                    doc.getSerie().setNoCons(ncons);
+                    t.setNoCons(ncons);
+                    valido=true;
+                    em.getTransaction().begin();
+                    em.merge(t);
+                    em.persist(doc);
+                    em.getTransaction().commit();
+                    mensaje="Se Guardo";
+                    return mensaje;
+//                } catch (PreexistingEntityException ex) {
+//                    Logger.getLogger(CtrProdDoc.class.getName()).log(Level.SEVERE, null, ex);
+//                } catch (Exception ex) {
+//                    Logger.getLogger(CtrProdDoc.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            
         }
-        else
-        {
-          return mensaje;
-        }
-
-
-
+        
+        return mensaje;
+        
     }
+    
 }
 
+ 

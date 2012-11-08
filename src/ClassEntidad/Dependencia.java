@@ -68,14 +68,11 @@ public class Dependencia implements Serializable {
     }
     @OneToMany(mappedBy = "dependencia")
     private List<TRD> tRDs;
+    
     @OneToMany(mappedBy = "dependencia")
     private List<ActaTraslado> actaTraslados;
     
-    
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.8A89EB81-A388-112C-9B23-DEF655F298EC]
-    // </editor-fold> 
-    
+
 
     // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
     // #[regen=yes,id=DCE.72041AFC-2A6A-D8D2-33A8-90220A1B3BAE]

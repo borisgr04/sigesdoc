@@ -20,9 +20,9 @@ import javax.persistence.criteria.Root;
  *
  * @author Boris
  */
-public class PerExternaJpaController implements Serializable {
+public class PerExternaService implements Serializable {
 
-    public PerExternaJpaController(EntityManagerFactory emf) {
+    public PerExternaService(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;

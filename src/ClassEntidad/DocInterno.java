@@ -3,6 +3,7 @@ package ClassEntidad;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 
@@ -12,10 +13,10 @@ public class DocInterno extends Documento {
 
     private String TipoDocumento;
     
-    @ManyToOne(cascade= CascadeType.PERSIST)
+    @ManyToOne(cascade= CascadeType.MERGE)
     private Funcionario mProductor;
 
-    @ManyToOne(cascade= CascadeType.PERSIST)
+    @ManyToOne(cascade= CascadeType.MERGE, fetch= FetchType.LAZY)
     private Dependencia depOrigen;
     
 

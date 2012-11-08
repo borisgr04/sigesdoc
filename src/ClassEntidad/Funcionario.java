@@ -130,6 +130,19 @@ public class Funcionario extends Persona {
 //        return pe;
 //    }
 
+    public Funcionario(String usuario, String clave, String rol) {
+        this.usuario = usuario;
+        this.clave = clave;
+        this.rol = rol;
+    }
+
+    public Funcionario(String usuario, String clave, String rol, String nroIde, String nombres, String apellidos, String telefono, String email) {
+        super(nroIde, nombres, apellidos, telefono, email);
+        this.usuario = usuario;
+        this.clave = clave;
+        this.rol = rol;
+    }
+
 
 
 }

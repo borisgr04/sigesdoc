@@ -13,8 +13,27 @@ import javax.persistence.ManyToOne;
 @DiscriminatorValue("DocExterno")
 public class DocExterno extends Documento {
 
-    @ManyToOne(cascade= CascadeType.PERSIST)
+    @ManyToOne(cascade= CascadeType.MERGE)
     private PerExterna Origen;
+    
+    @ManyToOne(cascade= CascadeType.MERGE)
+    private Funcionario Destino;
+
+    public Funcionario getDestino() {
+        return Destino;
+    }
+
+    public void setDestino(Funcionario Destino) {
+        this.Destino = Destino;
+    }
+
+    public PerExterna getOrigen() {
+        return Origen;
+    }
+
+    public void setOrigen(PerExterna Origen) {
+        this.Origen = Origen;
+    }
     private int PlazoVec;
 
     public int getPlazoVec() {
@@ -27,13 +46,7 @@ public class DocExterno extends Documento {
     public DocExterno () {
     }
     
-    public PerExterna getIde () {
-        return Origen;
-    }
-    
-    public void setIde (PerExterna val) {
-        this.Origen = val;
-    }
+  
 
 }
 

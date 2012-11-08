@@ -5,16 +5,23 @@
 package SGD2012;
 
 
+import ClassControl.CtrProdDocIntI;
 import ClassEntidad.Dependencia;
-import Servicios.DependenciaJpaController;
+import ClassEntidad.DocInternoI;
+import ClassEntidad.Funcionario;
+import ClassEntidad.PerExterna;
+import ClassEntidad.TRD;
+import Servicios.DependenciaService;
+import Servicios.FuncionarioService;
+import Servicios.PerExternaService;
+import Servicios.exceptions.PreexistingEntityException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
-import org.eclipse.persistence.sessions.Session;
-import org.eclipse.persistence.sessions.factories.SessionFactory;
 
 /**
  *
@@ -63,30 +70,61 @@ public class Main {
         }
     }
 */
-    public void crear() {
+    public void crear()  {
 
 
         EntityManagerFactory emf;
         EntityManager em;
-
         Map<String, String> properties = new HashMap();
-
         emf = Persistence.createEntityManagerFactory("SGD2012PU");
-
-        Dependencia dep = new Dependencia("05","Prueba DepXX");
-
         em = emf.createEntityManager();
         
-
-
-        DependenciaJpaController depSer = new DependenciaJpaController(emf);
-        System.out.println(depSer.findByNombre("Prueba DepXX"));
+        CtrProdDocIntI c= new CtrProdDocIntI();
+        DocInternoI di= new DocInternoI();
+        Dependencia dep = new Dependencia("05","Prueba DepXX");
+        di.setAnexos(true);
+        di.setAsunto("xxx");
+        DependenciaService ds= new DependenciaService(emf);
+        long l=1;
+        Dependencia dp=ds.findDependencia("01");
+        di.setDepOrigen(dp);
+        di.setFolios(1);
+        di.setResumen("resumen");
+        
+        di.setSerie(new TRD(l));
+        Funcionario f=new Funcionario("1234", "1234", "xx", "1234", "Boris","Gonzalez", "583","boris@hotmail.com");
+        
+        PerExterna pe= new PerExterna("7573361", "BORIS","GONZALEZ", "7573361", "borisgr04@hotmail.com");
+        PerExternaService peSer = new PerExternaService(emf);
+        try {
+            peSer.create(pe);
+        } catch (PreexistingEntityException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        FuncionarioService fs=new FuncionarioService(emf);
+        try {
+           fs.create(f);
+           
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        di.setmDestino(f);
+        di.setmProductor(f);
+        //c.setDoc(di);
+        
+        
+        //System.out.println(c.Guardar());        
+        DependenciaService depSer = new DependenciaService(emf);
+        //System.out.println(depSer.findByNombre("Prueba DepXX"));
+        System.out.println(depSer.findDependenciaEntities());
         
         
 
         try {
-            //depSer.create(dep);
-            //depSer.destroy(dep.getId());
+            depSer.create(dep);
+            depSer.destroy(dep.getId());
         } catch (Exception ex) {
         }
     }

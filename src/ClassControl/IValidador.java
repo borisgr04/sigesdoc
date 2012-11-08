@@ -5,6 +5,7 @@
 
 package ClassControl;
 
+import ClassEntidad.DistribucionDoc;
 import ClassEntidad.Documento;
 
 /**
@@ -13,4 +14,5 @@ import ClassEntidad.Documento;
  */
 public interface IValidador {
     String Validar (Documento hg);
+    DistribucionDoc DistribuirDoc (Documento hg);
 }

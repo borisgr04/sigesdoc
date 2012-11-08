@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
 public class DocInternoI extends DocInterno {
     
     
-    @ManyToOne(cascade= CascadeType.PERSIST)
+    @ManyToOne(cascade= CascadeType.MERGE)
     private Funcionario mDestino;
 
     public Funcionario getmDestino() {

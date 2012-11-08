@@ -11,14 +11,14 @@
 package Gui;
 
 import ClassControl.CtrProdDocIntE;
-import ClassEntidad.Sistema;
 import ClassEntidad.Dependencia;
 import ClassEntidad.DocInternoE;
 import ClassEntidad.Documento;
-import ClassEntidad.Funcionario;
 import ClassEntidad.PerExterna;
 import ClassEntidad.Persona;
+import ClassEntidad.Sistema;
 import ClassEntidad.TRD;
+import java.util.List;
 import javax.swing.JOptionPane;
 import util.CparaCombo;
 
@@ -28,7 +28,7 @@ import util.CparaCombo;
  */
 public class ProducirDocGUI extends javax.swing.JFrame {
 
-    CtrProdDocIntE cd = new CtrProdDocIntE();
+    CtrProdDocIntE cd; 
 
     /** Creates new form ProducirDocGUI */
     public ProducirDocGUI() {
@@ -46,29 +46,28 @@ public class ProducirDocGUI extends javax.swing.JFrame {
 
     void inicializar() {
         //Llena Comobo Box Dependencia
-        Dependencia dep = new Dependencia();
-        for (Dependencia d : dep.getDependencias()) {
+        List<Dependencia> lstDep=Sistema.instancia().getDependencias();
+        for (Dependencia d :lstDep ) {
             this.depOrigenC.addItem(new CparaCombo(d.getId(), d.getNombre()));
         }
 
         //Llena Comobo Box Serie
         //Inicialziando
-        TRD trd = new TRD();
         int i = 0;
-        for (TRD serie : trd.getTRD()) {
-            if (i > 0) {
-                this.serieC.addItem(new CparaCombo(serie.getId_Serie(), serie.getSerie().toUpperCase()));
-            }
+        for (TRD serie : Sistema.instancia().getTRD()) {
+            //if (i > 0) {//ojo la primera serie es la serie Externa
+                this.serieC.addItem(new CparaCombo(String.valueOf(serie.getId()), serie.getSerie().toUpperCase()));
+            //}
             i++;
             //System.out.print(serie.getSerie());
         }
         //LLena Combo Box Personas Externas
         PerExterna pe = new PerExterna();
-        for (Persona per : pe.getPerExterna()) {
+        for (Persona per : Sistema.instancia().getPerExternas()) {
             this.destinoC.addItem(new CparaCombo(per.getNroIde(), per.getNombres().toUpperCase()));
         }
-
-        iniFormularios.mostrarUsuarioActual(autorT);
+        //OPJO HABILITAR EL MANEJO DE USUARIOS
+        //iniFormularios.mostrarUsuarioActual(autorT);
         Habilitar(false);
     }
 
@@ -391,10 +390,11 @@ public class ProducirDocGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_cerrarBActionPerformed
 
     private void Guardar() {
-        try {
+        //try {
             DocInternoE d = new DocInternoE();
-            CparaCombo p = (CparaCombo) serieC.getSelectedItem();
-            if (p == null) {
+            CparaCombo serie = (CparaCombo) serieC.getSelectedItem();
+            
+            if (serie == null) {
                 JOptionPane.showMessageDialog(this, "Seleccione Serie", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
@@ -405,25 +405,26 @@ public class ProducirDocGUI extends javax.swing.JFrame {
                 return;
             }
 
-            CparaCombo depDes = (CparaCombo) destinoC.getSelectedItem();
-            if (depDes == null) {
+            CparaCombo perDes = (CparaCombo) destinoC.getSelectedItem();
+            if (perDes == null) {
                 JOptionPane.showMessageDialog(this, "Seleccione Destinatario", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            Funcionario f = new Funcionario();
+            //Funcionario f = new Funcionario();
             //d.setAnexos(anexosCH.ch/);
-            d.setIdeDepOrigen(depOrg.getCodigo());
+            
             d.setAsunto(asuntoT.getText());
             d.setResumen(resumenT.getText());
-            d.setIdPerDest(depDes.getCodigo());
-            d.setIdPerProd(f.getUsuarioActual().getNroIde());
-            d.setDireccion(this.direccionT.getText());
-            d.setSerieTRD(p.getCodigo());
+            
             d.setAnexos(anexosCH.isSelected());
             d.setFolios(Integer.parseInt(this.foliosN.getValue().toString()));
 
-            //d.setNomDestino(depDes.getCodigo());
+            cd.setIdSerie(Long.valueOf(serie.getCodigo()));
+            cd.setIdeDepOrigen(depOrg.getCodigo());
+            cd.setIdeProductor("1234");//Enviar Usuario Actual
+            cd.setIdeDestino(perDes.getCodigo());
             cd.setDoc(d);
+            
             cd.Guardar();
 
             if (cd.isValido()) {
@@ -433,9 +434,9 @@ public class ProducirDocGUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, cd.getMensaje(), Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
             }
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), Sistema.instancia().getNomApp(), JOptionPane.ERROR_MESSAGE);
-        }
+        //} catch (Exception e) {
+        //    JOptionPane.showMessageDialog(this, e.getMessage(), Sistema.instancia().getNomApp(), JOptionPane.ERROR_MESSAGE);
+       // }
     }
     private void guardaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardaBActionPerformed
         // TODO add your handling code here:
@@ -477,6 +478,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
 
     private void nuevoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoBActionPerformed
         // TODO add your handling code here:
+        cd= new CtrProdDocIntE(Sistema.instancia().getEmf());
         this.Habilitar(true);
         this.Limpiar("");
     }//GEN-LAST:event_nuevoBActionPerformed
