@@ -18,7 +18,7 @@
     <class>ClassFrontera.Dependencia</class>
     <validation-mode>NONE</validation-mode>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sgd2012?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sigesdoc?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value="mysql"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

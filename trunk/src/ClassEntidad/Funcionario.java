@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 
@@ -14,6 +16,9 @@ import javax.persistence.OneToMany;
 // </editor-fold> 
 @Entity
 @DiscriminatorValue("Funcionario")
+@NamedQueries({
+    @NamedQuery(name = "Funcionario.findOtrosFuncionarios", query = "SELECT f FROM Funcionario f WHERE f.usuario<>:usuario "),
+})
 public class Funcionario extends Persona {
 
     private String usuario;

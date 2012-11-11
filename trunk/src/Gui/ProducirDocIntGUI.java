@@ -10,15 +10,16 @@
  */
 package Gui;
 
-import ClassControl.CtrProdDoc;
 import ClassControl.CtrProdDocIntI;
-import ClassControl.ValDocInternoI;
-import ClassEntidad.Sistema;
 import ClassEntidad.Dependencia;
+import ClassEntidad.DistribucionDoc;
 import ClassEntidad.DocInternoI;
+import ClassEntidad.Documento;
 import ClassEntidad.Funcionario;
 import ClassEntidad.Persona;
+import ClassEntidad.Sistema;
 import ClassEntidad.TRD;
+import java.util.List;
 import javax.swing.JOptionPane;
 import util.CparaCombo;
 
@@ -28,39 +29,27 @@ import util.CparaCombo;
  */
 public class ProducirDocIntGUI extends javax.swing.JFrame {
 
-    CtrProdDocIntI cd = new CtrProdDocIntI();
-
+    CtrProdDocIntI cd = new CtrProdDocIntI(Sistema.instancia().getEmf());
+    DistribucionDoc rel;
     /** Creates new form ProducirDocGUI */
     public ProducirDocIntGUI() {
         initComponents();
         inicializar();
+          
+    }
+    
+     public ProducirDocIntGUI(DistribucionDoc rel) {
+        initComponents();
+        inicializar();
+        MostrarRel(rel);
     }
 
-    void inicializar() {
-        //Llena Comobo Box Dependencia
-        for (Dependencia d : Sistema.instancia().getLstDep()) {
-            this.depOrigenC.addItem(new CparaCombo(d.getId(), d.getNombre()));
-        }
-        Funcionario f= new Funcionario();
-        for (Persona d : f.getFuncionarioSinActual()) {
-            this.destinoC.addItem(new CparaCombo(d.getNroIde(), d.getNombres()));
-        }
-
-        //Llena Comobo Box Serie
-        //Inicialziando
-        TRD trd= new TRD();
-        int i=0;
-        for (TRD serie : trd.getTRD()) {
-            if(i>0){
-            this.serieC.addItem(new CparaCombo(serie.getId_Serie(), serie.getSerie().toUpperCase()));
-            }
-            i++;
-
-            //System.out.print(serie.getSerie());
-        }
-        
-        this.Habilitar(false);
-        iniFormularios.mostrarUsuarioActual(this.autorT);
+     private void inicializar() {
+        InicializaDependencias();
+        InicializaTRD();
+        InicializaFuncionarios();
+        iniFormularios.mostrarUsuarioActual(autorT);
+        Habilitar(false);
     }
 
     /** This method is called from within the constructor to
@@ -89,7 +78,7 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        docRelT = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         destinoC = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
@@ -176,7 +165,7 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
 
         jLabel4.setText("N° Documento");
 
-        jTextField7.setEnabled(false);
+        docRelT.setEnabled(false);
 
         jLabel8.setText("N° Documento Rel");
 
@@ -203,12 +192,12 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(docRelT, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ndocumentoT, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
+                            .addComponent(ndocumentoT)
+                            .addComponent(jTextField4))
                         .addGap(30, 30, 30))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -229,7 +218,7 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(docRelT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(destinoC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
@@ -356,17 +345,17 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
         try {
             DocInternoI d = new DocInternoI();
             
-            CparaCombo ser = (CparaCombo) serieC.getSelectedItem();
-            if (ser==null){
+            CparaCombo serie = (CparaCombo) serieC.getSelectedItem();
+            if (serie==null){
                 JOptionPane.showMessageDialog(this,"Seleccione Serie",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            CparaCombo depDest = (CparaCombo) destinoC.getSelectedItem();
-            if (depDest==null){
-                JOptionPane.showMessageDialog(this,"Seleccione Destino",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+            
+            CparaCombo perDes = (CparaCombo) destinoC.getSelectedItem();
+            if (perDes == null) {
+                JOptionPane.showMessageDialog(this, "Seleccione Destinatario", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
-
              CparaCombo depOrg = (CparaCombo) depOrigenC.getSelectedItem();
             if (depOrg==null){
                 JOptionPane.showMessageDialog(this,"Seleccione Dependencia Origen",Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
@@ -376,11 +365,13 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
             //d.setAnexos(anexosCH.ch/);
             d.setAsunto(asuntoT.getText());
             d.setResumen(resumenT.getText());
-            d.setSerieTRD(ser.getCodigo());
-            d.setIdeDepOrigen(depOrg.getCodigo());
-            d.setIdPerDest(depDest.getCodigo());
-            d.setIdPerProd(f.getUsuarioActual().getNroIde());
             d.setAnexos(anexosCH.isSelected());
+            //d.setDocOriginador(this.);
+             d.setDocOriginador(rel);
+            cd.setIdSerie(Long.valueOf(serie.getCodigo()));
+            cd.setIdeDepOrigen(depOrg.getCodigo());
+            cd.setIdeProductor(Sistema.instancia().getUsuAct().getNroIde());//Enviar Usuario Actual
+            cd.setIdeDestino(perDes.getCodigo());
             d.setFolios(Integer.parseInt(this.foliosN.getValue().toString()));
             cd.setDoc(d);
             cd.Guardar();
@@ -465,6 +456,7 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
     private javax.swing.JButton cerrarB;
     private javax.swing.JComboBox depOrigenC;
     private javax.swing.JComboBox destinoC;
+    private javax.swing.JTextField docRelT;
     private javax.swing.JSpinner foliosN;
     private javax.swing.JButton guardaB;
     private javax.swing.JLabel jLabel1;
@@ -484,11 +476,46 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextField ndocumentoT;
     private javax.swing.JButton nuevoB;
     private javax.swing.JTextArea resumenT;
     private javax.swing.JComboBox serieC;
     // End of variables declaration//GEN-END:variables
+
+    private void InicializaDependencias() {
+        //Llena Comobo Box Dependencia
+        List<Dependencia> lstDep=Sistema.instancia().getDependencias();
+        for (Dependencia d :lstDep ) {
+            this.depOrigenC.addItem(new CparaCombo(d.getId(), d.getNombre()));
+        }
+    }
+
+    private void InicializaTRD() {
+        //Llena Comobo Box Serie
+        //Inicialziando
+        int i = 0;
+        for (TRD serie : Sistema.instancia().getTRD()) {
+            //if (i > 0) {//ojo la primera serie es la serie Externa
+                this.serieC.addItem(new CparaCombo(String.valueOf(serie.getId()), serie.getSerie().toUpperCase()));
+            //}
+            i++;
+            //System.out.print(serie.getSerie());
+        }
+    }
+
+    private void InicializaFuncionarios() {
+        //LLena Combo Box Personas Externas
+        Funcionario pe = new Funcionario();
+        for (Persona per : Sistema.instancia().getOtrosFuncionarios()) {
+            this.destinoC.addItem(new CparaCombo(per.getNroIde(), per.getNombres().toUpperCase()));
+        }
+    }
+
+    private void MostrarRel(DistribucionDoc rel) {
+        this.rel=rel;
+        this.docRelT.setText(String.valueOf(rel.getDocumento().getNoDocumento()));
+        this.asuntoT.setText("Resp:>>"+rel.getDocumento().getAsunto());
+        this.resumenT.setText("Escriba la Respuesta\\n\\n"+rel.getDocumento().getResumen());
+    }
 }

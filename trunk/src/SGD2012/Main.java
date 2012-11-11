@@ -79,24 +79,24 @@ public class Main {
         emf = Persistence.createEntityManagerFactory("SGD2012PU");
         em = emf.createEntityManager();
         
-        CtrProdDocIntI c= new CtrProdDocIntI();
-        DocInternoI di= new DocInternoI();
-        Dependencia dep = new Dependencia("05","Prueba DepXX");
-        di.setAnexos(true);
-        di.setAsunto("xxx");
-        DependenciaService ds= new DependenciaService(emf);
-        long l=1;
-        Dependencia dp=ds.findDependencia("01");
-        di.setDepOrigen(dp);
-        di.setFolios(1);
-        di.setResumen("resumen");
+//        CtrProdDocIntI c= new CtrProdDocIntI();
+//        DocInternoI di= new DocInternoI();
+//        Dependencia dep = new Dependencia("05","Prueba DepXX");
+//        di.setAnexos(true);
+//        di.setAsunto("xxx");
+//        DependenciaService ds= new DependenciaService(emf);
+//        long l=1;
+//        Dependencia dp=ds.findDependencia("01");
+//        di.setDepOrigen(dp);
+//        di.setFolios(1);
+//        di.setResumen("resumen");
         
-        di.setSerie(new TRD(l));
-        Funcionario f=new Funcionario("1234", "1234", "xx", "1234", "Boris","Gonzalez", "583","boris@hotmail.com");
-        
-        PerExterna pe= new PerExterna("7573361", "BORIS","GONZALEZ", "7573361", "borisgr04@hotmail.com");
+//        di.setSerie(new TRD(l));
+        Funcionario f=new Funcionario("49722106", "1234", "FUNCIONARIA", "49722106", "ANYA","BOLAÑO", "583","anya@hotmail.com");
+        PerExterna pe= new PerExterna("77009398", "BORIS LUIS","GONZALEZ PEREZ", "3118001885", "borispapa@hotmail.com");
         PerExternaService peSer = new PerExternaService(emf);
         try {
+            
             peSer.create(pe);
         } catch (PreexistingEntityException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -110,8 +110,8 @@ public class Main {
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        di.setmDestino(f);
-        di.setmProductor(f);
+        //di.setmDestino(f);
+        //di.setmProductor(f);
         //c.setDoc(di);
         
         
@@ -123,8 +123,8 @@ public class Main {
         
 
         try {
-            depSer.create(dep);
-            depSer.destroy(dep.getId());
+          //  depSer.create(dep);
+          //  depSer.destroy(dep.getId());
         } catch (Exception ex) {
         }
     }

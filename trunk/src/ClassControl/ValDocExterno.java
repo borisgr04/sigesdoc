@@ -71,7 +71,7 @@ public class ValDocExterno implements IValidador {
         this.setDoc((DocExterno) doc);
             DistribucionDoc dd=new DistribucionDoc();
             dd.setDistribuidor(doc.getOrigen());
-            dd.setReceptor(doc.getDestino());//Por primera Vez
+            dd.setmReceptor(doc.getDestino());//Por primera Vez
             dd.setDocumento(doc);
             return dd;
     }

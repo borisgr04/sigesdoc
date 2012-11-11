@@ -8,16 +8,35 @@ package ClassControl;
 import ClassEntidad.DDEstado;
 import ClassEntidad.DistribucionDoc;
 import ClassEntidad.Funcionario;
+import ClassEntidad.Persona;
+import Servicios.FuncionarioService;
+import javax.persistence.EntityManagerFactory;
 
 /**
  *
  * @author borisgr04
  */
-public class CtrReenviar {
+public class CtrReenviar extends CtrBase {
         DistribucionDoc dd;
-        String msg;
         boolean valido;
+    private String ideDistribuidor;
+    private String IdeReceptor;
 
+    public CtrReenviar(EntityManagerFactory emf) {
+        super(emf);
+    }
+
+   protected Funcionario InicializarFuncionarioDist() {
+        FuncionarioService ds= new FuncionarioService(emf);
+        Funcionario dp=ds.findFuncionario(this.ideDistribuidor);
+        return dp;
+    }
+
+     protected Funcionario InicializarFuncionarioRecep() {
+        FuncionarioService ds= new FuncionarioService(emf);
+        Funcionario dp=ds.findFuncionario(this.IdeReceptor);
+        return dp;
+    }
     public boolean isValido() {
         return valido;
     }
@@ -26,15 +45,6 @@ public class CtrReenviar {
         this.valido = valido;
     }
 
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-        
-
     public DistribucionDoc getDd() {
         return dd;
     }
@@ -42,24 +52,30 @@ public class CtrReenviar {
     public void setDd(DistribucionDoc dd) {
         this.dd = dd;
     }
-    public String reenviar(String para ){
+    public String reenviar(String ideDistribuidor, String ideReceptor){
         try {
+            this.ideDistribuidor=ideDistribuidor;
+            this.IdeReceptor= ideReceptor;
+            em= this.getEntityManager();
             dd.setEstado(DDEstado.REENVIADO);
-
             DistribucionDoc dnuevo= new DistribucionDoc();
-            Funcionario f= new Funcionario();
-            dnuevo.setDistribuidor(f.getUsuarioActual());
-            dnuevo.setIdPerDest(para);
+            Persona Dist = this.InicializarFuncionarioDist();
+            Persona Rec = this.InicializarFuncionarioRecep();
+            dnuevo.setDistribuidor(Dist);
+            dnuevo.setmReceptor(Rec);
             dnuevo.setDocumento(dd.getDocumento());
-            dnuevo.crear();
-
-            msg="Se realizó el Reenvio de Documento";
+            dnuevo.setEstado(DDEstado.SIN_RECIBIR);
+            em.getTransaction().begin();
+            em.merge(dd);
+            em.persist(dnuevo);
+            em.getTransaction().commit();
+            this.setMensaje("Se realizó el Reenvio de Documento");
             valido= true;
         }catch(Exception ex){
-            msg= ex.getMessage();
+            this.setMensaje(ex.getMessage());
             valido= false;
         }
-            return msg;
+            return this.getMensaje();
 
 
 

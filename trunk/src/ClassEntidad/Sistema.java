@@ -6,6 +6,8 @@
 package ClassEntidad;
 
 import Servicios.DependenciaService;
+import Servicios.DistribucionDocService;
+import Servicios.FuncionarioService;
 import Servicios.PerExternaService;
 import Servicios.TRDService;
 import java.util.ArrayList;
@@ -26,7 +28,9 @@ public class Sistema extends  Observable  {
    Funcionario usuAct=new Funcionario();
    static String UnidadPersistencia="SGD2012PU";
    EntityManagerFactory emf;
-
+    private Funcionario usuarioActual;
+    
+    
     public EntityManagerFactory getEmf() {
         return emf;
     }
@@ -96,103 +100,8 @@ public class Sistema extends  Observable  {
         this.lstTRD = lstTRD;
     }
    
-   void funcionario(){
-       Funcionario f= new Funcionario();
-       
-       f.setApellidos("Gonzalez");
-       f.setNombres("Boris");
-       f.setEmail("borisgr04@hotmail.com");
-       f.setNroIde("7573361");
-       f.setRol("F");
-       f.setTelefono("3174335758");
-       f.setClave("12345");
-       f.setUsuario("7573361");
-       f.setDireccion("Cll 5 # 24 - 47");
-       lstPer.add(f);
-
-       f= new Funcionario();
-       f.setApellidos("Bolaño");
-       f.setNombres("Anya");
-       f.setEmail("anyamiyeth@hotmail.com");
-       f.setNroIde("49722106");
-       f.setRol("A");
-       f.setTelefono("3174335758");
-       f.setClave("12345");
-       f.setUsuario("49722106");
-       f.setDireccion("Cll 5 # 24 - 47");
-       lstPer.add(f);
-       
-       PerExterna pe;
-       pe= new PerExterna();
-       pe.setApellidos("Umaña");
-       pe.setNombres("Henry Ro");
-       pe.setEmail("hrumaña@unal.edu.co");
-       pe.setNroIde("123445");
-       pe.setTelefono("3171121234");
-       pe.setDireccion("Bogota");
-       lstPer.add(pe);
-
-       pe= new PerExterna();
-       pe.setApellidos("Sanchez");
-       pe.setNombres("Jenny");
-       pe.setEmail("jmsanchez@unal.edu.co");
-       pe.setNroIde("123445");
-       pe.setTelefono("3171121234");
-       pe.setDireccion("Bogota");
-       lstPer.add(pe);
-
-   }
-
-   public void dependencia(){
-          Dependencia dep = new Dependencia();
-       dep.setId("01");
-       dep.setNombre("DESPACHO");
-       lstDep.add(dep);
-
-       dep = new Dependencia();
-       dep.setId("01");
-       dep.setNombre("JURIDICA");
-       lstDep.add(dep);
-
-   }
-
-   private void serie(){
-      TRD serie = new TRD();
-
-       serie.setId_Serie("01");
-       serie.setDispFinal("CT");
-       serie.setSerie("Memorando");
-       serie.settRetAG(5);
-       serie.settRetenAC(2);
-       serie.setNoCons(0);
-       lstTRD.add(serie);
-
-       serie.setId_Serie("02");
-       serie.setDispFinal("CT");
-       serie.setSerie("Circular");
-       serie.settRetAG(5);
-       serie.settRetenAC(2);
-       serie.setNoCons(0);
-       lstTRD.add(serie);
-
-       serie = new TRD();
-       serie.setId_Serie("03");
-       serie.setDispFinal("CT");
-       serie.setSerie("Memorando");
-       serie.settRetAG(5);
-       serie.settRetenAC(2);
-       serie.setNoCons(0);
-       lstTRD.add(serie);
-
-   }
    private Sistema(){
-       emf = Persistence.createEntityManagerFactory("SGD2012PU");
-       funcionario() ;
-       dependencia();
-       serie();
-    
-
-
+       emf = Persistence.createEntityManagerFactory(UnidadPersistencia);
    }
 
    public void Add(Documento d){
@@ -230,22 +139,6 @@ public class Sistema extends  Observable  {
         }
 
 
-    public TRD buscarSerie(String Id_Serie){
-        TRD r=null;
-        for(TRD tr:lstTRD){
-            if(tr.getId_Serie().equals(Id_Serie))
-            {
-            r=tr;
-            break;
-            }
-        }
-        return r;
-    }
-
-    public void actConsSerie(TRD t){
-        t.setNoCons(t.getNoCons()+1);
-    }
-
     public List<Dependencia> getDependencias(){
         emf = Persistence.createEntityManagerFactory(UnidadPersistencia);
         EntityManager  em = emf.createEntityManager();
@@ -254,17 +147,40 @@ public class Sistema extends  Observable  {
     }
     
     public List<TRD> getTRD(){
-        emf = Persistence.createEntityManagerFactory(UnidadPersistencia);
         EntityManager em = emf.createEntityManager();
         TRDService ds = new TRDService(emf);
         return ds.findTRDEntities();
     }
 
      public List<PerExterna> getPerExternas(){
-        emf = Persistence.createEntityManagerFactory(UnidadPersistencia);
         EntityManager em = emf.createEntityManager();
         PerExternaService ds = new PerExternaService(emf);
         return ds.findPerExternaEntities();
     }
+     
+      public List<DistribucionDoc> getDistribucionDoc(){
+        EntityManager em = emf.createEntityManager();
+        DistribucionDocService ds = new DistribucionDocService(emf);
+        return ds.findDistribucionDocEntities();
+    }
+      
+  public List<Funcionario> getFuncionarios(){
+        EntityManager em = emf.createEntityManager();
+        FuncionarioService ds = new FuncionarioService(emf);
+        return ds.findFuncionarioEntities();
+    }
 
+    public List<DistribucionDoc> getMisBandejaSalida() {
+        DistribucionDocService ds= new DistribucionDocService(emf);
+        return ds.findMiBandejaSalida(usuAct);
+    } 
+    public List<DistribucionDoc> getMisBandejaEntrada(DDEstado Estado) {
+        DistribucionDocService ds= new DistribucionDocService(emf);
+        return ds.findMiBandejaEntrada(usuAct, Estado);
+    }
+    
+     public List<Funcionario> getOtrosFuncionarios() {
+        FuncionarioService ds= new FuncionarioService(emf);
+        return ds.findOtrosFuncionarios(usuAct.getUsuario());
+    }
 }

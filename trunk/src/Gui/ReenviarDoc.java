@@ -30,8 +30,7 @@ public class ReenviarDoc extends javax.swing.JFrame {
 
     /** Creates new form ReenviarDoc */
     public void inicialziarDoc() {
-        f = new Funcionario();
-        for (Persona d : f.getFuncionarioSinActual()) {
+        for (Funcionario d : Sistema.instancia().getOtrosFuncionarios()) {
             this.destinoC.addItem(new CparaCombo(d.getNroIde(), d.getNombres()));
         }
     }
@@ -151,20 +150,20 @@ public class ReenviarDoc extends javax.swing.JFrame {
 
     private void reenviarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reenviarBActionPerformed
         // TODO add your handling code here:
-        cr= new CtrReenviar();
-        try {
-
+        cr= new CtrReenviar(Sistema.instancia().getEmf());
             CparaCombo depDes = (CparaCombo) destinoC.getSelectedItem();
             if (depDes == null) {
                 JOptionPane.showMessageDialog(this, "Seleccione Destinatario", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
             }
-
             cr.setDd(dd);
-            cr.reenviar(depDes.getCodigo());
-            JOptionPane.showMessageDialog(this, "Se Reenvio el Documento", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), Sistema.instancia().getNomApp(), JOptionPane.ERROR_MESSAGE);
-        }
+            cr.reenviar(Sistema.instancia().getUsuAct().getNroIde(),depDes.getCodigo() );
+            if(cr.isValido())
+            {
+            JOptionPane.showMessageDialog(this, cr.getMensaje(), Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+            }
+            else {
+            JOptionPane.showMessageDialog(this, cr.getMensaje(), Sistema.instancia().getNomApp(), JOptionPane.ERROR_MESSAGE);
+            }
     }//GEN-LAST:event_reenviarBActionPerformed
 
     /**

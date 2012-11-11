@@ -22,7 +22,7 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="UsuarioActual" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="824" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
@@ -59,7 +59,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jTabbedPane1" pref="812" max="32767" attributes="1"/>
+                          <Component id="jTabbedPane1" max="32767" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -230,8 +230,8 @@
             <Container class="javax.swing.JPanel" name="jPanel3">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Documentos Reenviados">
-                    <Property name="tabTitle" type="java.lang.String" value="Documentos Reenviados"/>
+                  <JTabbedPaneConstraints tabName="Documentos Respondidos">
+                    <Property name="tabTitle" type="java.lang.String" value="Documentos Respondidos"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -270,8 +270,8 @@
             <Container class="javax.swing.JPanel" name="jPanel4">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Documentos Respondidos">
-                    <Property name="tabTitle" type="java.lang.String" value="Documentos Respondidos"/>
+                  <JTabbedPaneConstraints tabName="Documentos Reenviados">
+                    <Property name="tabTitle" type="java.lang.String" value="Documentos Reenviados"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -319,7 +319,7 @@
         <Component class="javax.swing.JButton" name="archivarB">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\borisgr04\Downloads\document-archive-icon.png"/>
+              <Image iconType="3" name="/recursos/2-Documents-icon.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Archivar"/>
           </Properties>

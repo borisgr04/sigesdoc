@@ -4,21 +4,21 @@
  */
 package Servicios;
 
-import java.io.Serializable;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import ClassEntidad.DocInterno;
-import java.util.ArrayList;
-import java.util.List;
-import ClassEntidad.TRD;
 import ClassEntidad.ActaTraslado;
 import ClassEntidad.Dependencia;
+import ClassEntidad.DocInterno;
+import ClassEntidad.TRD;
 import Servicios.exceptions.NonexistentEntityException;
 import Servicios.exceptions.PreexistingEntityException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *

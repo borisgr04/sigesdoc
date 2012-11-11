@@ -6,6 +6,7 @@
 package Gui;
 
 import ClassEntidad.Funcionario;
+import ClassEntidad.Sistema;
 import javax.swing.JLabel;
 
 /**
@@ -14,11 +15,11 @@ import javax.swing.JLabel;
  */
 public class iniFormularios {
  public static void mostrarUsuarioActual(JLabel UsuarioActual){
-        Funcionario f= new Funcionario();
-        String usu=f.getUsActual();
-        if(!usu.isEmpty())
+      
+        Funcionario f=Sistema.instancia().getUsuAct();
+        if(!(f==null))
         {
-            UsuarioActual.setText(f.getUsuarioActual().getNombres());
+            UsuarioActual.setText(f.getNombres());
         }
     }
 }

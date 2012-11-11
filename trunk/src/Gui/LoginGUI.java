@@ -11,7 +11,6 @@
 package Gui;
 
 import ClassControl.CtrLogin;
-import ClassEntidad.Funcionario;
 import ClassEntidad.Sistema;
 import javax.swing.JOptionPane;
 
