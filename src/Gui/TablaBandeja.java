@@ -6,6 +6,7 @@ package Gui;
 
 import ClassEntidad.DistribucionDoc;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -15,13 +16,13 @@ import javax.swing.table.AbstractTableModel;
 class TablaBandeja extends AbstractTableModel {
 
     private String[] columnNames = {"DE", "ASUNTO", "FECHA","ESTADO"};
-    ArrayList<DistribucionDoc> data;
+    List<DistribucionDoc> data;
 
-    public ArrayList<DistribucionDoc> getLstdoc() {
+    public List<DistribucionDoc> getLstdoc() {
         return data;
     }
 
-    public void setLstdoc(ArrayList<DistribucionDoc> lstdoc) {
+    public void setLstdoc(List<DistribucionDoc> lstdoc) {
         this.data = lstdoc;
     }
 

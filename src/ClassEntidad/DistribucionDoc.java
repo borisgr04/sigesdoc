@@ -2,16 +2,23 @@ package ClassEntidad;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 @Entity
-public class DistribucionDoc implements Serializable {
+@NamedQueries({
+    @NamedQuery(name = "DistribucionDoc.findMiBandejaEntrada", query = "SELECT d FROM DistribucionDoc d WHERE d.Estado=:Estado AND  d.mReceptor = :mReceptor"),
+    @NamedQuery(name = "DistribucionDoc.findMiBandejaSalida", query = "SELECT d FROM DistribucionDoc d WHERE d.mDistribuidor = :mDistribuidor")
+})public class DistribucionDoc implements Serializable {
 
     @Id    
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -25,6 +32,8 @@ public class DistribucionDoc implements Serializable {
     
     @ManyToOne(cascade=CascadeType.MERGE)
     private Documento mDocumento;
+    @OneToMany(mappedBy = "DocOriginador")
+    private List<Documento> docOriginados;
 
     public Persona getmReceptor() {
         return mReceptor;
@@ -71,64 +80,6 @@ public class DistribucionDoc implements Serializable {
         this.Estado = mEstado;
     }
 
-//    public ArrayList<DistribucionDoc> getLstDistriDoc() {
-//        return Sistema.instancia().getLstDistriDoc();
-//    }
-//
-//    public ArrayList<DistribucionDoc> getMiBandejaEntrada(String ide_usuario) {
-//        ArrayList<DistribucionDoc> be = new ArrayList<DistribucionDoc>();
-//        for (DistribucionDoc d : this.getLstDistriDoc()) {
-//            if (d.getReceptor().getNroIde().equals(ide_usuario)&&(d.getEstado()==DDEstado.SIN_RECIBIR) ) {
-//                be.add(d);
-//            }
-//        }
-//        return be;
-//    }
-
-//     public ArrayList<DistribucionDoc> getMiBandejaArchivados(String ide_usuario) {
-//        ArrayList<DistribucionDoc> be = new ArrayList<DistribucionDoc>();
-//        for (DistribucionDoc d : this.getLstDistriDoc()) {
-//            if (d.getReceptor().getNroIde().equals(ide_usuario)&&(d.getEstado()==DDEstado.ARCHIVADO)) {
-//                be.add(d);
-//                
-//            }
-//        }
-//        return be;
-//    }
-
-//     public ArrayList<DistribucionDoc> getMiBandejaReenviado(String ide_usuario) {
-//        ArrayList<DistribucionDoc> be = new ArrayList<DistribucionDoc>();
-//        for (DistribucionDoc d : this.getLstDistriDoc()) {
-//            if (d.getReceptor().getNroIde().equals(ide_usuario)&&(d.getEstado()==DDEstado.REENVIADO) ) {
-//                be.add(d);
-//            }
-//        }
-//        return be;
-//    }
-//      public ArrayList<DistribucionDoc> getMiBandejaResp(String ide_usuario) {
-//        ArrayList<DistribucionDoc> be = new ArrayList<DistribucionDoc>();
-//        for (DistribucionDoc d : this.getLstDistriDoc()) {
-//            if (d.getReceptor().getNroIde().equals(ide_usuario)&&(d.getEstado()==DDEstado.RESPONDIDO) ) {
-//                be.add(d);
-//            }
-//        }
-//        return be;
-//    }
-//    public void crear(){
-//        Sistema.instancia().Add(this);
-//
-//    }
-//    public ArrayList<DistribucionDoc> getMiBandejaSalida(String ide_usuario) {
-//        ArrayList<DistribucionDoc> be = new ArrayList<DistribucionDoc>();
-//        for (DistribucionDoc d : this.getLstDistriDoc()) {
-//            if (d.getDistribuidor().getNroIde().equals(ide_usuario)) {
-//                be.add(d);
-//            }
-//        }
-//        return be;
-//    }
-
-
     public DistribucionDoc() {
         super();
         this.Estado = DDEstado.SIN_RECIBIR;
@@ -151,14 +102,7 @@ public class DistribucionDoc implements Serializable {
         this.mDocumento = val;
     }
 
-    public Persona getReceptor() {
-        return mReceptor;
-    }
-
-    public void setReceptor(Persona val) {
-        this.mReceptor = val;
-    }
-
+  
     public Long getId() {
         return id;
     }

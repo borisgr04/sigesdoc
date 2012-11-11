@@ -12,6 +12,7 @@ package Gui;
 
 import ClassControl.CtrProdDocIntE;
 import ClassEntidad.Dependencia;
+import ClassEntidad.DistribucionDoc;
 import ClassEntidad.DocInternoE;
 import ClassEntidad.Documento;
 import ClassEntidad.PerExterna;
@@ -29,6 +30,7 @@ import util.CparaCombo;
 public class ProducirDocGUI extends javax.swing.JFrame {
 
     CtrProdDocIntE cd; 
+    DistribucionDoc rel;
 
     /** Creates new form ProducirDocGUI */
     public ProducirDocGUI() {
@@ -36,12 +38,10 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         inicializar();
     }
 
-    public ProducirDocGUI(Documento doc) {
+    public ProducirDocGUI(DistribucionDoc rel) {
         initComponents();
         inicializar();
-        this.docRelT.setText(String.valueOf(doc.getNoDocumento()));
-
-
+         MostrarRel(rel);
     }
 
     void inicializar() {
@@ -418,10 +418,10 @@ public class ProducirDocGUI extends javax.swing.JFrame {
             
             d.setAnexos(anexosCH.isSelected());
             d.setFolios(Integer.parseInt(this.foliosN.getValue().toString()));
-
+            d.setDocOriginador(rel);
             cd.setIdSerie(Long.valueOf(serie.getCodigo()));
             cd.setIdeDepOrigen(depOrg.getCodigo());
-            cd.setIdeProductor("1234");//Enviar Usuario Actual
+            cd.setIdeProductor(Sistema.instancia().getUsuAct().getNroIde());//Enviar Usuario Actual
             cd.setIdeDestino(perDes.getCodigo());
             cd.setDoc(d);
             
@@ -474,6 +474,12 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         this.depOrigenC.setSelectedIndex(-1);
         this.serieC.setSelectedIndex(-1);
         destinoC.setSelectedIndex(-1);
+    }
+       private void MostrarRel(DistribucionDoc rel) {
+        this.rel=rel;
+        this.docRelT.setText(String.valueOf(rel.getDocumento().getNoDocumento()));
+        this.asuntoT.setText("Resp:>>"+rel.getDocumento().getAsunto());
+        this.resumenT.setText("Escriba la Respuesta\\n\\n"+rel.getDocumento().getResumen());
     }
 
     private void nuevoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoBActionPerformed

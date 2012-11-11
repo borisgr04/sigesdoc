@@ -4,7 +4,10 @@
  */
 package Servicios;
 
+import ClassEntidad.DDEstado;
+import ClassEntidad.Dependencia;
 import ClassEntidad.DistribucionDoc;
+import ClassEntidad.Persona;
 import Servicios.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
@@ -121,6 +124,29 @@ public class DistribucionDocService implements Serializable {
         }
     }
 
+    public List<DistribucionDoc> findMiBandejaEntrada(Persona mReceptor, DDEstado Estado) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("DistribucionDoc.findMiBandejaEntrada");
+            q.setParameter("Estado", Estado);
+            q.setParameter("mReceptor", mReceptor);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<DistribucionDoc> findMiBandejaSalida(Persona mDistribuidor) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("DistribucionDoc.findMiBandejaSalida");
+            q.setParameter("mDistribuidor", mDistribuidor);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
     public int getDistribucionDocCount() {
         EntityManager em = getEntityManager();
         try {
@@ -133,5 +159,4 @@ public class DistribucionDocService implements Serializable {
             em.close();
         }
     }
-    
 }

@@ -37,7 +37,7 @@ public class Persona implements Serializable {
     private List<DistribucionDoc> distDocDistri;
     
    
-     public List<DistribucionDoc> getDistDocRecep() {
+    public List<DistribucionDoc> getDistDocRecep() {
         return distDocRecep;
     }
 

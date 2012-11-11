@@ -29,36 +29,26 @@ public abstract class Documento implements Serializable {
     private String asunto;
     private String resumen;
     private boolean anexos;
-    
-      
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date FechaReg;
-        
+
+    public void setFechaReg(Date FechaReg) {
+        this.FechaReg = FechaReg;
+    }
+  
     @ManyToOne
-    private Documento DocOriginador;
-    
-    @OneToMany(mappedBy = "DocOriginador")
-    private List<Documento> DocOriginados= new ArrayList<Documento>();
+    private DistribucionDoc DocOriginador;
+  
 
-
-    public Documento getDocOriginador() {
+    public DistribucionDoc getDocOriginador() {
         return DocOriginador;
     }
 
-    public void setDocOriginador(Documento DocOriginador) {
+    public void setDocOriginador(DistribucionDoc DocOriginador) {
         this.DocOriginador = DocOriginador;
     }
 
-    public List<Documento> getDocOriginados() {
-        return DocOriginados;
-    }
-
-    public void setDocOriginados(List<Documento> DocOriginados) {
-        this.DocOriginados = DocOriginados;
-    }
-    
-    
-    @OneToOne(mappedBy = "mDocumento")
+   @OneToOne(mappedBy = "mDocumento")
     private DocActa docActa;
 
     @ManyToOne(cascade= CascadeType.REFRESH)
@@ -140,18 +130,11 @@ public abstract class Documento implements Serializable {
     public void setResumen(String val) {
         this.resumen = val;
     }
-//
-//    public String crear() {
-////        this.FechaReg= Date.
-//        this.FechaReg= new Date();
-//        Sistema.instancia().Add(this);
-//        return "Se Registro el Documento " + this.getNoDocumento();
-//
-//    }
 
     public ArrayList<Documento> getDocumentos() {
         return Sistema.instancia().getLstDoc();
     }
+  
 
     public Date getFechaReg() {
         return FechaReg;

@@ -4,8 +4,12 @@ package ClassControl;
 
 import ClassEntidad.DDEstado;
 import ClassEntidad.DistribucionDoc;
+import Servicios.DistribucionDocService;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.EntityManagerFactory;
 
-public class CtrTramite {
+public class CtrTramite extends CtrBase {
     DistribucionDoc dd;
 
     public DistribucionDoc getDd() {
@@ -16,15 +20,20 @@ public class CtrTramite {
         this.dd = dd;
     }
 
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.72E5AA6F-6B4D-FEFD-0058-ABCA57678E30]
-    // </editor-fold> 
-    public CtrTramite () {
+    public CtrTramite(EntityManagerFactory emf) {
+        super(emf);
     }
 
-    public String Archivar(){
+    public String Archivar() {
          dd.setEstado(DDEstado.ARCHIVADO);
          dd.getDocumento().setEstado(DDEstado.ARCHIVADO);
+         DistribucionDocService dds=new DistribucionDocService(this.emf);
+        try {
+            dds.edit(dd);
+        } catch (Exception ex) {
+            Logger.getLogger(CtrTramite.class.getName()).log(Level.SEVERE, null, ex);
+            return ex.getMessage();
+        }
          return "Se Archivo el Documento";
     }
 }

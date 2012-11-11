@@ -139,5 +139,15 @@ public class FuncionarioService implements Serializable {
             em.close();
         }
     }
-    
+
+    public List<Funcionario> findOtrosFuncionarios(String usuario) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Funcionario.findOtrosFuncionarios");
+            q.setParameter("usuario", usuario);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

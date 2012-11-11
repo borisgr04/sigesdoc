@@ -77,7 +77,7 @@ public class ValDocInternoE implements IValidador {
         this.setDoc((DocInternoE) doc);
             DistribucionDoc dd=new DistribucionDoc();
             dd.setDistribuidor(doc.getmProductor());
-            dd.setReceptor(doc.getmDestino());//Por primera Vez
+            dd.setmReceptor(doc.getmDestino());//Por primera Vez
             dd.setDocumento(doc);
             return dd;
     }
