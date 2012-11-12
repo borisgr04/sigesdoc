@@ -33,13 +33,9 @@ public class Dependencia implements Serializable {
     // </editor-fold> 
     @Id
     private String id;
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.A061354F-C5CA-D821-AAE2-68E8F614CE39]
-    // </editor-fold> 
+    
     private String nombre;
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.E0653357-B05F-CD73-3407-9E3B9E6F8A23]
-    // </editor-fold> 
+   
     @OneToMany(mappedBy = "depOrigen")
     private List<DocInterno> docInternos;
 
@@ -72,46 +68,23 @@ public class Dependencia implements Serializable {
     @OneToMany(mappedBy = "dependencia")
     private List<ActaTraslado> actaTraslados;
     
-
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,id=DCE.72041AFC-2A6A-D8D2-33A8-90220A1B3BAE]
-    // </editor-fold> 
     public Dependencia() {
     }
 
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,regenBody=yes,id=DCE.FF32DFCD-57BC-E52A-565F-F5CDE7D90A7C]
-    // </editor-fold> 
     public String getId() {
         return id;
     }
 
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,regenBody=yes,id=DCE.9E47A95E-651B-04D0-0F73-A8C9D995CA42]
-    // </editor-fold> 
     public void setId(String val) {
         this.id = val;
     }
 
-
-
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,regenBody=yes,id=DCE.B209F1FC-5BDD-5CC8-F1E8-D0372A5E84B7]
-    // </editor-fold> 
     public String getNombre() {
         return nombre;
     }
 
-    // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
-    // #[regen=yes,regenBody=yes,id=DCE.02139C71-ADE9-11E6-6990-2F5BBE8EB6FA]
-    // </editor-fold> 
     public void setNombre(String val) {
         this.nombre = val;
-    }
-
-    public ArrayList<Dependencia> getDependencias() {
-        return Sistema.instancia().getLstDep();
     }
 
     public Dependencia(String id, String nombre) {

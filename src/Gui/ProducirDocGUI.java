@@ -445,8 +445,10 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         System.out.print(r);
         if (r == JOptionPane.YES_OPTION) {
             Guardar();
+            this.Limpiar("");
+            this.Habilitar(false);
         } else {
-            System.out.print("xxx");
+            System.out.print("No quizo guardar");
         }
 
 
@@ -480,6 +482,8 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         this.docRelT.setText(String.valueOf(rel.getDocumento().getNoDocumento()));
         this.asuntoT.setText("Resp:>>"+rel.getDocumento().getAsunto());
         this.resumenT.setText("Escriba la Respuesta\\n\\n"+rel.getDocumento().getResumen());
+        this.Habilitar(true);
+        
     }
 
     private void nuevoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoBActionPerformed

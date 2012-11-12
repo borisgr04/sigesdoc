@@ -371,6 +371,9 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
         jTable1.setModel(modeloTabla);
         this.enviadosJT.setModel(modeloTablaE);
         this.archivadorJT.setModel(modeloTablaA);
+        this.respondidosJT.setModel(modeloTablaResp);
+        this.ReenviadosJT.setModel(modeloTablaReen);
+        
     }
 
     public void update(Observable o, Object arg) {
@@ -390,7 +393,7 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
         }
         else if(dd.getDocumento() instanceof DocInternoI)
         {
-          ProducirDocGUI p=new ProducirDocGUI(dd);
+          ProducirDocIntGUI p=new ProducirDocIntGUI(dd);
           p.setVisible(true);
         }
         

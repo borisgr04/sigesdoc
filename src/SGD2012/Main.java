@@ -92,7 +92,8 @@ public class Main {
 //        di.setResumen("resumen");
         
 //        di.setSerie(new TRD(l));
-        Funcionario f=new Funcionario("49722106", "1234", "FUNCIONARIA", "49722106", "ANYA","BOLAÑO", "583","anya@hotmail.com");
+        //Funcionario f=new Funcionario("49722106", "1234", "FUNCIONARIA", "49722106", "ANYA","BOLAÑO", "583","anya@hotmail.com");
+        Funcionario f=new Funcionario("7573361", "1234", "FUNCIONARIO", "7573361", "BORIS","GONZALEZ", "583","boris@hotmail.com");
         PerExterna pe= new PerExterna("77009398", "BORIS LUIS","GONZALEZ PEREZ", "3118001885", "borispapa@hotmail.com");
         PerExternaService peSer = new PerExternaService(emf);
         try {
@@ -115,7 +116,9 @@ public class Main {
         //c.setDoc(di);
         
         
-        //System.out.println(c.Guardar());        
+        //System.out.println(c.Guardar());   
+       
+        
         DependenciaService depSer = new DependenciaService(emf);
         //System.out.println(depSer.findByNombre("Prueba DepXX"));
         System.out.println(depSer.findDependenciaEntities());
@@ -123,7 +126,11 @@ public class Main {
         
 
         try {
-          //  depSer.create(dep);
+             Dependencia d= new Dependencia();
+        d.setId("02");
+        d.setNombre("Gobierno");
+        d= new Dependencia("03","Agricultura");
+            depSer.create(d);
           //  depSer.destroy(dep.getId());
         } catch (Exception ex) {
         }

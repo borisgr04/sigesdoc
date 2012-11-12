@@ -4,6 +4,7 @@ package ClassControl;
 
 import ClassEntidad.DDEstado;
 import ClassEntidad.DistribucionDoc;
+import ClassEntidad.Sistema;
 import Servicios.DistribucionDocService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +31,7 @@ public class CtrTramite extends CtrBase {
          DistribucionDocService dds=new DistribucionDocService(this.emf);
         try {
             dds.edit(dd);
+            Sistema.instancia().Notificar();
         } catch (Exception ex) {
             Logger.getLogger(CtrTramite.class.getName()).log(Level.SEVERE, null, ex);
             return ex.getMessage();

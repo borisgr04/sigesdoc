@@ -5,7 +5,9 @@
 package Gui;
 
 import ClassEntidad.DistribucionDoc;
+import ClassEntidad.Documento;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -14,14 +16,14 @@ import javax.swing.table.AbstractTableModel;
  */
 class TablaBandejaArchivados extends AbstractTableModel {
 
-    private String[] columnNames = {"PARA", "ASUNTO", "FECHA","ESTADO"};
-    ArrayList<DistribucionDoc> data;
+    private String[] columnNames = {"N° Doc","PARA", "ASUNTO", "FECHA","ESTADO"};
+    List<Documento> data;
 
-    public ArrayList<DistribucionDoc> getLstdoc() {
+    public List<Documento> getLstdoc() {
         return data;
     }
 
-    public void setLstdoc(ArrayList<DistribucionDoc> lstdoc) {
+    public void setLstdoc(List<Documento> lstdoc) {
         this.data = lstdoc;
     }
 
@@ -91,25 +93,24 @@ class TablaBandejaArchivados extends AbstractTableModel {
         }*/
     }
 
-    public  DistribucionDoc getDoc(int row){
-        return (DistribucionDoc) (data.get(row));
+    public  Documento getDoc(int row){
+        return (Documento) (data.get(row));
     }
  
     @Override
     public Object getValueAt(int row, int col) {
-        DistribucionDoc macData = (DistribucionDoc) (data.get(row));
+        Documento macData = (Documento) (data.get(row));
 
         switch (col) {
             case 0:
-                return macData.getDistribuidor().getNombres();
+                return macData.getAsunto();
             /*case 0:
                 return macData.getReceptor().getNombres();*/
             case 1:
-                return macData.getDocumento().getAsunto();
-            case 2:
-                return macData.getDocumento().getFechaReg();
-            case 3:
                 return macData.getEstado();
+            case 2:
+                return macData.getFechaReg();
+            
         }
 
         return new String();

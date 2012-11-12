@@ -5,6 +5,7 @@
 package Servicios;
 
 import ClassEntidad.Documento;
+import ClassEntidad.TRD;
 import Servicios.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
@@ -36,6 +37,11 @@ public class DocumentoService implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(documento);
+            em.merge(documento.getSerie());
+            if(documento.getDocOriginador()!=null)
+            {
+                em.merge(documento.getDocOriginador());
+            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {

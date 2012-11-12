@@ -517,5 +517,7 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
         this.docRelT.setText(String.valueOf(rel.getDocumento().getNoDocumento()));
         this.asuntoT.setText("Resp:>>"+rel.getDocumento().getAsunto());
         this.resumenT.setText("Escriba la Respuesta\\n\\n"+rel.getDocumento().getResumen());
+        
+        this.Habilitar(true);
     }
 }
