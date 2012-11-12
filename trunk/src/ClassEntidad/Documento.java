@@ -112,7 +112,7 @@ public abstract class Documento implements Serializable {
     }
   
     public DDEstado getEstado() {
-        return estado;
+         return estado;
     }
 
     public void setEstado(DDEstado estado) {
@@ -166,7 +166,10 @@ public abstract class Documento implements Serializable {
     public void setFolios(int folios) {
         this.folios = folios;
     }
-
+  
+    
+    public abstract Persona getDe();
+    public abstract Persona getPara();
   
 }
 

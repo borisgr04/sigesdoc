@@ -49,7 +49,7 @@ public class Ppal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         recepcionarB = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        OrganizarB = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -151,8 +151,13 @@ public class Ppal extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Archivo Central"));
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/2-Documents-icon.png"))); // NOI18N
-        jButton5.setText("Organizar Documentos");
+        OrganizarB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/2-Documents-icon.png"))); // NOI18N
+        OrganizarB.setText("Organizar Documentos");
+        OrganizarB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OrganizarBActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -160,13 +165,13 @@ public class Ppal extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(OrganizarB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(OrganizarB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -335,6 +340,12 @@ public class Ppal extends javax.swing.JFrame {
         tdg.setVisible(true);
     }//GEN-LAST:event_trasladarBActionPerformed
 
+    private void OrganizarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrganizarBActionPerformed
+        // TODO add your handling code here:
+        OrganizarDocGUI odg= new OrganizarDocGUI();
+        odg.setVisible(true);
+    }//GEN-LAST:event_OrganizarBActionPerformed
+
     /**
     * @param args the command line argumeBandejaEntnts
     */
@@ -347,10 +358,10 @@ public class Ppal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton OrganizarB;
     private javax.swing.JButton bandejaB;
     private javax.swing.JButton cerrarsesionB;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;

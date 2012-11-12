@@ -4,9 +4,7 @@
  */
 package Gui;
 
-import ClassEntidad.DistribucionDoc;
 import ClassEntidad.Documento;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -16,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
  */
 class TablaBandejaArchivados extends AbstractTableModel {
 
-    private String[] columnNames = {"N° Doc","PARA", "ASUNTO", "FECHA","ESTADO"};
+    private String[] columnNames = {"N° Doc","PARA","DE", "ASUNTO", "FECHA","ESTADO"};
     List<Documento> data;
 
     public List<Documento> getLstdoc() {
@@ -103,13 +101,17 @@ class TablaBandejaArchivados extends AbstractTableModel {
 
         switch (col) {
             case 0:
-                return macData.getAsunto();
-            /*case 0:
-                return macData.getReceptor().getNombres();*/
+                return macData.getNoDocumento();
             case 1:
-                return macData.getEstado();
+                return macData.getPara().getNombres();   
             case 2:
+                return macData.getDe().getNombres();
+            case 3:
+                return macData.getAsunto();
+            case 4:
                 return macData.getFechaReg();
+            case 5:
+                return macData.getEstado();
             
         }
 

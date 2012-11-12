@@ -32,5 +32,10 @@ public class DocInternoE extends DocInterno {
         this.mDestino = mDestino;
     }
 
+    @Override
+    public Persona getPara() {
+        return this.mDestino;
+    }
+
 
 }

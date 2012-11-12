@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @DiscriminatorValue("DocInterno")
-public class DocInterno extends Documento {
+public abstract class DocInterno extends Documento {
 
     private String TipoDocumento;
     
@@ -44,6 +44,15 @@ public class DocInterno extends Documento {
     }    
     public DocInterno () {
     }
+
+  @Override
+    public Persona getDe() {
+        return this.mProductor;
+    }
+
+    @Override
+    public abstract Persona getPara();
+        
 
     
 }

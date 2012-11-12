@@ -14,6 +14,7 @@ import ClassEntidad.TRD;
 import Servicios.DependenciaService;
 import Servicios.FuncionarioService;
 import Servicios.PerExternaService;
+import Servicios.TRDService;
 import Servicios.exceptions.PreexistingEntityException;
 import java.util.HashMap;
 import java.util.Map;
@@ -93,47 +94,57 @@ public class Main {
         
 //        di.setSerie(new TRD(l));
         //Funcionario f=new Funcionario("49722106", "1234", "FUNCIONARIA", "49722106", "ANYA","BOLAÑO", "583","anya@hotmail.com");
-        Funcionario f=new Funcionario("7573361", "1234", "FUNCIONARIO", "7573361", "BORIS","GONZALEZ", "583","boris@hotmail.com");
+        Funcionario f2=new Funcionario("7573361", "1234", "FUNCIONARIO", "7573361", "BORIS","GONZALEZ", "583","boris@hotmail.com");
         PerExterna pe= new PerExterna("77009398", "BORIS LUIS","GONZALEZ PEREZ", "3118001885", "borispapa@hotmail.com");
         PerExternaService peSer = new PerExternaService(emf);
-        try {
-            
-            peSer.create(pe);
-        } catch (PreexistingEntityException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         //  peSer.create(pe);
         FuncionarioService fs=new FuncionarioService(emf);
         try {
-           fs.create(f);
-           
+            //fs.create(f);
+            fs.create(f2);
+           } catch (PreexistingEntityException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //di.setmDestino(f);
-        //di.setmProductor(f);
-        //c.setDoc(di);
         
-        
-        //System.out.println(c.Guardar());   
-       
-        
-        DependenciaService depSer = new DependenciaService(emf);
-        //System.out.println(depSer.findByNombre("Prueba DepXX"));
-        System.out.println(depSer.findDependenciaEntities());
-        
-        
-
-        try {
-             Dependencia d= new Dependencia();
-        d.setId("02");
-        d.setNombre("Gobierno");
-        d= new Dependencia("03","Agricultura");
-            depSer.create(d);
-          //  depSer.destroy(dep.getId());
-        } catch (Exception ex) {
-        }
+            /*
+         DependenciaService depSer = new DependenciaService(emf);
+         //System.out.println(depSer.findByNombre("Prueba DepXX"));
+         System.out.println(depSer.findDependenciaEntities());
+              Dependencia d= new Dependencia();
+         d.setId("02");
+         d.setNombre("Gobierno");
+         d= new Dependencia("03","Agricultura");
+        depSer.create(d);
+           //  depSer.destroy(dep.getId());
+           * */
+            
+        /*
+        TRD trd = new TRD();
+         TRD trd2 = new TRD();
+         TRDService trds= new TRDService(emf);
+         
+         trd.setId(Long.valueOf("1"));
+         trd.setDispFinal("CT");
+         trd.setProced(1);
+         trd.setSerie("OF EXTERNOS");
+         trd.settRetAG(1);
+         trd.settRetenAC(2);
+         trd.setDependencia(d);
+         
+         
+            trd2.setId(Long.valueOf("1"));
+         trd2.setDispFinal("CT");
+         trd2.setProced(1);
+         trd2.setSerie("OF INTERNOS");
+         trd2.settRetAG(1);
+         trd2.settRetenAC(2);
+         trd2.setDependencia(d);
+                trds.create(trd);
+             trds.create(trd2);
+         */
+      
     }
 
     /**
