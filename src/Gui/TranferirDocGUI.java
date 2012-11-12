@@ -10,6 +10,7 @@
  */
 package Gui;
 
+import ClassControl.CtrTraslado;
 import ClassEntidad.ActaTraslado;
 import ClassEntidad.Dependencia;
 import ClassEntidad.Documento;
@@ -30,6 +31,7 @@ import util.CparaCombo;
  * @author borisgr04
  */
 public class TranferirDocGUI extends javax.swing.JFrame {
+    CtrTraslado c= new CtrTraslado(Sistema.instancia().getEmf());
     List<Documento> ld;
     private TablaBandejaArchivados modeloTabla;
     /**
@@ -60,12 +62,7 @@ public class TranferirDocGUI extends javax.swing.JFrame {
         consultaB = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
         fechaJC = new com.toedter.calendar.JDateChooser();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel12.setText("Dependencia Origen");
 
@@ -100,13 +97,6 @@ public class TranferirDocGUI extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel2.setText("N° Acta Transferencia");
-
-        jTextField2.setEditable(false);
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/print-icon.png"))); // NOI18N
-        jButton3.setText("Imprimir");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -118,33 +108,22 @@ public class TranferirDocGUI extends javax.swing.JFrame {
                         .addComponent(jLabel13)
                         .addGap(42, 42, 42)
                         .addComponent(serieC, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(101, 101, 101)
-                        .addComponent(consultaB, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-                        .addGap(131, 131, 131))
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField2)
-                                .addGap(150, 150, 150))
+                                .addGap(125, 125, 125)
+                                .addComponent(depOrigenC, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(125, 125, 125)
-                                        .addComponent(depOrigenC, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel6)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(51, 51, 51)
-                                        .addComponent(fechaJC, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addGap(51, 51, 51)
+                                .addComponent(fechaJC, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(7, 7, 7)
+                        .addComponent(consultaB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(30, 30, 30)
                         .addComponent(generarActaB)
-                        .addGap(1, 1, 1)
-                        .addComponent(jButton3)
-                        .addContainerGap())
+                        .addGap(94, 94, 94))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -159,28 +138,23 @@ public class TranferirDocGUI extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(depOrigenC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(serieC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(consultaB))
+                    .addComponent(serieC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(fechaJC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)))
+                        .addGap(58, 58, 58)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(generarActaB)
-                            .addComponent(jButton3))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(consultaB)
+                            .addComponent(generarActaB))))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -218,16 +192,7 @@ public class TranferirDocGUI extends javax.swing.JFrame {
         fecha.set(Calendar.YEAR, fecha.get(Calendar.YEAR) -serie.gettRetAG());
         Date dfecha=fecha.getTime();
         ld= ds.findxTrasladar(this.SerieActual(), dfecha);
-//        for(Documento doc:ld){
-//          if( doc.getFechaReg().before(this.fechaJC.getDate())){
-//              System.out.println("Si"+doc.getAsunto());
-//          }else
-//          {
-//          System.out.println("No"+doc.getAsunto());
-//          }
-//        }
         modeloTabla = new TablaBandejaArchivados();
-        
         modeloTabla.setLstdoc(ld);
         this.jTable1.setModel(modeloTabla);
       
@@ -238,10 +203,13 @@ public class TranferirDocGUI extends javax.swing.JFrame {
         ActaTraslado at=new ActaTraslado();
         at.setFecActa(this.fechaJC.getCalendar().getTime());
         at.setDocActas(ld);
-        ActaTrasladoService ats=new ActaTrasladoService(Sistema.instancia().getEmf());
-        ats.create(at);
-        
-        
+         CparaCombo depOrg = (CparaCombo) depOrigenC.getSelectedItem();
+            if (depOrg == null) {
+                JOptionPane.showMessageDialog(this, "Seleccione Dependencia Origen", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        c.setDep(depOrg.getCodigo());
+        c.Guardar(at);
         JOptionPane.showMessageDialog(this, "Se Realizo "+at.getNroActa(), Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
         
     }//GEN-LAST:event_generarActaBActionPerformed
@@ -286,16 +254,13 @@ public class TranferirDocGUI extends javax.swing.JFrame {
     private javax.swing.JComboBox depOrigenC;
     private com.toedter.calendar.JDateChooser fechaJC;
     private javax.swing.JButton generarActaB;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JComboBox serieC;
     // End of variables declaration//GEN-END:variables
 

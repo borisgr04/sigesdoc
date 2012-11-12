@@ -34,5 +34,11 @@ public class DocInternoI extends DocInterno {
         this.setTipoDocumento("I");
     }
 
+    @Override
+    public Persona getPara() {
+        return this.mDestino;
+    }
+
+
 
 }

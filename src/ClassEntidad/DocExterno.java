@@ -45,6 +45,16 @@ public class DocExterno extends Documento {
     
     public DocExterno () {
     }
+
+    @Override
+    public Persona getDe() {
+        return this.getOrigen();
+    }
+
+    @Override
+    public Persona getPara() {
+        return this.Destino;
+    }
     
   
 

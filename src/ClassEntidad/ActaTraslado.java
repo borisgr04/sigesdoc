@@ -30,7 +30,59 @@ public class ActaTraslado implements  Serializable {
     //@OneToMany(mappedBy = "actaTraslado")
     @OneToMany(mappedBy = "actaTraslado", cascade=CascadeType.MERGE)
     private List<Documento> docActas;
+    
+    private int caja;
+    
+    private  String unidadConsulta;
+    
+    private ACTASEstado estado;
 
+    private int estante;
+    
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fecActaOrg;
+
+    public Date getFecActaOrg() {
+        return fecActaOrg;
+    }
+
+    public void setFecActaOrg(Date fecActaOrg) {
+        this.fecActaOrg = fecActaOrg;
+    }
+    
+    public int getEstante() {
+        return estante;
+    }
+
+    public void setEstante(int estante) {
+        this.estante = estante;
+    }
+
+    public int getCaja() {
+        return caja;
+    }
+
+    public void setCaja(int caja) {
+        this.caja = caja;
+    }
+
+    public String getUnidadConsulta() {
+        return unidadConsulta;
+    }
+
+    public void setUnidadConsulta(String unidadConsulta) {
+        this.unidadConsulta = unidadConsulta;
+    }
+    
+    
+    public ACTASEstado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(ACTASEstado estado) {
+        this.estado = estado;
+    }
+    
     public List<Documento> getDocActas() {
         return docActas;
     }
