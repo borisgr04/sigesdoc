@@ -12,13 +12,19 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity
 @Inheritance(strategy= InheritanceType.JOINED)
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Documento.findxTrasladar", query = "SELECT d FROM Documento d WHERE d.serie = :serie  AND d.FechaReg>=:FechaReg AND d.estado=:estado")})
 public abstract class Documento implements Serializable {
 
     @Id
@@ -31,12 +37,14 @@ public abstract class Documento implements Serializable {
     private boolean anexos;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date FechaReg;
+    @ManyToOne
+    private ActaTraslado actaTraslado;
 
     public void setFechaReg(Date FechaReg) {
         this.FechaReg = FechaReg;
     }
   
-    @ManyToOne
+    @ManyToOne(cascade= CascadeType.REFRESH)
     private DistribucionDoc DocOriginador;
   
 
@@ -48,8 +56,8 @@ public abstract class Documento implements Serializable {
         this.DocOriginador = DocOriginador;
     }
 
-   @OneToOne(mappedBy = "mDocumento")
-    private DocActa docActa;
+   //@OneToOne(mappedBy = "mDocumento")
+    //private DocActa docActa;
 
     @ManyToOne(cascade= CascadeType.REFRESH)
     private TRD serie;
@@ -67,13 +75,13 @@ public abstract class Documento implements Serializable {
         this.serie = serie;
     }
 
-    public DocActa getDocActa() {
-        return docActa;
-    }
+//    public DocActa getDocActa() {
+ //       return docActa;
+ //   }
 
-    public void setDocActa(DocActa docActa) {
-        this.docActa = docActa;
-    }
+  //  public void setDocActa(DocActa docActa) {
+  //      this.docActa = docActa;
+  //  }
 
     public List<DistribucionDoc> getDistribucionDocs() {
         return distribucionDocs;
@@ -130,11 +138,6 @@ public abstract class Documento implements Serializable {
     public void setResumen(String val) {
         this.resumen = val;
     }
-
-    public ArrayList<Documento> getDocumentos() {
-        return Sistema.instancia().getLstDoc();
-    }
-  
 
     public Date getFechaReg() {
         return FechaReg;

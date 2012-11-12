@@ -11,20 +11,18 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import ClassEntidad.Dependencia;
-import ClassEntidad.DocActa;
 import Servicios.exceptions.NonexistentEntityException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 /**
  *
- * @author Boris
+ * @author borsigr04
  */
-public class ActaTrasladoJpaController implements Serializable {
+public class ActaTrasladoService implements Serializable {
 
-    public ActaTrasladoJpaController(EntityManagerFactory emf) {
+    public ActaTrasladoService(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -34,9 +32,6 @@ public class ActaTrasladoJpaController implements Serializable {
     }
 
     public void create(ActaTraslado actaTraslado) {
-        if (actaTraslado.getDocActas() == null) {
-            actaTraslado.setDocActas(new ArrayList<DocActa>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -46,25 +41,10 @@ public class ActaTrasladoJpaController implements Serializable {
                 dependencia = em.getReference(dependencia.getClass(), dependencia.getId());
                 actaTraslado.setDependencia(dependencia);
             }
-            List<DocActa> attachedDocActas = new ArrayList<DocActa>();
-            for (DocActa docActasDocActaToAttach : actaTraslado.getDocActas()) {
-                docActasDocActaToAttach = em.getReference(docActasDocActaToAttach.getClass(), docActasDocActaToAttach.getId());
-                attachedDocActas.add(docActasDocActaToAttach);
-            }
-            actaTraslado.setDocActas(attachedDocActas);
             em.persist(actaTraslado);
             if (dependencia != null) {
                 dependencia.getActaTraslados().add(actaTraslado);
                 dependencia = em.merge(dependencia);
-            }
-            for (DocActa docActasDocActa : actaTraslado.getDocActas()) {
-                ActaTraslado oldActaTrasladoOfDocActasDocActa = docActasDocActa.getActaTraslado();
-                docActasDocActa.setActaTraslado(actaTraslado);
-                docActasDocActa = em.merge(docActasDocActa);
-                if (oldActaTrasladoOfDocActasDocActa != null) {
-                    oldActaTrasladoOfDocActasDocActa.getDocActas().remove(docActasDocActa);
-                    oldActaTrasladoOfDocActasDocActa = em.merge(oldActaTrasladoOfDocActasDocActa);
-                }
             }
             em.getTransaction().commit();
         } finally {
@@ -82,19 +62,10 @@ public class ActaTrasladoJpaController implements Serializable {
             ActaTraslado persistentActaTraslado = em.find(ActaTraslado.class, actaTraslado.getNroActa());
             Dependencia dependenciaOld = persistentActaTraslado.getDependencia();
             Dependencia dependenciaNew = actaTraslado.getDependencia();
-            List<DocActa> docActasOld = persistentActaTraslado.getDocActas();
-            List<DocActa> docActasNew = actaTraslado.getDocActas();
             if (dependenciaNew != null) {
                 dependenciaNew = em.getReference(dependenciaNew.getClass(), dependenciaNew.getId());
                 actaTraslado.setDependencia(dependenciaNew);
             }
-            List<DocActa> attachedDocActasNew = new ArrayList<DocActa>();
-            for (DocActa docActasNewDocActaToAttach : docActasNew) {
-                docActasNewDocActaToAttach = em.getReference(docActasNewDocActaToAttach.getClass(), docActasNewDocActaToAttach.getId());
-                attachedDocActasNew.add(docActasNewDocActaToAttach);
-            }
-            docActasNew = attachedDocActasNew;
-            actaTraslado.setDocActas(docActasNew);
             actaTraslado = em.merge(actaTraslado);
             if (dependenciaOld != null && !dependenciaOld.equals(dependenciaNew)) {
                 dependenciaOld.getActaTraslados().remove(actaTraslado);
@@ -103,23 +74,6 @@ public class ActaTrasladoJpaController implements Serializable {
             if (dependenciaNew != null && !dependenciaNew.equals(dependenciaOld)) {
                 dependenciaNew.getActaTraslados().add(actaTraslado);
                 dependenciaNew = em.merge(dependenciaNew);
-            }
-            for (DocActa docActasOldDocActa : docActasOld) {
-                if (!docActasNew.contains(docActasOldDocActa)) {
-                    docActasOldDocActa.setActaTraslado(null);
-                    docActasOldDocActa = em.merge(docActasOldDocActa);
-                }
-            }
-            for (DocActa docActasNewDocActa : docActasNew) {
-                if (!docActasOld.contains(docActasNewDocActa)) {
-                    ActaTraslado oldActaTrasladoOfDocActasNewDocActa = docActasNewDocActa.getActaTraslado();
-                    docActasNewDocActa.setActaTraslado(actaTraslado);
-                    docActasNewDocActa = em.merge(docActasNewDocActa);
-                    if (oldActaTrasladoOfDocActasNewDocActa != null && !oldActaTrasladoOfDocActasNewDocActa.equals(actaTraslado)) {
-                        oldActaTrasladoOfDocActasNewDocActa.getDocActas().remove(docActasNewDocActa);
-                        oldActaTrasladoOfDocActasNewDocActa = em.merge(oldActaTrasladoOfDocActasNewDocActa);
-                    }
-                }
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -154,11 +108,6 @@ public class ActaTrasladoJpaController implements Serializable {
             if (dependencia != null) {
                 dependencia.getActaTraslados().remove(actaTraslado);
                 dependencia = em.merge(dependencia);
-            }
-            List<DocActa> docActas = actaTraslado.getDocActas();
-            for (DocActa docActasDocActa : docActas) {
-                docActasDocActa.setActaTraslado(null);
-                docActasDocActa = em.merge(docActasDocActa);
             }
             em.remove(actaTraslado);
             em.getTransaction().commit();

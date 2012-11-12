@@ -9,6 +9,7 @@ import ClassEntidad.DDEstado;
 import ClassEntidad.DistribucionDoc;
 import ClassEntidad.Funcionario;
 import ClassEntidad.Persona;
+import ClassEntidad.Sistema;
 import Servicios.FuncionarioService;
 import javax.persistence.EntityManagerFactory;
 
@@ -69,6 +70,7 @@ public class CtrReenviar extends CtrBase {
             em.merge(dd);
             em.persist(dnuevo);
             em.getTransaction().commit();
+            Sistema.instancia().Notificar();
             this.setMensaje("Se realizó el Reenvio de Documento");
             valido= true;
         }catch(Exception ex){

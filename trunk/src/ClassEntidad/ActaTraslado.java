@@ -2,6 +2,7 @@ package ClassEntidad;
 
 import java.io.Serializable;
 import java.util.ArrayList; 
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
 
 
 @Entity
@@ -19,19 +21,21 @@ public class ActaTraslado implements  Serializable {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int nroActa;
 
-    private String fecActa;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fecActa;
 
-    @ManyToOne(cascade= CascadeType.PERSIST)
+    @ManyToOne(cascade= CascadeType.MERGE)
     private Dependencia dependencia;
 
-    @OneToMany(mappedBy = "actaTraslado")
-    private List<DocActa> docActas;
+    //@OneToMany(mappedBy = "actaTraslado")
+    @OneToMany(mappedBy = "actaTraslado", cascade=CascadeType.PERSIST)
+    private List<Documento> docActas;
 
-    public List<DocActa> getDocActas() {
+    public List<Documento> getDocActas() {
         return docActas;
     }
 
-    public void setDocActas(List<DocActa> docActas) {
+    public void setDocActas(List<Documento> docActas) {
         this.docActas = docActas;
     }
 
@@ -46,11 +50,11 @@ public class ActaTraslado implements  Serializable {
     public ActaTraslado () {
     }
 
-    public String getFecActa () {
+    public Date getFecActa () {
         return fecActa;
     }
 
-    public void setFecActa (String val) {
+    public void setFecActa (Date val) {
         this.fecActa = val;
     }
 

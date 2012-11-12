@@ -1,8 +1,10 @@
-package ClassEntidad;
+/*package ClassEntidad;
 
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -12,6 +14,7 @@ import javax.persistence.OneToOne;
 public class DocActa implements Serializable {
 
     @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
         
     @OneToOne(cascade= CascadeType.PERSIST)
@@ -35,15 +38,6 @@ public class DocActa implements Serializable {
     public void setActaTraslado(ActaTraslado actaTraslado) {
         this.actaTraslado = actaTraslado;
     }
-
-    public Documento getDocumento () {
-        return mDocumento;
-    }
-
-    public void setDocumento (Documento val) {
-        this.mDocumento = val;
-    }
-
     public Long getId() {
         return id;
     }
@@ -58,3 +52,4 @@ public class DocActa implements Serializable {
 
 }
 
+*/

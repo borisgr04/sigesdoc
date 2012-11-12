@@ -6,8 +6,10 @@ import ClassEntidad.DDEstado;
 import ClassEntidad.Dependencia;
 import ClassEntidad.DistribucionDoc;
 import ClassEntidad.Documento;
+import ClassEntidad.Sistema;
 import ClassEntidad.TRD;
 import Servicios.DependenciaService;
+import Servicios.DocumentoService;
 import Servicios.TRDService;
 import java.util.Date;
 import java.util.List;
@@ -74,17 +76,15 @@ public abstract class CtrProdDoc extends CtrBase {
             doc.getSerie().setNoCons(ncons);
             doc.setEstado(DDEstado.SIN_RECIBIR);
             doc.setFechaReg(new Date());
-            t.setNoCons(ncons);
+            //t.setNoCons(ncons);
             valido=true;
-            
-            em.getTransaction().begin();
             if(doc.getDocOriginador()!=null)
             {
               doc.getDocOriginador().setEstado(DDEstado.RESPONDIDO);
             }
-            em.merge(t);
-            em.persist(doc);
-            em.getTransaction().commit();
+            DocumentoService ds=new DocumentoService(this.emf);
+            ds.create(doc);
+            Sistema.instancia().Notificar();
             this.setMensaje("Se Guardo");
             return this.getMensaje();
           

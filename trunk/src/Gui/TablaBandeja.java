@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
  */
 class TablaBandeja extends AbstractTableModel {
 
-    private String[] columnNames = {"DE", "ASUNTO", "FECHA","ESTADO"};
+    private String[] columnNames = {"N° DOC","DE", "ASUNTO", "FECHA","ESTADO"};
     List<DistribucionDoc> data;
 
     public List<DistribucionDoc> getLstdoc() {
@@ -102,14 +102,14 @@ class TablaBandeja extends AbstractTableModel {
 
         switch (col) {
             case 0:
-                return macData.getDistribuidor().getNombres();
-            /*case 0:
-                return macData.getReceptor().getNombres();*/
+                return macData.getDocumento().getNoDocumento();
             case 1:
-                return macData.getDocumento().getAsunto();
+                return macData.getDistribuidor().getNombres();
             case 2:
-                return macData.getDocumento().getFechaReg();
+                return macData.getDocumento().getAsunto();
             case 3:
+                return macData.getDocumento().getFechaReg();
+            case 4:
                 return macData.getEstado();
         }
 

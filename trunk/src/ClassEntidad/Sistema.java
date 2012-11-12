@@ -28,9 +28,13 @@ public class Sistema extends  Observable  {
    Funcionario usuAct=new Funcionario();
    static String UnidadPersistencia="SGD2012PU";
    EntityManagerFactory emf;
-    private Funcionario usuarioActual;
-    
-    
+   private Funcionario usuarioActual;
+   private String NomApp="SIGEDOC";
+  
+
+    public String getNomApp() {
+        return NomApp;
+    }
     public EntityManagerFactory getEmf() {
         return emf;
     }
@@ -47,88 +51,15 @@ public class Sistema extends  Observable  {
     public void setUsuAct(Funcionario usuAct) {
         this.usuAct = usuAct;
     }
-
-    public  static String UsuActual;
-
-    public String getUsuActual() {
-        return UsuActual;
-    }
-
-    public void setUsuActual(String UsuAct) {
-        Sistema.UsuActual = UsuAct;
-    }
-    
-
-    public ArrayList<Persona> getLstPer() {
-        return lstPer;
-    }
-
-    public ArrayList<DistribucionDoc> getLstDistriDoc() {
-        return lstDistriDoc;
-    }
-
-    public void setLstDistriDoc(ArrayList<DistribucionDoc> lstDistriDoc) {
-        this.lstDistriDoc = lstDistriDoc;
-    }
-
-    public void setLstPer(ArrayList<Persona> lstPer) {
-        this.lstPer = lstPer;
-    }
-   private ArrayList<Dependencia> lstDep = new ArrayList<Dependencia>();
-   private String NomApp="SIGEDOC";
-
-    public String getNomApp() {
-        return NomApp;
-    }
-   
-    public ArrayList<Dependencia> getLstDep() {
-        return lstDep;
-    }
-
-    public void setLstDep(ArrayList<Dependencia> lstDep) {
-        this.lstDep = lstDep;
-    }
-   private ArrayList<ActaTraslado> lstActaT = new ArrayList<ActaTraslado>();
-   private ArrayList<DistribucionDoc> lstDistriDoc = new ArrayList<DistribucionDoc>();
-   private ArrayList<TRD> lstTRD = new ArrayList<TRD>();
-
-    public ArrayList<TRD> getLstTRD() {
-        return lstTRD;
-    }
-
-    public void setLstTRD(ArrayList<TRD> lstTRD) {
-        this.lstTRD = lstTRD;
-    }
-   
+ 
    private Sistema(){
        emf = Persistence.createEntityManagerFactory(UnidadPersistencia);
    }
 
-   public void Add(Documento d){
-        getLstDoc().add(d);
+   public void Notificar(){
         this.setChanged();
         this.notifyObservers();
    }
-
-   public void Add(DistribucionDoc dd){
-        this.getLstDistriDoc().add(dd);
-        this.setChanged();
-        this.notifyObservers();
-   }
-
-    /**
-     * @return the lstDoc
-     */
-    public ArrayList<Documento> getLstDoc() {
-        return lstDoc;
-    }
-
-    /**
-     * @param lstDoc the lstDoc to set
-     */
-    public void setLstDoc(ArrayList<Documento> lstDoc) {
-        this.lstDoc = lstDoc;
-    }
 
     public static Sistema instancia() {
         if (instancia == null) {
