@@ -28,7 +28,7 @@ public class ActaTraslado implements  Serializable {
     private Dependencia dependencia;
 
     //@OneToMany(mappedBy = "actaTraslado")
-    @OneToMany(mappedBy = "actaTraslado", cascade=CascadeType.PERSIST)
+    @OneToMany(mappedBy = "actaTraslado", cascade=CascadeType.MERGE)
     private List<Documento> docActas;
 
     public List<Documento> getDocActas() {

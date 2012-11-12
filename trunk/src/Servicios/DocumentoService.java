@@ -4,10 +4,12 @@
  */
 package Servicios;
 
+import ClassEntidad.DDEstado;
 import ClassEntidad.Documento;
 import ClassEntidad.TRD;
 import Servicios.exceptions.NonexistentEntityException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -126,7 +128,22 @@ public class DocumentoService implements Serializable {
             em.close();
         }
     }
+    
+     public List<Documento> findxTrasladar(TRD serie, Date fechaRef) {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            Query q = em.createNamedQuery("Documento.findxTrasladar");
+            q.setParameter("serie", serie);
+            q.setParameter("FechaReg", fechaRef);
+            q.setParameter("estado", DDEstado.ARCHIVADO);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 
+//Documento.findxTrasladar
     public int getDocumentoCount() {
         EntityManager em = getEntityManager();
         try {
