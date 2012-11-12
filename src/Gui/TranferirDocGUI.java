@@ -12,16 +12,17 @@ package Gui;
 
 import ClassEntidad.ActaTraslado;
 import ClassEntidad.Dependencia;
-import ClassEntidad.DocActa;
 import ClassEntidad.Documento;
 import ClassEntidad.Sistema;
 import ClassEntidad.TRD;
+import Servicios.ActaTrasladoService;
 import Servicios.DependenciaService;
 import Servicios.DocumentoService;
 import Servicios.TRDService;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import util.CparaCombo;
 
 /**
@@ -237,8 +238,11 @@ public class TranferirDocGUI extends javax.swing.JFrame {
         ActaTraslado at=new ActaTraslado();
         at.setFecActa(this.fechaJC.getCalendar().getTime());
         at.setDocActas(ld);
+        ActaTrasladoService ats=new ActaTrasladoService(Sistema.instancia().getEmf());
+        ats.create(at);
         
-       
+        
+        JOptionPane.showMessageDialog(this, "Se Realizo "+at.getNroActa(), Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
         
     }//GEN-LAST:event_generarActaBActionPerformed
 

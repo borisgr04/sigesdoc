@@ -37,8 +37,28 @@ public abstract class Documento implements Serializable {
     private boolean anexos;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date FechaReg;
-    @ManyToOne
+    
+//    @Temporal(javax.persistence.TemporalType.DATE)
+//    private Date FechaArc;
+//
+//    public Date getFechaArc() {
+//        return FechaArc;
+//    }
+//
+//    public void setFechaArc(Date FechaArc) {
+//        this.FechaArc = FechaArc;
+//    }
+    
+    @ManyToOne(cascade= CascadeType.REFRESH)
     private ActaTraslado actaTraslado;
+
+    public ActaTraslado getActaTraslado() {
+        return actaTraslado;
+    }
+
+    public void setActaTraslado(ActaTraslado actaTraslado) {
+        this.actaTraslado = actaTraslado;
+    }
 
     public void setFechaReg(Date FechaReg) {
         this.FechaReg = FechaReg;
