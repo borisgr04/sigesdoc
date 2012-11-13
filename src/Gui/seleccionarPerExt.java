@@ -60,10 +60,10 @@ public class seleccionarPerExt extends javax.swing.JPanel {
 
 public void Inicializar(){
         modeloTabla = new ModeloTablaPersona();
-        PerExterna p = new PerExterna();
-        System.out.println(Sistema.instancia().getLstPer().size());
-        modeloTabla.setLstdatos(p.getPerExterna());
-        //this.PersonaJtab.setModel(modeloTabla);
+        modeloTabla.setLstdatos(Sistema.instancia.getPerExternas());
+        //System.out.println(Sistema.instancia().getLstPer().size());
+        
+                //this.PersonaJtab.setModel(modeloTabla);
 }
     /** This method is called from within the constructor to
      * initialize the form.

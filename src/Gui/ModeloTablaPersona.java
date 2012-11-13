@@ -6,9 +6,11 @@ package Gui;
 
 
 
-import ClassEntidad.Persona;
-import java.util.ArrayList;
+import ClassEntidad.PerExterna;
+//import ClassEntidad.Persona;
+//import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -18,13 +20,13 @@ import javax.swing.table.AbstractTableModel;
 class ModeloTablaPersona extends AbstractTableModel {
 
     private String[] columnNames = {"NIT", "NOMBRES", "E-MAIL","TELEFONO","DIRECCION"};;
-    ArrayList<Persona> data;
+    List<PerExterna> data;
 
-    public ArrayList<Persona> getLstdatos() {
+    public List<PerExterna> getLstdatos() {
         return data;
     }
 
-    public void setLstdatos(ArrayList<Persona> lstdoc) {
+    public void setLstdatos(List<PerExterna> lstdoc) {
         this.data = lstdoc;
     }
 
@@ -56,8 +58,8 @@ class ModeloTablaPersona extends AbstractTableModel {
     }
 
 
-     public  Persona getPer(int row){
-        return (Persona) (data.get(row));
+     public  PerExterna getPer(int row){
+        return (PerExterna) (data.get(row));
     }
     /*
      * Don't need to implement this method unless your table's
@@ -76,7 +78,7 @@ class ModeloTablaPersona extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object value, int row, int col) {
-      Persona macData = (Persona) (data.get(row));
+      PerExterna macData = (PerExterna) (data.get(row));
 
         switch (col) {
             case 0:
@@ -101,7 +103,7 @@ class ModeloTablaPersona extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int row, int col) {
-    Persona macData = (Persona) (data.get(row));
+   PerExterna macData = (PerExterna) (data.get(row));
 
         switch (col) {
             case 0:
