@@ -27,19 +27,21 @@ public class ValDocExterno implements IValidador {
     public String Validar(Documento doc) {
         this.setDoc((DocExterno) doc);
 
-//        if (ValIde()) {
-//            return "Falta Escoger la Entidad remitente";
-//        } else if (ValAsunto()) {
-//            return "Falta Asunto";
-//        } else if (ValResumen()) {
-//            return "Falta Resumen";
-//        } else if (ValIdePerDest()) {
-//            return "Falta Destino";
-//        } else if (ValIdeProd()) {
-//            return "Falta Productor";
-//        } else if (ValSerieTRD()) {
-//            return "Falta Serie Documental";
-//        }
+       if (ValAsunto()) {
+           return "Falta Asunto";
+       } else if (ValResumen()) {
+           return "Falta Resumen";
+       } else if (ValAsigPerDest()) {
+           return "Falta Resumen";
+       } else if (ValAsigProd()) {
+            return "Falta Resumen";
+       } else if (ValIdePerDest()) {
+           return "Falta Destino";
+       } else if (ValIdeProd()) {
+           return "Falta Productor";
+       } else if (ValSerieTRD()) {
+           return "Falta Serie Documental";
+       }
         return "OK";
     }
 
@@ -47,25 +49,30 @@ public class ValDocExterno implements IValidador {
         return this.getDoc().getAsunto().isEmpty();
     }
 
-//    private boolean ValIde() {
-//        return this.getDoc().getOrigen().getNroIde().isEmpty();
-//    }
-//
-//    private boolean ValIdePerDest() {
-//        return this.getDoc().getIdPerDest().isEmpty();
-//    }
-//
-//    private boolean ValIdeProd() {
-//        return this.getDoc().getIdPerProd().isEmpty();
-//    }
+ 
 
+    private boolean ValAsigPerDest() {
+        return (getDoc().getDestino()==null) ;              
+    }
+
+    private boolean ValIdePerDest() {
+        return  (getDoc().getDestino().getNroIde().isEmpty());              
+    }
+    private boolean ValAsigProd() {
+        return (getDoc().getOrigen()==null) ;
+    }
+    
+    private boolean ValIdeProd() {
+        return (getDoc().getOrigen().getNroIde().isEmpty()) ;
+    }
+    
     private boolean ValResumen() {
         return this.getDoc().getResumen().isEmpty();
     }
-//
-//    private boolean ValSerieTRD() {
-//        return this.getDoc().getSerieTRD().isEmpty();
-//    }
+
+    private boolean ValSerieTRD() {
+       return this.getDoc().getSerie().getId_Serie().isEmpty();
+    }
 
     public DistribucionDoc DistribuirDoc(Documento hg) {
         this.setDoc((DocExterno) doc);
