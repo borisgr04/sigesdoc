@@ -367,7 +367,7 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
             d.setResumen(resumenT.getText());
             d.setAnexos(anexosCH.isSelected());
             //d.setDocOriginador(this.);
-             d.setDocOriginador(rel);
+            d.setDocOriginador(rel);
             cd.setIdSerie(Long.valueOf(serie.getCodigo()));
             cd.setIdeDepOrigen(depOrg.getCodigo());
             cd.setIdeProductor(Sistema.instancia().getUsuAct().getNroIde());//Enviar Usuario Actual

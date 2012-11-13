@@ -18,6 +18,7 @@ import ClassEntidad.PerExterna;
 import ClassEntidad.Persona;
 import ClassEntidad.Sistema;
 import ClassEntidad.TRD;
+import Servicios.DocExternoJpaController;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import util.CparaCombo;
@@ -27,12 +28,13 @@ import util.CparaCombo;
  * @author borisgr04
  */
 public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
+    DocExternoJpaController docExt = new DocExternoJpaController(Sistema.instancia.getEmf());
     private BuscarPerExtGUI guiPerExt;
     private PerExterna PerExt= new PerExterna();
     PerExterna pe;
     private int serieTRD;
 
-    CtrRecepcion cd;// = new CtrRecepcion();
+    CtrRecepcion cd= new CtrRecepcion( Sistema.instancia().getEmf());
     /** Creates new form RecepcionarDocGUI */
     public RecepcionarDocGUI() {
         initComponents();
@@ -40,12 +42,12 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
         
     }
 
-    
+   
 
-    void inicializar() {
+   void inicializar() {
         //Llena Comobo Box Dependencia
          Funcionario fun= new Funcionario();
-         for (Persona f : fun.getFuncionario()) {
+         for (Persona f : Sistema.instancia.getFuncionarios()) {
             this.depDestinoC.addItem(new CparaCombo(f.getNroIde(), f.getNombres()));
         }
         iniFormularios.mostrarUsuarioActual(usuarioLabel);
@@ -53,7 +55,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
 
         TRD trd = new TRD();
         int i = 0;
-        for (TRD serie : trd.getTRD()) {
+        for (TRD serie : Sistema.instancia.getTRD()) {
             if (i == 0) {
                 this.serieC.addItem(new CparaCombo(serie.getId_Serie(), serie.getSerie().toUpperCase()));
             }
@@ -251,11 +253,19 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
 
         jLabel12.setText("Documento");
 
+        identPerRemB.setEnabled(false);
+
         jLabel13.setText("Nombres");
+
+        nombresPEB.setEnabled(false);
 
         jLabel14.setText("Dirección");
 
+        dirPEB.setEnabled(false);
+
         jLabel15.setText("Correo");
+
+        correoPEB.setEnabled(false);
 
         buscarPerExtB.setText("...");
         buscarPerExtB.addActionListener(new java.awt.event.ActionListener() {
@@ -283,7 +293,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
                     .addComponent(identPerRemB, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buscarPerExtB)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,7 +337,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
                 .addComponent(UsuarioL)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(usuarioLabel)
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,7 +374,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(serieC, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -389,30 +399,40 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
 
     private void DistribuirBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DistribuirBActionPerformed
         // TODO add your handling code here:
-        cd= new CtrRecepcion();
+      
         try {
              CparaCombo depDes = (CparaCombo) depDestinoC.getSelectedItem();
             if (depDes == null) {
                 JOptionPane.showMessageDialog(this, "Seleccione Destinatario", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
-                CparaCombo p = (CparaCombo) serieC.getSelectedItem();
-            if (p == null) {
+            CparaCombo serie = (CparaCombo) serieC.getSelectedItem();
+            if (serie == null) {
                 JOptionPane.showMessageDialog(this, "Seleccione Serie", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
-
+//            if(identPerRemB.getText().isEmpty()){
+//                    JOptionPane.showMessageDialog(this, "Seleccione Originador del Docuemnto", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+//                return;
+//            }
+//            
+//             if(asuntoT.getText().isEmpty()){
+//                    JOptionPane.showMessageDialog(this, "Digite El Asunto", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+//                return;
+//            }
+             
+            
             DocExterno d = new DocExterno();
-            Funcionario f = new Funcionario();
             d.setAsunto(asuntoT.getText());
             d.setResumen(resumenT.getText());
             d.setPlazoVec(Integer.parseInt(this.tVencimintoSp.getValue().toString()));
             d.setFolios(Integer.parseInt(this.FoliosSp.getValue().toString()));
-            d.setIdeRemitente(pe.getNroIde());
-            d.setIdPerDest(depDes.getCodigo());
-            d.setIdPerProd(f.getUsuarioActual().getNroIde());
-            d.setSerieTRD(p.getCodigo());
-           //d.setNomDestino(depDes.getCodigo());
+            if (!docRelacionadoT.getText().isEmpty()) {
+            cd.setIdDocRel(Long.valueOf(docRelacionadoT.getText()));
+            }
+            cd.setIdeOrigen(identPerRemB.getText());
+            cd.setIdeDestino(depDes.getCodigo());
+            cd.setIdSerie(Long.valueOf(serie.getCodigo()));
             cd.setDoc(d);
             cd.Guardar();
             if(cd.isValido()){

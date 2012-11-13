@@ -40,7 +40,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jToolBar1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="179" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="serieC" min="-2" pref="241" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -328,7 +328,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buscarPerExtB" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="97" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -366,6 +366,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="identPerRemB">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
           <Properties>
@@ -373,6 +376,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="nombresPEB">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel14">
           <Properties>
@@ -380,6 +386,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="dirPEB">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
           <Properties>
@@ -387,6 +396,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="correoPEB">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="buscarPerExtB">
           <Properties>
@@ -419,7 +431,7 @@
                   <Component id="UsuarioL" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="usuarioLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="201" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
