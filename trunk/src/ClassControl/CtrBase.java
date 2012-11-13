@@ -12,7 +12,7 @@ import javax.persistence.EntityManagerFactory;
  * @author borsigr04
  */
 public class CtrBase {
-    private String mensaje;
+    protected String mensaje;
 
     public String getMensaje() {
         return mensaje;
