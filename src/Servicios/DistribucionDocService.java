@@ -152,7 +152,12 @@ public class DistribucionDocService implements Serializable {
         try {
             Query q = em.createNamedQuery("DistribucionDoc.findxDoc");
             q.setParameter("noDocumento", noDocumento);
-            return (DistribucionDoc) q.getResultList().get(0);
+            if(q.getResultList().size()>0) {
+                return (DistribucionDoc) q.getResultList().get(0);
+            }
+            else {
+                return null;
+            }
         } finally {
             em.close();
         }

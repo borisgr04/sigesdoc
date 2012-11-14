@@ -5,13 +5,8 @@
 
 package ClassControl;
 
-import ClassEntidad.Dependencia;
 import ClassEntidad.DocInternoE;
-import ClassEntidad.Funcionario;
 import ClassEntidad.PerExterna;
-import ClassEntidad.Sistema;
-import Servicios.DependenciaService;
-import Servicios.FuncionarioService;
 import Servicios.PerExternaService;
 import javax.persistence.EntityManagerFactory;
 
@@ -21,27 +16,31 @@ import javax.persistence.EntityManagerFactory;
  */
 public class CtrProdDocIntE extends CtrProdDocInterno {
 
+    //Constructor   
     public CtrProdDocIntE(EntityManagerFactory emf) {
         super(emf);
     }
-    
+   
+    //Se Sobreescribe el Get de Documentos
     @Override
-    public String Guardar() {
-        Dependencia dp=InicializarDepOrigen();
-        PerExterna perExtDes=InicializarPerExtDestino();
-        Funcionario funProd= InicializarFuncionarioProd();
-        ((DocInternoE)this.doc).setDepOrigen(dp);
-        ((DocInternoE)this.doc).setmDestino(perExtDes);
-        ((DocInternoE)this.doc).setmProductor(funProd);
-        return  super.Guardar(new ValDocInternoE());
+    public DocInternoE getDoc(){
+        return (DocInternoE) this.doc;
     }
     
-    private PerExterna InicializarPerExtDestino() {
+    //Se Sobre escribe Inicialalizar Objetos y Se agregan los adicionales
+     @Override
+     public void inicializarObjetos(){
+        super.inicializarObjetos();
+        InicializarPerExtDestino();
+        
+    }
+   
+     private void InicializarPerExtDestino() {
         PerExternaService ps= new PerExternaService(emf);
         PerExterna perExtDes=ps.findPerExterna(this.getIdeDestino());
-        return perExtDes;
+        this.getDoc().setmDestino(perExtDes);
+        
     }
-
 
 
     

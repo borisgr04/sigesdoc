@@ -5,12 +5,10 @@
 package ClassControl;
 
 import ClassEntidad.Dependencia;
-import ClassEntidad.DocInternoE;
+import ClassEntidad.DocInterno;
 import ClassEntidad.Funcionario;
-import ClassEntidad.PerExterna;
 import Servicios.DependenciaService;
 import Servicios.FuncionarioService;
-import Servicios.PerExternaService;
 import javax.persistence.EntityManagerFactory;
 
 /**
@@ -27,8 +25,6 @@ public abstract class CtrProdDocInterno extends CtrProdDoc {
         super(emf);
     }
 
-
-    
     public String getIdeProductor() {
         return ideProductor;
     }
@@ -53,24 +49,53 @@ public abstract class CtrProdDocInterno extends CtrProdDoc {
         this.ideDepOrigen = ideDepOrigen;
     }
 
-  
+    protected void InicializarFuncionarioProd() {
+        FuncionarioService ds = new FuncionarioService(emf);
+        Funcionario dp = ds.findFuncionario(this.ideProductor);
+        this.getDoc().setmProductor(dp);
+    }
+
+    protected void InicializarDepOrigen() {
+        DependenciaService ds = new DependenciaService(emf);
+        Dependencia dp = ds.findDependencia(this.ideDepOrigen);
+        this.getDoc().setDepOrigen(dp);
+    }
+
     @Override
-    public abstract String Guardar(); 
-        
-     protected Funcionario InicializarFuncionarioProd() {
-        FuncionarioService ds= new FuncionarioService(emf);
-        Funcionario dp=ds.findFuncionario(this.ideProductor);
-        return dp;
+    public void inicializarObjetos() {
+        super.inicializarObjetos();
+        InicializarDepOrigen();
+        InicializarFuncionarioProd();
     }
 
-    protected Dependencia InicializarDepOrigen() {
-        DependenciaService ds= new DependenciaService(emf);
-        Dependencia dp=ds.findDependencia(this.ideDepOrigen);
-        return dp;
+    @Override
+    String ValidarDatos() {
+        if (this.getIdeProductor().isEmpty()) {
+            return "Debe especificar un productor";
+        } else if (this.getDoc().getDe() == null) {
+            return "Debe especificar productor";
+        } else  if (this.getIdeDepOrigen().isEmpty()) {
+            return "Debe especificar Dependencia Origen";
+        } else if (getDoc().getDepOrigen() == null) {
+            return "La Dependencia Especificada No Existe";
+        } else if (this.getIdSerie() == 0) {
+            return "Falta Serie Documental";
+        } else if (this.getDoc().getSerie() == null) {
+            return "La Serie Documental Especificada No existe en al base de datos";
+        } else if (this.getIdeDestino().isEmpty()) {
+            return "Debe especificar un destino";
+        } else if (this.getDoc().getDe() == null) {
+            return "Debe especificar un Destino";
+        } else if (doc.getAsunto().isEmpty()) {
+            return "Falta Asunto";
+        } else if (getDoc().getResumen().isEmpty()) {
+            return "Falta diligenciar Resumen";
+        }
+        return "OK";
     }
 
-    
-
-   
-    
+    @Override
+    public DocInterno getDoc() {
+        return (DocInterno) this.doc;
+    }
 }

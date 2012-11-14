@@ -45,7 +45,7 @@ public abstract class DocInterno extends Documento {
     public DocInterno () {
     }
 
-  @Override
+    @Override
     public Persona getDe() {
         return this.mProductor;
     }

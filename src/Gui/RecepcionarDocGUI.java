@@ -410,15 +410,10 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
                 JOptionPane.showMessageDialog(this, "Seleccione Serie", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
-//            if(identPerRemB.getText().isEmpty()){
-//                    JOptionPane.showMessageDialog(this, "Seleccione Originador del Docuemnto", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
-//                return;
-//            }
-//            
-//             if(asuntoT.getText().isEmpty()){
-//                    JOptionPane.showMessageDialog(this, "Digite El Asunto", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
-//                return;
-//            }
+            if(identPerRemB.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(this, "Seleccione Originador del Docuemnto", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+                    return;
+            }
 
 
             DocExterno d = new DocExterno();

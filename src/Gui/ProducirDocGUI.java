@@ -14,7 +14,6 @@ import ClassControl.CtrProdDocIntE;
 import ClassEntidad.Dependencia;
 import ClassEntidad.DistribucionDoc;
 import ClassEntidad.DocInternoE;
-import ClassEntidad.Documento;
 import ClassEntidad.PerExterna;
 import ClassEntidad.Persona;
 import ClassEntidad.Sistema;
@@ -134,6 +133,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
 
         guardaB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
         guardaB.setText("Guardar");
+        guardaB.setEnabled(false);
         guardaB.setFocusable(false);
         guardaB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         guardaB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -146,6 +146,7 @@ public class ProducirDocGUI extends javax.swing.JFrame {
 
         cancelarB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/undo.png"))); // NOI18N
         cancelarB.setText("Cancelar");
+        cancelarB.setEnabled(false);
         cancelarB.setFocusable(false);
         cancelarB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         cancelarB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -432,6 +433,8 @@ public class ProducirDocGUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Se Guardó el Documento", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, cd.getMensaje(), Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+                 this.Limpiar("");
+            this.Habilitar(false);
             }
 
         //} catch (Exception e) {
@@ -445,8 +448,6 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         System.out.print(r);
         if (r == JOptionPane.YES_OPTION) {
             Guardar();
-            this.Limpiar("");
-            this.Habilitar(false);
         } else {
             System.out.print("No quizo guardar");
         }
@@ -464,6 +465,8 @@ public class ProducirDocGUI extends javax.swing.JFrame {
         this.depOrigenC.setEnabled(val);
         this.serieC.setEnabled(val);
         this.destinoC.setEnabled(val);
+        this.guardaB.setEnabled(val);
+        this.cancelarB.setEnabled(val);
     }
 
     private void Limpiar(String val) {
