@@ -27,9 +27,7 @@ public class ValDocInternoE implements IValidador {
     public String Validar(Documento doc) {
         this.setDoc((DocInternoE) doc);
 
-//        if (ValDireccion()) {
-//            return "Falta Dirección";
-//        } else if (ValAsunto()) {
+//       if (ValAsunto()) {
 //            return "Falta Asunto";
 //        } else if (ValResumen()) {
 //            return "Falta Resumen";
@@ -49,10 +47,7 @@ public class ValDocInternoE implements IValidador {
         return this.getDoc().getAsunto().isEmpty();
     }
 
-//    private boolean ValDireccion() {
-//        return this.getDoc().getDireccion().isEmpty();
-//    }
-//
+
 //    private boolean ValIdPerProd() {
 //        return this.getDoc().getIdPerProd().isEmpty();
 //    }
@@ -60,10 +55,10 @@ public class ValDocInternoE implements IValidador {
 //    private boolean ValIdePerDest() {
 //        return this.getDoc().getIdPerDest().isEmpty();
 //    }
-
-    private boolean ValResumen() {
-        return this.getDoc().getResumen().isEmpty();
-    }
+//
+//    private boolean ValResumen() {
+//        return this.getDoc().getResumen().isEmpty();
+//    }
 
 //    private boolean ValSerieTRD() {
 //        return this.getDoc().getSerieTRD().isEmpty();

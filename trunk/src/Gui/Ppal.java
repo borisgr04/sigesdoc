@@ -75,7 +75,7 @@ public class Ppal extends javax.swing.JFrame {
         });
 
         bandejaB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Actions-mail-receive-icon.png"))); // NOI18N
-        bandejaB.setText("Bandeja de Entrada");
+        bandejaB.setText("Bandeja de Documentos");
         bandejaB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bandejaBActionPerformed(evt);

@@ -14,7 +14,6 @@ import ClassControl.CtrProdDocIntI;
 import ClassEntidad.Dependencia;
 import ClassEntidad.DistribucionDoc;
 import ClassEntidad.DocInternoI;
-import ClassEntidad.Documento;
 import ClassEntidad.Funcionario;
 import ClassEntidad.Persona;
 import ClassEntidad.Sistema;
@@ -378,6 +377,8 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
             if(cd.isValido()){
                 this.ndocumentoT.setText(String.valueOf(cd.getDoc().getNoDocumento()));
                 JOptionPane.showMessageDialog(this, "Se Guardó el Documento", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+                this.Limpiar("");
+                this.Habilitar(false);
             }
              else{
                 JOptionPane.showMessageDialog(this, cd.getMensaje(), Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
@@ -394,8 +395,6 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
         System.out.print(r);
         if (r == JOptionPane.YES_OPTION) {
             Guardar();
-            this.Limpiar("");
-            this.Habilitar(false);
         } else {
             System.out.print("xxx");
         }
@@ -411,7 +410,8 @@ public class ProducirDocIntGUI extends javax.swing.JFrame {
         destinoC.setEnabled(val);
         this.depOrigenC.setEnabled(val);
         this.serieC.setEnabled(val);
-
+        this.guardaB.setEnabled(val);
+        this.cancelarB.setEnabled(val);
     }
 
     private void Limpiar(String val) {

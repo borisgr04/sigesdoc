@@ -25,7 +25,8 @@ import javax.swing.JOptionPane;
  * @author borisgr04
  */
 public class OrganizarDocGUI extends javax.swing.JFrame {
-    CtrOrgazina c= new CtrOrgazina(Sistema.instancia().getEmf());
+
+    CtrOrgazina c = new CtrOrgazina(Sistema.instancia().getEmf());
     private TablaBandejaArchivados modeloTabla;
     ActaTraslado at;
 
@@ -69,6 +70,7 @@ public class OrganizarDocGUI extends javax.swing.JFrame {
 
         guardarB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Floppy-Small-icon.png"))); // NOI18N
         guardarB.setText("Guardar");
+        guardarB.setEnabled(false);
         guardarB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 guardarBActionPerformed(evt);
@@ -195,25 +197,29 @@ public class OrganizarDocGUI extends javax.swing.JFrame {
 
     private void AbrirActaJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AbrirActaJActionPerformed
         // TODO add your handling code here:
-        ActaTrasladoService ats = new ActaTrasladoService(Sistema.instancia().getEmf());
-        int nroActa = Integer.valueOf(this.nActaT.getText());
-        at = ats.findActaTraslado(nroActa);
-        if (at != null) {
-            modeloTabla = new TablaBandejaArchivados();
-            modeloTabla.setLstdoc(at.getDocActas());
-            this.jTable1.setModel(modeloTabla);
-            this.serieL.setText(at.getDependencia().getNombre());
-            this.estanteT.setText(String.valueOf(at.getEstante()));
-            this.cajaT.setText(String.valueOf(at.getCaja()));
-            this.unidadC.setSelectedItem(at.getUnidadConsulta());
-            if (at.getEstado() == ACTASEstado.TRASLADADA) {
-                Habilitar(true);
-            } else {
-                Habilitar(false);
-             
-                JOptionPane.showMessageDialog(this, "El acta ya esta en Estado Trasladada.", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+        try {
+            if(this.nActaT.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this, "N° de Acta vacio", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
             }
-        } else {
+            int nroActa = Integer.parseInt(this.nActaT.getText());
+            ActaTrasladoService ats = new ActaTrasladoService(Sistema.instancia().getEmf());
+            at = ats.findActaTraslado(nroActa);
+            if (at != null) {
+                modeloTabla = new TablaBandejaArchivados();
+                modeloTabla.setLstdoc(at.getDocActas());
+                this.jTable1.setModel(modeloTabla);
+                this.serieL.setText(at.getDependencia().getNombre());
+                this.estanteT.setText(String.valueOf(at.getEstante()));
+                this.cajaT.setText(String.valueOf(at.getCaja()));
+                this.unidadC.setSelectedItem(at.getUnidadConsulta());
+                if (at.getEstado() == ACTASEstado.TRASLADADA) {
+                    Habilitar(true);
+                } else {
+                    Habilitar(false);
+
+                    JOptionPane.showMessageDialog(this, "El acta ya esta en Estado Trasladada.", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
                 modeloTabla = new TablaBandejaArchivados();
                 modeloTabla.setLstdoc(new ArrayList<Documento>());
                 this.jTable1.setModel(modeloTabla);
@@ -221,10 +227,17 @@ public class OrganizarDocGUI extends javax.swing.JFrame {
                 this.estanteT.setText("");
                 this.cajaT.setText("");
                 this.unidadC.setSelectedIndex(-1);
-            JOptionPane.showMessageDialog(this, "El acta no se encuentra registrada.", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
-
+                JOptionPane.showMessageDialog(this, "El acta no se encuentra registrada.", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+                this.guardarB.setEnabled(true);
+            }
+        }catch (NumberFormatException exX) {
+            JOptionPane.showMessageDialog(this, "Valor de Número de Acta No Válido", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+            this.guardarB.setEnabled(false);
+        } 
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+            this.guardarB.setEnabled(false);
         }
-
 
     }//GEN-LAST:event_AbrirActaJActionPerformed
 
@@ -238,10 +251,10 @@ public class OrganizarDocGUI extends javax.swing.JFrame {
         at.setEstado(ACTASEstado.ORGANIZADA);
         at.setFecActaOrg(new Date());
         at.setUnidadConsulta(this.unidadC.getSelectedItem().toString());
-        c.Guardar(at); 
+        c.Guardar(at);
         //Verficiar Si es valido si no mandar error
         JOptionPane.showMessageDialog(this, "Se registro al entrada a Archivo", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
-       
+
     }//GEN-LAST:event_guardarBActionPerformed
 
     /**

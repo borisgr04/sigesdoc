@@ -31,9 +31,11 @@ import util.CparaCombo;
  * @author borisgr04
  */
 public class TranferirDocGUI extends javax.swing.JFrame {
-    CtrTraslado c= new CtrTraslado(Sistema.instancia().getEmf());
+
+    CtrTraslado c = new CtrTraslado(Sistema.instancia().getEmf());
     List<Documento> ld;
     private TablaBandejaArchivados modeloTabla;
+
     /**
      * Creates new form TranferirDocGUI
      */
@@ -81,6 +83,7 @@ public class TranferirDocGUI extends javax.swing.JFrame {
 
         generarActaB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/report-icon.png"))); // NOI18N
         generarActaB.setText("Generar Acta");
+        generarActaB.setEnabled(false);
         generarActaB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 generarActaBActionPerformed(evt);
@@ -182,36 +185,52 @@ public class TranferirDocGUI extends javax.swing.JFrame {
         this.InicializaTRD();
     }//GEN-LAST:event_depOrigenCActionPerformed
 
-     public void InicializarB() {
+    public void InicializarB() {
         //enviadosJT
     }
     private void consultaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaBActionPerformed
-        DocumentoService ds=new DocumentoService(Sistema.instancia().getEmf());
-        TRD serie= this.SerieActual();
-        Calendar fecha=this.fechaJC.getCalendar();
-        fecha.set(Calendar.YEAR, fecha.get(Calendar.YEAR) -serie.gettRetAG());
-        Date dfecha=fecha.getTime();
-        ld= ds.findxTrasladar(this.SerieActual(), dfecha);
-        modeloTabla = new TablaBandejaArchivados();
-        modeloTabla.setLstdoc(ld);
-        this.jTable1.setModel(modeloTabla);
-      
+        try {
+            DocumentoService ds = new DocumentoService(Sistema.instancia().getEmf());
+            TRD serie = this.SerieActual();
+            Calendar fecha = this.fechaJC.getCalendar();
+            fecha.set(Calendar.YEAR, fecha.get(Calendar.YEAR) - serie.gettRetAG());
+            Date dfecha = fecha.getTime();
+            ld = ds.findxTrasladar(this.SerieActual(), dfecha);
+            modeloTabla = new TablaBandejaArchivados();
+            modeloTabla.setLstdoc(ld);
+            this.jTable1.setModel(modeloTabla);
+            if(ld.size()>0){
+                this.generarActaB.setEnabled(true);
+            }
+            else{
+            JOptionPane.showMessageDialog(this, "No se encontraron Documentos", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);    
+            this.generarActaB.setEnabled(true);
+            }
+        }catch (NumberFormatException exX) {
+            JOptionPane.showMessageDialog(this, "Valor de Número de Acta No Válido", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+            this.generarActaB.setEnabled(false);}
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+            this.generarActaB.setEnabled(false);
+        }
+
+
     }//GEN-LAST:event_consultaBActionPerformed
 
     private void generarActaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarActaBActionPerformed
         // TODO add your handling code here:
-        ActaTraslado at=new ActaTraslado();
+        ActaTraslado at = new ActaTraslado();
         at.setFecActa(this.fechaJC.getCalendar().getTime());
         at.setDocActas(ld);
-         CparaCombo depOrg = (CparaCombo) depOrigenC.getSelectedItem();
-            if (depOrg == null) {
-                JOptionPane.showMessageDialog(this, "Seleccione Dependencia Origen", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
-                return;
-            }
+        CparaCombo depOrg = (CparaCombo) depOrigenC.getSelectedItem();
+        if (depOrg == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione Dependencia Origen", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         c.setDep(depOrg.getCodigo());
         c.Guardar(at);
-        JOptionPane.showMessageDialog(this, "Se Realizo "+at.getNroActa(), Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
-        
+        JOptionPane.showMessageDialog(this, "Se Realizo " + at.getNroActa(), Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+
     }//GEN-LAST:event_generarActaBActionPerformed
 
     /**
@@ -275,11 +294,11 @@ public class TranferirDocGUI extends javax.swing.JFrame {
         Dependencia d = ds.findDependencia(dpOr.getCodigo());
         return d;
     }
-    
-     private TRD SerieActual() {
+
+    private TRD SerieActual() {
         TRDService ss = new TRDService(Sistema.instancia().getEmf());
-        CparaCombo dpSr = (CparaCombo)this.serieC.getSelectedItem();
-        TRD t =ss.findTRD(Long.valueOf(dpSr.getCodigo()));
+        CparaCombo dpSr = (CparaCombo) this.serieC.getSelectedItem();
+        TRD t = ss.findTRD(Long.valueOf(dpSr.getCodigo()));
         return t;
     }
 }

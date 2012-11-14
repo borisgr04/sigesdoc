@@ -57,8 +57,6 @@ private nuevaPerExt cPerExt= new nuevaPerExt ();;
         buscarB = new javax.swing.JButton();
         crearB = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         panelPrincipal.setAutoscrolls(true);
         panelPrincipal.setLayout(new java.awt.BorderLayout());
 

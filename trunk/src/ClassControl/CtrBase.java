@@ -13,6 +13,18 @@ import javax.persistence.EntityManagerFactory;
  */
 public class CtrBase {
     protected String mensaje;
+    private boolean valido;
+
+    public boolean isValido() {
+        return valido;
+    }
+
+    protected void setValido(boolean valido) {
+        this.valido = valido;
+    }
+    
+       
+       
 
     public String getMensaje() {
         return mensaje;

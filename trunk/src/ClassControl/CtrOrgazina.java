@@ -20,9 +20,16 @@ public class CtrOrgazina extends CtrBase{
     
     
     public String Guardar(ActaTraslado at){
+        
+        if(at==null){
+            this.setValido(false);
+            return "NO se envio un Acta Válida";
+            
+        }
        ActaTrasladoService ats = new ActaTrasladoService(Sistema.instancia().getEmf());
         try {
             ats.edit(at);
+            this.setValido(true);
             this.setMensaje("Se Creó el Acta de Traslado N° " + at.getNroActa()+"\n Los Documentos estan marcados como TRASLADADOS");
         } catch (NonexistentEntityException ex) {
             this.setMensaje(ex.getMessage());
