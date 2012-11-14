@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "DistribucionDoc.findMiBandejaEntrada", query = "SELECT d FROM DistribucionDoc d WHERE d.Estado=:Estado AND  d.mReceptor = :mReceptor"),
+    @NamedQuery(name = "DistribucionDoc.findxDoc", query = "SELECT d FROM DistribucionDoc d WHERE d.mDocumento.noDocumento=:noDocumento Order by d.id desc"),
     @NamedQuery(name = "DistribucionDoc.findMiBandejaSalida", query = "SELECT d FROM DistribucionDoc d WHERE d.mDistribuidor = :mDistribuidor")
 })public class DistribucionDoc implements Serializable {
 

@@ -4,10 +4,12 @@ import ClassEntidad.DocExterno;
 import ClassEntidad.Documento;
 import ClassEntidad.Funcionario;
 import ClassEntidad.PerExterna;
+import ClassEntidad.TRD;
 import Servicios.DistribucionDocService;
 import Servicios.DocumentoService;
 import Servicios.FuncionarioService;
 import Servicios.PerExternaService;
+import Servicios.TRDService;
 import javax.persistence.EntityManagerFactory;
 
 // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
@@ -17,13 +19,13 @@ public class CtrRecepcion extends CtrProdDoc{
 
     private String IdeDestino;
     private String IdeOrigen;
-    private Long IdDocRel;
-
-    public Long getIdDocRel() {
+    private int IdDocRel;
+   
+    public int getIdDocRel() {
         return IdDocRel;
     }
 
-    public void setIdDocRel(Long IdDocRel) {
+    public void setIdDocRel(int IdDocRel) {
         this.IdDocRel = IdDocRel;
     }
 
@@ -61,27 +63,38 @@ public class CtrRecepcion extends CtrProdDoc{
     }
  private DistribucionDoc InicializarDocRel() {
         DistribucionDocService dcs= new DistribucionDocService(emf);
-        DistribucionDoc DocRel=dcs.findDistribucionDoc(this.getIdDocRel());
+        DistribucionDoc DocRel=dcs.findxNoDoc(this.getIdDocRel());
         return DocRel;
     }
+ 
+
+ 
   @Override
   public String Guardar(){
+      
+     if (!this.getIdeDestino().isEmpty()){
       Funcionario funDes=InicializarFuncionarioDest();
+      ((DocExterno)this.doc).setDestino(funDes);
+     }
+     
       if (!this.IdeOrigen.isEmpty()){
       PerExterna Pext=InicializarPerExtOrigen();
       ((DocExterno)this.doc).setOrigen(Pext);
       }
-      if (this.getIdDocRel()!=null){
+      
+      
+      if (this.getIdDocRel()!=0){
          DistribucionDoc Drel=InicializarDocRel();
          if (Drel==null){
             this.setMensaje("El Documeto Relacionado no existe");
             return this.mensaje;  
          }
+         
          else{
              ((DocExterno)this.doc).setDocOriginador(Drel);
          }
       }
-      ((DocExterno)this.doc).setDestino(funDes);
+     
       
       return  super.Guardar(new ValDocExterno());
      
