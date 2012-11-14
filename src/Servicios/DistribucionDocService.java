@@ -146,6 +146,17 @@ public class DistribucionDocService implements Serializable {
             em.close();
         }
     }
+    
+        public DistribucionDoc findxNoDoc(int noDocumento) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("DistribucionDoc.findxDoc");
+            q.setParameter("noDocumento", noDocumento);
+            return (DistribucionDoc) q.getResultList().get(0);
+        } finally {
+            em.close();
+        }
+    }
 
     public int getDistribucionDocCount() {
         EntityManager em = getEntityManager();

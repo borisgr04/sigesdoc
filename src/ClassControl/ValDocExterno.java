@@ -71,7 +71,7 @@ public class ValDocExterno implements IValidador {
     }
 
     private boolean ValSerieTRD() {
-       return this.getDoc().getSerie().getId_Serie().isEmpty();
+       return (this.getDoc().getSerie()== null);
     }
 
     public DistribucionDoc DistribuirDoc(Documento hg) {

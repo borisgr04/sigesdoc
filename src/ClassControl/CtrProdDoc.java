@@ -64,11 +64,12 @@ public abstract class CtrProdDoc extends CtrBase {
 
     protected String Guardar(IValidador validador){
         valido=false;
+        TRD t=this.InicializarSerie();
+        doc.setSerie(t);
         this.setMensaje(validador.Validar(doc));
         if(this.getMensaje().equals("OK")){
             em= this.getEntityManager();
-            TRD t=this.InicializarSerie();
-            doc.setSerie(t);
+           
             int ncons=doc.getSerie().getNoCons()+1;
             doc.setNoDocumento(ncons);
             DistribucionDoc dd= validador.DistribuirDoc(doc);
@@ -78,14 +79,16 @@ public abstract class CtrProdDoc extends CtrBase {
             doc.setFechaReg(new Date());
             //t.setNoCons(ncons);
             valido=true;
+            int DocRel=0;
             if(doc.getDocOriginador()!=null)
             {
               doc.getDocOriginador().setEstado(DDEstado.RESPONDIDO);
+              DocRel=doc.getDocOriginador().getDocumento().getNoDocumento();
             }
             DocumentoService ds=new DocumentoService(this.emf);
             ds.create(doc);
             Sistema.instancia().Notificar();
-            this.setMensaje("Se Guardo");
+            this.setMensaje("Se Guardo "+DocRel);
             return this.getMensaje();
           
         }
