@@ -32,13 +32,20 @@ public class CtrTraslado extends CtrBase {
         if(this.getDep()==null){
             return "Debe especificar una dependencia";
         }
-        if(at.getDocActas()==null || at.getDocActas().size()==0){
+        if(at.getDependencia()==null){
+            return "Dependencia especificada no existe";
+        }
+        if(at.getDocActas()==null || at.getDocActas().isEmpty()){
             return "Debe especificar al menos un documento en el Acta";
         }
+//        if(at.getCaja()==0){
+//        return "Debe especificar número de Caja";
+//        }
         return "OK";
     }
 
     public void Guardar(ActaTraslado at) {
+        at.setDependencia(this.InicializarDependencia());
         this.setMensaje(this.validar(at));
         if (this.getMensaje().equals("OK")) {
             ActaTrasladoService ats = new ActaTrasladoService(this.emf);
@@ -50,7 +57,6 @@ public class CtrTraslado extends CtrBase {
 
     private Dependencia InicializarDependencia() {
         DependenciaService ps = new DependenciaService(emf);
-        Dependencia perExtDes = ps.findDependencia(this.getDep());
-        return perExtDes;
+        return ps.findDependencia(this.getDep());
     }
 }

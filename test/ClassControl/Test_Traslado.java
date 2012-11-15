@@ -78,5 +78,18 @@ public class Test_Traslado {
         System.out.println(cd.getMensaje());
         assertEquals("Resultado", "Debe especificar una dependencia", cd.getMensaje());
     }
-   
+          
+          @Test
+    public void TestActaTrasladoDepNoExiste() {
+        ActaTraslado at = new ActaTraslado();
+        CtrTraslado cd = new CtrTraslado(Sistema.instancia().getEmf());
+       List<Documento> ld= new ArrayList<Documento>(); 
+       at.setFecActa(new Date());
+       at.setDocActas(ld);
+       //cd.setDep("03");
+       cd.Guardar(at);
+           
+        System.out.println(cd.getMensaje());
+        assertEquals("Resultado", "Debe especificar una dependencia", cd.getMensaje());
+    }
 }
