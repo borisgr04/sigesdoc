@@ -4,11 +4,12 @@
  */
 package ClassControl;
 
+import ClassEntidad.Dependencia;
 import ClassEntidad.PerExterna;
 import ClassEntidad.Sistema;
+import Servicios.DependenciaService;
 import Servicios.PerExternaService;
 import Servicios.exceptions.PreexistingEntityException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 
@@ -70,4 +71,5 @@ public class CtrPersona extends CtrBase {
         
     
     }
+
 }

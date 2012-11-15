@@ -22,6 +22,7 @@
     <class>EntidadA.Persona</class>
     <class>EntidadA.Dependencia</class>
     <class>EntidadA.Trd</class>
+    <class>pe.CapAsistentes</class>
     <validation-mode>NONE</validation-mode>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sigesdoc?zeroDateTimeBehavior=convertToNull"/>

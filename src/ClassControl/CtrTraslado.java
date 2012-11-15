@@ -3,6 +3,7 @@ package ClassControl;
 import ClassEntidad.ACTASEstado;
 import ClassEntidad.ActaTraslado;
 import ClassEntidad.Dependencia;
+import ClassEntidad.Sistema;
 import Servicios.ActaTrasladoService;
 import Servicios.DependenciaService;
 import java.util.Date;
@@ -59,6 +60,8 @@ public class CtrTraslado extends CtrBase {
             at.setDependencia(this.InicializarDependencia());
             at.setEstado(ACTASEstado.TRASLADADA);
             ats.create(at);
+            
+            Sistema.instancia().Notificar();
             this.setMensaje("Se Creó el Acta de Traslado N° " + at.getNroActa() + "\n Los Documentos estan marcados como TRASLADADOS");
         }
     }

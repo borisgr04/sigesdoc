@@ -4,17 +4,11 @@
  */
 package SGD2012;
 
-import ClassControl.CtrProdDocIntI;
-import ClassEntidad.Dependencia;
-import ClassEntidad.DocInternoI;
 import ClassEntidad.Funcionario;
 import ClassEntidad.PerExterna;
-import ClassEntidad.TRD;
 import Gui.Reportes;
-import Servicios.DependenciaService;
 import Servicios.FuncionarioService;
 import Servicios.PerExternaService;
-import Servicios.TRDService;
 import Servicios.exceptions.PreexistingEntityException;
 import java.awt.Desktop;
 import java.net.URI;

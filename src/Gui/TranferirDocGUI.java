@@ -22,6 +22,8 @@ import Servicios.TRDService;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JOptionPane;
 import util.CparaCombo;
 
@@ -29,7 +31,7 @@ import util.CparaCombo;
  *
  * @author borisgr04
  */
-public class TranferirDocGUI extends javax.swing.JFrame {
+public class TranferirDocGUI extends javax.swing.JFrame implements Observer{
 
     CtrTraslado c = new CtrTraslado(Sistema.instancia().getEmf());
     List<Documento> ld;
@@ -189,20 +191,13 @@ public class TranferirDocGUI extends javax.swing.JFrame {
     }
     private void consultaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaBActionPerformed
         try {
-            DocumentoService ds = new DocumentoService(Sistema.instancia().getEmf());
-            TRD serie = this.SerieActual();
-            Calendar fecha = this.fechaJC.getCalendar();
-            fecha.set(Calendar.YEAR, fecha.get(Calendar.YEAR) - serie.gettRetAG());
-            Date dfecha = fecha.getTime();
-            ld = ds.findxTrasladar(this.SerieActual(), dfecha);
-            modeloTabla = new TablaBandejaArchivados();
-            modeloTabla.setLstdoc(ld);
-            this.jTable1.setModel(modeloTabla);
+        
+            ActGrd();
             if (ld.size() > 0) {
                 this.generarActaB.setEnabled(true);
             } else {
                 JOptionPane.showMessageDialog(this, "No se encontraron Documentos", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
-                this.generarActaB.setEnabled(true);
+                this.generarActaB.setEnabled(false);
             }
         } catch (NumberFormatException exX) {
             JOptionPane.showMessageDialog(this, "Valor de Número de Acta No Válido", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
@@ -233,8 +228,10 @@ public class TranferirDocGUI extends javax.swing.JFrame {
             c.setDep(depOrg.getCodigo());
             c.Guardar(at);
             if (c.isValido()) {
+                                
                 JOptionPane.showMessageDialog(this, "Se Generó el Acta N° " + at.getNroActa(), Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
                 this.setVisible(true);
+
             } else {
                 JOptionPane.showMessageDialog(this, c.getMensaje(), Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
             }
@@ -300,7 +297,7 @@ public class TranferirDocGUI extends javax.swing.JFrame {
         
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-
+Sistema.instancia().addObserver(this);
 
     }
 
@@ -316,5 +313,23 @@ public class TranferirDocGUI extends javax.swing.JFrame {
         CparaCombo dpSr = (CparaCombo) this.serieC.getSelectedItem();
         TRD t = ss.findTRD(Long.valueOf(dpSr.getCodigo()));
         return t;
+    }
+
+    private void ActGrd() {
+            DocumentoService ds = new DocumentoService(Sistema.instancia().getEmf());
+            TRD serie = this.SerieActual();
+        Calendar fecha = this.fechaJC.getCalendar();
+        fecha.set(Calendar.YEAR, fecha.get(Calendar.YEAR) - serie.gettRetAG());
+        Date dfecha = fecha.getTime();
+        ld = ds.findxTrasladar(this.SerieActual(), dfecha);
+        modeloTabla = new TablaBandejaArchivados();
+        modeloTabla.setLstdoc(ld);
+        this.jTable1.setModel(modeloTabla);
+     ;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        ActGrd();
     }
 }
