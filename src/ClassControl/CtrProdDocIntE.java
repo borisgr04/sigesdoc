@@ -36,9 +36,12 @@ public class CtrProdDocIntE extends CtrProdDocInterno {
     }
    
      private void InicializarPerExtDestino() {
+         
+         if(this.getIdeDestino()!=null){
         PerExternaService ps= new PerExternaService(emf);
         PerExterna perExtDes=ps.findPerExterna(this.getIdeDestino());
         this.getDoc().setmDestino(perExtDes);
+         }
         
     }
 
