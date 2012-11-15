@@ -63,6 +63,7 @@ public class seleccionarFunc extends javax.swing.JPanel {
 public void Inicializar(){
         modeloTabla = new ModeloTablaFun();
         modeloTabla.setLstdatos(Sistema.instancia().getFuncionarios());
+        this.enviarB.setEnabled(false);
         //System.out.println(Sistema.instancia().getLstPer().size());
         
                 //this.PersonaJtab.setModel(modeloTabla);
@@ -146,6 +147,8 @@ public void Inicializar(){
 
     }//GEN-LAST:event_PersonaJtabMouseClicked
    private boolean Seleccionar() {
+       
+       if(ir!=null){
         int registro = this.PersonaJtab.getSelectedRow();
         boolean sw=false;
         if (registro >= 0) {
@@ -154,6 +157,9 @@ public void Inicializar(){
             System.out.println(p.getApellidos());
         }
         return sw;
+       }
+       else 
+           return false;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

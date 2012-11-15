@@ -12,6 +12,7 @@
 package Gui;
 
 import ClassEntidad.Funcionario;
+import ClassEntidad.Sistema;
 
 /**
  *
@@ -24,6 +25,14 @@ public class Ppal extends javax.swing.JFrame {
         iniFormularios.mostrarUsuarioActual(usuarioActual);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        
+        String Rol = Sistema.instancia().getUsuAct().getRol();
+        
+        OrganizarB.setEnabled(Rol.equals("ARCHIVISTA"));
+        this.recepcionarB.setEnabled(Rol.equals("RECEPCIONISTA"));
+        
+        usuariosRoles.setEnabled(Rol.equals("ARCHIVISTA"));
+        
 
     }
     /** Creates new form Ppal */
@@ -205,6 +214,11 @@ public class Ppal extends javax.swing.JFrame {
 
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/report-icon.png"))); // NOI18N
         jButton8.setText("Reportes ");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -366,6 +380,12 @@ public class Ppal extends javax.swing.JFrame {
         BuscarFunGUI bf = new BuscarFunGUI();
         bf.setVisible(true);
     }//GEN-LAST:event_usuariosRolesActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        ReportesGUI rptGUI = new ReportesGUI();
+        rptGUI.setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
     * @param args the command line argumeBandejaEntnts

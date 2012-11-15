@@ -4,9 +4,11 @@
  */
 package ClassControl;
 
+import ClassEntidad.Dependencia;
 import ClassEntidad.Funcionario;
 import ClassEntidad.PerExterna;
 import ClassEntidad.Sistema;
+import Servicios.DependenciaService;
 import Servicios.FuncionarioService;
 import Servicios.PerExternaService;
 import Servicios.exceptions.PreexistingEntityException;
@@ -21,6 +23,16 @@ import javax.persistence.EntityManagerFactory;
 public class CtrFuncionario extends CtrBase {
 
     Funcionario pe;
+    
+    private String DepFun;
+
+    public String getDepFun() {
+        return DepFun;
+    }
+
+    public void setDepFun(String DepFun) {
+        this.DepFun = DepFun;
+    }
 
     public Funcionario getPe() {
         return pe;
@@ -68,8 +80,15 @@ public class CtrFuncionario extends CtrBase {
             this.setMensaje(ex.getMessage());
             this.setValido(false);
         }
-       
-        
     
     }
+    
+     protected void InicializarDepOrigen() {
+        if(this.getDepFun()!=null){
+        DependenciaService ds = new DependenciaService(emf);
+        Dependencia dp = ds.findDependencia(this.getDepFun());
+        this.pe.setDependencia(dp);
+        }
+        
+     }
 }
