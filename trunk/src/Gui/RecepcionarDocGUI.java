@@ -41,6 +41,8 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
     public RecepcionarDocGUI() {
         initComponents();
         inicializar();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
 
     }
 
@@ -114,6 +116,8 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
         autorT = new javax.swing.JLabel();
         serieC = new javax.swing.JComboBox();
 
+        setTitle("VENTANILLA UNICA - RECEPCION DE DOCUMENTOS");
+
         jToolBar1.setRollover(true);
 
         nuevoB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/New.png"))); // NOI18N
@@ -146,6 +150,11 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
         cancelB.setFocusable(false);
         cancelB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         cancelB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        cancelB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelBActionPerformed(evt);
+            }
+        });
         jToolBar1.add(cancelB);
         jToolBar1.add(jSeparator1);
 
@@ -154,6 +163,11 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
         cerrarB.setFocusable(false);
         cerrarB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         cerrarB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        cerrarB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarBActionPerformed(evt);
+            }
+        });
         jToolBar1.add(cerrarB);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Recepción de Documentos"));
@@ -245,7 +259,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
                     .addComponent(tVencimintoSp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(FoliosSp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addContainerGap())
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Remitente"));
@@ -384,8 +398,8 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
                     .addComponent(serieC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -455,6 +469,17 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
         this.limipiar();
 
     }//GEN-LAST:event_nuevoBActionPerformed
+
+    private void cerrarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarBActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_cerrarBActionPerformed
+
+    private void cancelBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBActionPerformed
+        // TODO add your handling code here:
+        this.limipiar();
+        this.Habilitar(false);
+    }//GEN-LAST:event_cancelBActionPerformed
     private void Habilitar(boolean var) {
         this.cancelB.setEnabled(var);
         this.DistribuirB.setEnabled(var);
@@ -466,6 +491,7 @@ public class RecepcionarDocGUI extends javax.swing.JFrame implements IRecibir {
         this.docRelacionadoT.setEnabled(var);
         this.FoliosSp.setEnabled(var);
         this.tVencimintoSp.setEnabled(var);
+        this.depDestinoC.setEnabled(true);
         
     }
 

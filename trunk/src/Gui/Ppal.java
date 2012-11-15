@@ -51,7 +51,7 @@ public class Ppal extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         OrganizarB = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jButton7 = new javax.swing.JButton();
+        usuariosRoles = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
@@ -177,8 +177,13 @@ public class Ppal extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Administración"));
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Administrative-Tools-icon.png"))); // NOI18N
-        jButton7.setText("Administrar Usuarios y Roles");
+        usuariosRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Administrative-Tools-icon.png"))); // NOI18N
+        usuariosRoles.setText("Administrar Usuarios y Roles");
+        usuariosRoles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuariosRolesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -186,13 +191,13 @@ public class Ppal extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(usuariosRoles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jButton7)
+                .addComponent(usuariosRoles)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -229,6 +234,11 @@ public class Ppal extends javax.swing.JFrame {
 
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Apps-session-logout-icon.png"))); // NOI18N
         jButton10.setText("Salir de la Aplicación");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Login:");
 
@@ -346,6 +356,17 @@ public class Ppal extends javax.swing.JFrame {
         odg.setVisible(true);
     }//GEN-LAST:event_OrganizarBActionPerformed
 
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void usuariosRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariosRolesActionPerformed
+        // TODO add your handling code here:
+        BuscarFunGUI bf = new BuscarFunGUI();
+        bf.setVisible(true);
+    }//GEN-LAST:event_usuariosRolesActionPerformed
+
     /**
     * @param args the command line argumeBandejaEntnts
     */
@@ -362,7 +383,6 @@ public class Ppal extends javax.swing.JFrame {
     private javax.swing.JButton bandejaB;
     private javax.swing.JButton cerrarsesionB;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -376,6 +396,7 @@ public class Ppal extends javax.swing.JFrame {
     private javax.swing.JButton recepcionarB;
     private javax.swing.JButton trasladarB;
     private javax.swing.JLabel usuarioActual;
+    private javax.swing.JButton usuariosRoles;
     // End of variables declaration//GEN-END:variables
 
 }

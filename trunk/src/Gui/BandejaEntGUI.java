@@ -55,6 +55,8 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
         modeloTablaResp.setLstdoc(Sistema.instancia().getMisBandejaEntrada(DDEstado.RESPONDIDO));
         modeloTablaReen.setLstdoc(Sistema.instancia().getMisBandejaEntrada(DDEstado.REENVIADO));
         //enviadosJT
+        
+       
     }
 
     /** Creates new form TramitarGUI */
@@ -63,6 +65,8 @@ public class BandejaEntGUI extends javax.swing.JFrame implements Observer, Table
         InicializarB();
         initComponents();
         iniFormularios.mostrarUsuarioActual(UsuarioActual);
+         this.setResizable(false);
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to

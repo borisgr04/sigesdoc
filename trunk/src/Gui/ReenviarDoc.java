@@ -33,6 +33,8 @@ public class ReenviarDoc extends javax.swing.JFrame {
         for (Funcionario d : Sistema.instancia().getOtrosFuncionarios()) {
             this.destinoC.addItem(new CparaCombo(d.getNroIde(), d.getNombres()));
         }
+             this.setResizable(false);
+        this.setLocationRelativeTo(null);
     }
 
     public ReenviarDoc() {
@@ -46,6 +48,7 @@ public class ReenviarDoc extends javax.swing.JFrame {
         initComponents();
         this.documentL.setText(dd.getDocumento().getNoDocumento() + "-" + dd.getDocumento().getAsunto());
         inicialziarDoc();
+        
 
     }
 
@@ -92,7 +95,12 @@ public class ReenviarDoc extends javax.swing.JFrame {
         });
 
         cancelarB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Undo-icon.png"))); // NOI18N
-        cancelarB.setText("Cancelar");
+        cancelarB.setText("Cerrar");
+        cancelarB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarBActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -150,6 +158,8 @@ public class ReenviarDoc extends javax.swing.JFrame {
 
     private void reenviarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reenviarBActionPerformed
         // TODO add your handling code here:
+        try 
+        {
         cr= new CtrReenviar(Sistema.instancia().getEmf());
             CparaCombo depDes = (CparaCombo) destinoC.getSelectedItem();
             if (depDes == null) {
@@ -160,11 +170,22 @@ public class ReenviarDoc extends javax.swing.JFrame {
             if(cr.isValido())
             {
             JOptionPane.showMessageDialog(this, cr.getMensaje(), Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+            this.setVisible(false);
             }
             else {
             JOptionPane.showMessageDialog(this, cr.getMensaje(), Sistema.instancia().getNomApp(), JOptionPane.ERROR_MESSAGE);
             }
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage(), Sistema.instancia().getNomApp(), JOptionPane.ERROR_MESSAGE);
+        
+        }
     }//GEN-LAST:event_reenviarBActionPerformed
+
+    private void cancelarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBActionPerformed
+        // TODO add your handling code here:
+        this.setEnabled(false);
+    }//GEN-LAST:event_cancelarBActionPerformed
 
     /**
      * @param args the command line arguments
