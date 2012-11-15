@@ -1,5 +1,6 @@
 package ClassControl;
 
+import ClassEntidad.ACTASEstado;
 import ClassEntidad.ActaTraslado;
 import ClassEntidad.Dependencia;
 import Servicios.ActaTrasladoService;
@@ -56,6 +57,7 @@ public class CtrTraslado extends CtrBase {
         if (this.getMensaje().equals("OK")) {
             ActaTrasladoService ats = new ActaTrasladoService(this.emf);
             at.setDependencia(this.InicializarDependencia());
+            at.setEstado(ACTASEstado.TRASLADADA);
             ats.create(at);
             this.setMensaje("Se Creó el Acta de Traslado N° " + at.getNroActa() + "\n Los Documentos estan marcados como TRASLADADOS");
         }
