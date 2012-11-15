@@ -200,6 +200,7 @@ public class OrganizarDocGUI extends javax.swing.JFrame {
         try {
             if(this.nActaT.getText().isEmpty()){
                 JOptionPane.showMessageDialog(this, "N° de Acta vacio", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+                return;
             }
             int nroActa = Integer.parseInt(this.nActaT.getText());
             ActaTrasladoService ats = new ActaTrasladoService(Sistema.instancia().getEmf());
@@ -216,17 +217,10 @@ public class OrganizarDocGUI extends javax.swing.JFrame {
                     Habilitar(true);
                 } else {
                     Habilitar(false);
-
-                    JOptionPane.showMessageDialog(this, "El acta ya esta en Estado Trasladada.", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "El acta ya esta en Estado Organizada.", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
                 }
             } else {
-                modeloTabla = new TablaBandejaArchivados();
-                modeloTabla.setLstdoc(new ArrayList<Documento>());
-                this.jTable1.setModel(modeloTabla);
-                this.serieL.setText("");
-                this.estanteT.setText("");
-                this.cajaT.setText("");
-                this.unidadC.setSelectedIndex(-1);
+                Limpiar();
                 JOptionPane.showMessageDialog(this, "El acta no se encuentra registrada.", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
                 this.guardarB.setEnabled(true);
             }
@@ -243,20 +237,32 @@ public class OrganizarDocGUI extends javax.swing.JFrame {
 
     private void guardarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarBActionPerformed
         // TODO add your handling code here
+        try{
+            
+       if(unidadC.getSelectedIndex()==-1){
+            JOptionPane.showMessageDialog(this, "Seleccione la Unidad", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+            return;
+        } 
+       
+       if(this.nActaT.getText().isEmpty()){
+       JOptionPane.showMessageDialog(this, "Digite un numero de Acta", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+       }
         ActaTrasladoService ats = new ActaTrasladoService(Sistema.instancia().getEmf());
         int nroActa = Integer.valueOf(this.nActaT.getText());
         at = ats.findActaTraslado(nroActa);
         at.setCaja(Integer.parseInt(this.cajaT.getText()));
         at.setEstante(Integer.parseInt(this.estanteT.getText()));
-        at.setEstado(ACTASEstado.ORGANIZADA);
+        
         at.setFecActaOrg(new Date());
         at.setUnidadConsulta(this.unidadC.getSelectedItem().toString());
         c.Guardar(at);
         //Verficiar Si es valido si no mandar error
-        JOptionPane.showMessageDialog(this, "Se registro al entrada a Archivo", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
-
+        JOptionPane.showMessageDialog(this, c.getMensaje(), Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+        }catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+            this.guardarB.setEnabled(false);    
     }//GEN-LAST:event_guardarBActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      */
@@ -292,4 +298,15 @@ public class OrganizarDocGUI extends javax.swing.JFrame {
         this.estanteT.setEnabled(v);
         this.unidadC.setEnabled(v);
     }
+    
+    private void Limpiar(){
+      modeloTabla = new TablaBandejaArchivados();
+      modeloTabla.setLstdoc(new ArrayList<Documento>());
+      this.jTable1.setModel(modeloTabla);
+      this.serieL.setText("");
+      this.estanteT.setText("");
+      this.cajaT.setText("");
+      this.unidadC.setSelectedIndex(-1);
+    }
+    
 }
