@@ -47,16 +47,20 @@ public class CtrRecepcion extends CtrProdDoc {
     }
 
     protected void InicializarFuncionarioDest() {
+        if(this.getIdeDestino()!=null){
         FuncionarioService ds = new FuncionarioService(emf);
         Funcionario dp = ds.findFuncionario(this.getIdeDestino());
         this.getDoc().setDestino(dp);
+        }
 
     }
 
     private void InicializarPerExtOrigen() {
+        if(this.getIdeOrigen()!=null){
         PerExternaService ps = new PerExternaService(emf);
         PerExterna perExtDes = ps.findPerExterna(this.getIdeOrigen());
         this.getDoc().setOrigen(perExtDes);
+        }
 
     }
 
@@ -68,20 +72,18 @@ public class CtrRecepcion extends CtrProdDoc {
 
      @Override
     String ValidarDatos() {
-        if (this.getIdeOrigen().isEmpty()) {
+        if (this.getIdeOrigen()==null || this.getIdeOrigen().isEmpty()) {
             return "Debe especificar un Remitente";
         } else if (this.getDoc().getDe() == null) {
-            return "Debe Remintente Nó Válido";
-        } else if (this.getIdeDestino().isEmpty()) {
+            return "El Remitente especificado No Existe";
+        } else if (this.getIdeDestino()==null || this.getIdeDestino().isEmpty()) {
             return "Debe especificar un Destino";
-        } else if (this.getIdSerie() == 0) {
-            return "Falta Serie Documental";
+        }else if (this.getDoc().getPara() == null) {
+            return "El Destino especificado no es válido";
+        }else if (this.getIdSerie() == 0) {
+            return "Debe Especificar Serie Documental";
         } else if (this.getDoc().getSerie() == null) {
             return "La Serie Documental Especificada No existe en al base de datos";
-        } else if (this.getIdeDestino().isEmpty()) {
-            return "Debe especificar un destino";
-        } else if (this.getDoc().getDe() == null) {
-            return "Debe especificar un Destino";
         } else if (doc.getAsunto().isEmpty()) {
             return "Falta Asunto";
         } else if (getDoc().getResumen().isEmpty()) {

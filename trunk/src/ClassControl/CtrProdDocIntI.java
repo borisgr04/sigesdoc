@@ -4,7 +4,6 @@
  */
 package ClassControl;
 
-import ClassEntidad.Dependencia;
 import ClassEntidad.DocInternoI;
 import ClassEntidad.Funcionario;
 import Servicios.FuncionarioService;
@@ -35,9 +34,11 @@ public class CtrProdDocIntI extends CtrProdDocInterno {
     }
     
     protected void InicializarFuncionarioDest() {
+        if(this.getIdeDestino()!=null){
         FuncionarioService ds = new FuncionarioService(emf);
         Funcionario dp = ds.findFuncionario(this.getIdeDestino());
         this.getDoc().setmDestino(dp);
+        }
     }
 
 
