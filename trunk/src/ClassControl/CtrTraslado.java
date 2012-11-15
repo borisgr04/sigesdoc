@@ -4,6 +4,7 @@ import ClassEntidad.ActaTraslado;
 import ClassEntidad.Dependencia;
 import Servicios.ActaTrasladoService;
 import Servicios.DependenciaService;
+import java.util.Date;
 import javax.persistence.EntityManagerFactory;
 
 // <editor-fold defaultstate="collapsed" desc=" UML Marker "> 
@@ -26,8 +27,13 @@ public class CtrTraslado extends CtrBase {
     }
 
     String validar(ActaTraslado at) {
+        Date hoy = new Date();
+        
         if (at.getFecActa() == null) {
             return "La fecha del Acta no puede estar vacia";
+        }
+        if (at.getFecActa().compareTo(hoy)>0 ) {
+            return "La fecha del Acta no puede ser mayor a la fecha de Hoy";
         }
         if(this.getDep()==null){
             return "Debe especificar una dependencia";
