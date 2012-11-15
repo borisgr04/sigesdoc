@@ -20,6 +20,14 @@ class TablaBandejaEnviados extends AbstractTableModel {
     public List<DistribucionDoc> getLstdoc() {
         return data;
     }
+     @Override
+    public boolean isCellEditable (int row, int column)
+   {
+       // Aquí devolvemos true o false según queramos que una celda
+       // identificada por fila,columna (row,column), sea o no editable
+    
+       return false;
+   }
 
     public void setLstdoc(List<DistribucionDoc> lstdoc) {
         this.data = lstdoc;
@@ -56,16 +64,16 @@ class TablaBandejaEnviados extends AbstractTableModel {
      * Don't need to implement this method unless your table's
      * editable.
      */
-    @Override
-    public boolean isCellEditable(int row, int col) {
-        //Note that the data/cell address is constant,
-        //no matter where the cell appears onscreen.
-        if (col < 2) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+//    @Override
+//    public boolean isCellEditable(int row, int col) {
+//        //Note that the data/cell address is constant,
+//        //no matter where the cell appears onscreen.
+//        if (col < 2) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
 
     @Override
     public void setValueAt(Object value, int row, int col) {

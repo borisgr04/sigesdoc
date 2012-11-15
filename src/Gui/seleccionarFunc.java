@@ -11,18 +11,16 @@
 
 package Gui;
 
-import ClassEntidad.PerExterna;
 import ClassEntidad.Persona;
 import ClassEntidad.Sistema;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author LENOVO
  */
-public class seleccionarPerExt extends javax.swing.JPanel {
-   private ModeloTablaPersona modeloTabla;
+public class seleccionarFunc extends javax.swing.JPanel {
+   private ModeloTablaFun modeloTabla;
    private JFrame jFPapa;
 
     public JFrame getjFPapa() {
@@ -31,6 +29,9 @@ public class seleccionarPerExt extends javax.swing.JPanel {
 
     public void setjFPapa(JFrame jFPapa) {
         this.jFPapa = jFPapa;
+        this.Inicializar();
+        this.PersonaJtab.setModel(modeloTabla);
+        
     }
    private IRecibir ir;
 
@@ -42,7 +43,7 @@ public class seleccionarPerExt extends javax.swing.JPanel {
         this.ir = ir;
     }
     /** Creates new form seleccionarPerExt */
-    public seleccionarPerExt() {
+    public seleccionarFunc() {
         Inicializar();
         initComponents();
         
@@ -50,7 +51,7 @@ public class seleccionarPerExt extends javax.swing.JPanel {
     }
     
 
-    public seleccionarPerExt(IRecibir ir) {
+    public seleccionarFunc(IRecibir ir) {
         this.ir = ir;
         Inicializar();
         initComponents();
@@ -60,8 +61,8 @@ public class seleccionarPerExt extends javax.swing.JPanel {
 
 
 public void Inicializar(){
-        modeloTabla = new ModeloTablaPersona();
-        modeloTabla.setLstdatos(Sistema.instancia.getPerExternas());
+        modeloTabla = new ModeloTablaFun();
+        modeloTabla.setLstdatos(Sistema.instancia().getFuncionarios());
         //System.out.println(Sistema.instancia().getLstPer().size());
         
                 //this.PersonaJtab.setModel(modeloTabla);

@@ -16,7 +16,6 @@ import ClassEntidad.Dependencia;
 import ClassEntidad.Documento;
 import ClassEntidad.Sistema;
 import ClassEntidad.TRD;
-import Servicios.ActaTrasladoService;
 import Servicios.DependenciaService;
 import Servicios.DocumentoService;
 import Servicios.TRDService;
@@ -42,6 +41,7 @@ public class TranferirDocGUI extends javax.swing.JFrame {
     public TranferirDocGUI() {
         initComponents();
         inicializar();
+        //this.fechaJC.getCalendar().setTime(new Date());
     }
 
     /**
@@ -108,31 +108,29 @@ public class TranferirDocGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel13))
                         .addGap(42, 42, 42)
-                        .addComponent(serieC, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(depOrigenC, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(serieC, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fechaJC, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addComponent(consultaB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(generarActaB)
+                        .addGap(99, 99, 99))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(125, 125, 125)
-                                .addComponent(depOrigenC, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel6)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(51, 51, 51)
-                                .addComponent(fechaJC, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(7, 7, 7)
-                        .addComponent(consultaB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(30, 30, 30)
-                        .addComponent(generarActaB)
-                        .addGap(94, 94, 94))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jLabel12)
-                    .addContainerGap(510, Short.MAX_VALUE)))
+                    .addContainerGap(615, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,24 +138,22 @@ public class TranferirDocGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(depOrigenC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(serieC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addComponent(fechaJC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(58, 58, 58)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addComponent(depOrigenC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(consultaB)
-                            .addComponent(generarActaB))))
+                            .addComponent(jLabel13)
+                            .addComponent(serieC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(consultaB)
+                        .addComponent(generarActaB)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(fechaJC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(58, 58, 58)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -170,7 +166,9 @@ public class TranferirDocGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,6 +185,7 @@ public class TranferirDocGUI extends javax.swing.JFrame {
 
     public void InicializarB() {
         //enviadosJT
+        
     }
     private void consultaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaBActionPerformed
         try {
@@ -199,17 +198,16 @@ public class TranferirDocGUI extends javax.swing.JFrame {
             modeloTabla = new TablaBandejaArchivados();
             modeloTabla.setLstdoc(ld);
             this.jTable1.setModel(modeloTabla);
-            if(ld.size()>0){
+            if (ld.size() > 0) {
+                this.generarActaB.setEnabled(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontraron Documentos", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
                 this.generarActaB.setEnabled(true);
             }
-            else{
-            JOptionPane.showMessageDialog(this, "No se encontraron Documentos", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);    
-            this.generarActaB.setEnabled(true);
-            }
-        }catch (NumberFormatException exX) {
+        } catch (NumberFormatException exX) {
             JOptionPane.showMessageDialog(this, "Valor de Número de Acta No Válido", Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
-            this.generarActaB.setEnabled(false);}
-        catch (Exception ex) {
+            this.generarActaB.setEnabled(false);
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
             this.generarActaB.setEnabled(false);
         }
@@ -219,17 +217,30 @@ public class TranferirDocGUI extends javax.swing.JFrame {
 
     private void generarActaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarActaBActionPerformed
         // TODO add your handling code here:
-        ActaTraslado at = new ActaTraslado();
-        at.setFecActa(this.fechaJC.getCalendar().getTime());
-        at.setDocActas(ld);
-        CparaCombo depOrg = (CparaCombo) depOrigenC.getSelectedItem();
-        if (depOrg == null) {
-            JOptionPane.showMessageDialog(this, "Seleccione Dependencia Origen", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
-            return;
+        try {
+            ActaTraslado at = new ActaTraslado();
+            if (this.fechaJC.getCalendar().toString().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Escoja una Fecha", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            at.setFecActa(this.fechaJC.getCalendar().getTime());
+            at.setDocActas(ld);
+            CparaCombo depOrg = (CparaCombo) depOrigenC.getSelectedItem();
+            if (depOrg == null) {
+                JOptionPane.showMessageDialog(this, "Seleccione Dependencia Origen", Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            c.setDep(depOrg.getCodigo());
+            c.Guardar(at);
+            if (c.isValido()) {
+                JOptionPane.showMessageDialog(this, "Se Generó el Acta N° " + at.getNroActa(), Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
+                this.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, c.getMensaje(), Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), Sistema.instancia().getNomApp(), JOptionPane.WARNING_MESSAGE);
         }
-        c.setDep(depOrg.getCodigo());
-        c.Guardar(at);
-        JOptionPane.showMessageDialog(this, "Se Realizo " + at.getNroActa(), Sistema.instancia().getNomApp(), JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_generarActaBActionPerformed
 
@@ -286,6 +297,11 @@ public class TranferirDocGUI extends javax.swing.JFrame {
     private void inicializar() {
         this.InicializaDependencias();
         this.InicializaTRD();
+        
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+
+
     }
 
     private Dependencia DepActual() {

@@ -17,7 +17,7 @@ package Gui;
  *
  * @author LENOVO
  */
-public class BuscarPerExtGUI extends javax.swing.JFrame {
+public class BuscarFunGUI extends javax.swing.JFrame {
 private ModeloTablaPersona modeloTabla;
 IRecibir rdg;
 
@@ -28,16 +28,16 @@ IRecibir rdg;
     public void setRdg(IRecibir rdg) {
         this.rdg = rdg;
     }
-private seleccionarPerExt bPerExt= new seleccionarPerExt();
-private nuevaPerExt cPerExt= new nuevaPerExt ();;
+private seleccionarFunc bPerExt= new seleccionarFunc();
+private nuevoFunc cPerExt= new nuevoFunc ();;
     /** Creates new form BuscarPerExtGUI */
-    public BuscarPerExtGUI() {
+    public BuscarFunGUI() {
         initComponents();
         mostrarBuscar();
           
     }
 
-    public BuscarPerExtGUI(IRecibir rdg) {
+    public BuscarFunGUI(IRecibir rdg) {
         this.rdg = rdg;
         initComponents();
         mostrarBuscar();
@@ -58,7 +58,7 @@ private nuevaPerExt cPerExt= new nuevaPerExt ();;
         buscarB = new javax.swing.JButton();
         crearB = new javax.swing.JButton();
 
-        setTitle("PERSONAS EXTERNAS");
+        setTitle("ADMINISTRACION DE FUNCIONARIOS");
 
         panelPrincipal.setAutoscrolls(true);
         panelPrincipal.setLayout(new java.awt.BorderLayout());
@@ -96,16 +96,16 @@ private nuevaPerExt cPerExt= new nuevaPerExt ();;
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                    .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
                     .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -147,7 +147,7 @@ private nuevaPerExt cPerExt= new nuevaPerExt ();;
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuscarPerExtGUI().setVisible(true);
+                new BuscarFunGUI().setVisible(true);
             }
         });
     }
