@@ -93,6 +93,7 @@ public class ActaTrasladoService implements Serializable {
             List<Documento> attachedDocActasNew = new ArrayList<Documento>();
             for (Documento docActasNewDocumentoToAttach : docActasNew) {
                 docActasNewDocumentoToAttach = em.getReference(docActasNewDocumentoToAttach.getClass(), docActasNewDocumentoToAttach.getNoDocumento());
+                docActasNewDocumentoToAttach.setEstado(DDEstado.ORGANIZADO);
                 attachedDocActasNew.add(docActasNewDocumentoToAttach);
             }
             docActasNew = attachedDocActasNew;
