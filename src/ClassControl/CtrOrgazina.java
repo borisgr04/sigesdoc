@@ -23,28 +23,26 @@ public class CtrOrgazina extends CtrBase{
     }
     
     public boolean isValidoActa(){
-    ActaTrasladoService atss = new ActaTrasladoService(Sistema.instancia().getEmf());
-    if(atss.findActaTraslado(at.getNroActa())!=null){
-       return true;
-      }
-      else{
-        this.setMensaje("El Acta no existe");
-        return false;
-      }
+    return (at.getNroActa()>0);
     }
-            
+    
+    public boolean ActaExiste(){
+         ActaTrasladoService atss = new ActaTrasladoService(Sistema.instancia().getEmf());
+         return(atss.findActaTraslado(at.getNroActa())!=null);
+    }       
+   
     public boolean isValidoEstante(){
             return (at.getEstante()>0);
-     }
+    }
     
     public boolean isValidoCaja(){
            return(at.getCaja()>0);
-   }
+    }
     
     public boolean isValidoUnidad(){
-     if (at.getUnidadConsulta()=="Tomo"){return true;}
-     else if(at.getUnidadConsulta()=="Caja"){ return true;}   
-     else{return false;}
+           if (at.getUnidadConsulta()=="Tomo"){return true;}
+           else if(at.getUnidadConsulta()=="Caja"){ return true;}   
+           else{return false;}
     }
     
     public boolean isValidoEstado(){
@@ -54,6 +52,9 @@ public class CtrOrgazina extends CtrBase{
     public String Validar()
     {
         if(!this.isValidoActa()){
+            return "digite un numero de acta Valido";
+        }
+        if(!this.ActaExiste()){
             return "El Acta no existe";
         }
         if(!this.isValidoEstante()){
@@ -66,7 +67,7 @@ public class CtrOrgazina extends CtrBase{
             return "Escoja una unidad Valida";
         }
         if(!this.isValidoEstado()){
-            return "Los Docuemntos ya han Sido almacenados en el Archivo central";
+            return "Los Documentos ya han Sido almacenados en el Archivo Central";
         }
       return "OK";
     }
@@ -75,7 +76,8 @@ public class CtrOrgazina extends CtrBase{
         this.at=at;
         if(at==null){
             this.setValido(false);
-            return "No se envio un  Acta Válida";
+            this.setMensaje("No se envio un  Acta Válida");
+            return this.getMensaje();
         }
         
        ActaTrasladoService ats = new ActaTrasladoService(Sistema.instancia().getEmf());
