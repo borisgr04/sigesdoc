@@ -31,7 +31,7 @@ public class CtrTraslado extends CtrBase {
     String validar(ActaTraslado at) {
         Date hoy = new Date();
         
-        if (at.getFecActa() == null) {
+        if (VALFECHAVACIA(at)) {
             return "La fecha del Acta no puede estar vacia";
         }
         if (at.getFecActa().compareTo(hoy)>0 ) {
@@ -67,7 +67,14 @@ public class CtrTraslado extends CtrBase {
     }
 
     private Dependencia InicializarDependencia() {
+        if(this.getDep()!=null){
         DependenciaService ps = new DependenciaService(emf);
         return ps.findDependencia(this.getDep());
+        }
+        return null;
+    }
+
+    private boolean VALFECHAVACIA(ActaTraslado at) {
+        return at.getFecActa() == null;
     }
 }
