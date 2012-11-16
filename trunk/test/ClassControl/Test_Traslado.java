@@ -4,7 +4,6 @@
  */
 package ClassControl;
 
-
 import ClassEntidad.ActaTraslado;
 import ClassEntidad.Documento;
 import ClassEntidad.Sistema;
@@ -40,56 +39,57 @@ public class Test_Traslado {
     public void TestActaTrasladoSinFecha() {
         ActaTraslado at = new ActaTraslado();
         CtrTraslado cd = new CtrTraslado(Sistema.instancia().getEmf());
-       List<Documento> ld= new ArrayList<Documento>(); 
-       //at.setFecActa(this.fechaJC.getCalendar().getTime());
-       at.setDocActas(ld);
-       cd.setDep("03");
-       cd.Guardar(at);
-           
+        List<Documento> ld = new ArrayList<Documento>();
+        //at.setFecActa(this.fechaJC.getCalendar().getTime());
+        at.setDocActas(ld);
+        cd.setDep("03");
+        cd.Guardar(at);
+
         System.out.println(cd.getMensaje());
         assertEquals("Resultado", "La fecha del Acta no puede estar vacia", cd.getMensaje());
     }
 
-    
-@Test
+    @Test
     public void TestActaTrasladoSinDocs() {
         ActaTraslado at = new ActaTraslado();
         CtrTraslado cd = new CtrTraslado(Sistema.instancia().getEmf());
-       List<Documento> ld= new ArrayList<Documento>(); 
-       at.setFecActa(new Date());
-       //at.setDocActas(ld);
-       cd.setDep("03");
-       cd.Guardar(at);
-           
+        List<Documento> ld = new ArrayList<Documento>();
+        at.setFecActa(new Date());
+        //at.setDocActas(ld);
+        cd.setDep("01");
+        cd.Guardar(at);
+
         System.out.println(cd.getMensaje());
         assertEquals("Resultado", "Debe especificar al menos un documento en el Acta", cd.getMensaje());
     }
-       
-          @Test
+
+    @Test
     public void TestActaTrasladoSinDep() {
         ActaTraslado at = new ActaTraslado();
         CtrTraslado cd = new CtrTraslado(Sistema.instancia().getEmf());
-       List<Documento> ld= new ArrayList<Documento>(); 
-       at.setFecActa(new Date());
-       at.setDocActas(ld);
-       //cd.setDep("03");
-       cd.Guardar(at);
-           
+        List<Documento> ld = new ArrayList<Documento>();
+        at.setFecActa(new Date());
+        at.setDocActas(ld);
+        //cd.setDep("03");
+        cd.Guardar(at);
+
         System.out.println(cd.getMensaje());
         assertEquals("Resultado", "Debe especificar una dependencia", cd.getMensaje());
     }
-          
-          @Test
+
+    @Test
     public void TestActaTrasladoDepNoExiste() {
         ActaTraslado at = new ActaTraslado();
         CtrTraslado cd = new CtrTraslado(Sistema.instancia().getEmf());
-       List<Documento> ld= new ArrayList<Documento>(); 
-       at.setFecActa(new Date());
-       at.setDocActas(ld);
-       //cd.setDep("03");
-       cd.Guardar(at);
-           
+        List<Documento> ld = new ArrayList<Documento>();
+        at.setFecActa(new Date());
+        at.setDocActas(ld);
+        cd.setDep("99");
+        cd.Guardar(at);
+
         System.out.println(cd.getMensaje());
-        assertEquals("Resultado", "Debe especificar una dependencia", cd.getMensaje());
+        assertEquals("Resultado", "Dependencia especificada no existe", cd.getMensaje());
     }
+    
+   
 }
