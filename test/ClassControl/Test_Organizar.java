@@ -39,71 +39,90 @@ public class Test_Organizar {
     public void TestValNroActa() {
       ActaTraslado d = new ActaTraslado();
       CtrOrgazina cd = new CtrOrgazina(Sistema.instancia().getEmf());
-      
+      d.setNroActa(-1);
+      d.setEstante(1);
+      d.setCaja(1);
+      cd.Guardar(d);
+      System.out.println(cd.getMensaje());
+      assertEquals("Resultado","digite un numero de acta Valido",cd.getMensaje());  
+     }
+    
+    @Test
+    public void TestValActaExiste() {
+      ActaTraslado d = new ActaTraslado();
+      CtrOrgazina cd = new CtrOrgazina(Sistema.instancia().getEmf());
       d.setEstante(1);
       d.setCaja(1);
       d.setNroActa(5);
       cd.Guardar(d);
-      System.out.println(cd.isValidoActa());
-      assertEquals("Resultado","El Acta no existe",cd.Guardar(d));  
+      System.out.println(cd.getMensaje());
+      assertEquals("Resultado","El Acta no existe",cd.getMensaje());  
      }
     
     @Test
     public void TestValEstante() {
       ActaTraslado d = new ActaTraslado();
       CtrOrgazina cd = new CtrOrgazina(Sistema.instancia().getEmf());
+      d.setNroActa(2056);
       d.setEstante(-1);
       d.setCaja(1);
-      d.setNroActa(1701);
+      
       cd.Guardar(d);
-      //System.out.println(cd.getMensaje());
-      assertEquals("Resultado","El número de Estante no es válido, digite un número mayor que Cero (0)",cd.Guardar(d));  
+      System.out.println(cd.getMensaje());
+      assertEquals("Resultado","El número de Estante no es válido, digite un número mayor que Cero (0)",cd.getMensaje());  
      }
     
+    @Test
      public void TestValCaja() {
       ActaTraslado d = new ActaTraslado();
       CtrOrgazina cd = new CtrOrgazina(Sistema.instancia().getEmf());
       d.setEstante(1);
       d.setCaja(0);
-      d.setNroActa(1701);
+      d.setNroActa(2056);
+      cd.Guardar(d);
       System.out.println(cd.getMensaje());
-      assertEquals("Resultado","El número de Caja no es válido, digite un número mayor que Cero (0)",cd.Guardar(d));  
+      assertEquals("Resultado","El número de Caja no es válido, digite un número mayor que Cero (0)",cd.getMensaje());  
      }
-     
+    
+     @Test
      public void Testunidad() {
       ActaTraslado d = new ActaTraslado();
       CtrOrgazina cd = new CtrOrgazina(Sistema.instancia().getEmf());
       d.setEstante(1);
       d.setCaja(1);
-      d.setNroActa(1701);
+      d.setNroActa(2056);
       d.setUnidadConsulta("");
+      cd.Guardar(d);
       System.out.println(cd.getMensaje());
-      assertEquals("Resultado","Escoja una unidad Valida",cd.Guardar(d));  
+      assertEquals("Resultado","Escoja una unidad Valida",cd.getMensaje());  
      }
      
+     @Test
      public void Testestado() {
       ActaTraslado d = new ActaTraslado();
       CtrOrgazina cd = new CtrOrgazina(Sistema.instancia().getEmf());
       d.setEstante(1);
       d.setCaja(1);
-      d.setNroActa(1701);
-      d.setUnidadConsulta("");
+      d.setNroActa(2056);
+      d.setUnidadConsulta("Tomo");
       d.setEstado(ACTASEstado.ORGANIZADA);
+      cd.Guardar(d);
       System.out.println(cd.getMensaje());
-      assertEquals("Resultado","Los Archivos ya han Sido almacenados en el Archivo central y estan Organizados en un Estanta",cd.Guardar(d));  
+      assertEquals("Resultado","Los Documentos ya han Sido almacenados en el Archivo Central",cd.getMensaje());  
      }
      
-     public void Testok() {
-      ActaTraslado d = new ActaTraslado();
-      CtrOrgazina cd = new CtrOrgazina(Sistema.instancia().getEmf());
-      d.setEstante(1);
-      d.setCaja(1);
-      d.setNroActa(1701);
-      d.setUnidadConsulta("");
-      d.setEstado(ACTASEstado.TRASLADADA);
-      System.out.println(cd.getMensaje());
-      assertEquals("Resultado","OK",cd.Guardar(d));  
-     }
+//     @Test
+//     public void Testok() {
+//      ActaTraslado d = new ActaTraslado();
+//      CtrOrgazina cd = new CtrOrgazina(Sistema.instancia().getEmf());
+//      d.setEstante(1);
+//      d.setCaja(1);
+//      d.setNroActa(2056);
+//      d.setUnidadConsulta("Tomo");
+//      d.setEstado(ACTASEstado.TRASLADADA);
+//      System.out.println(cd.getMensaje());
+//      assertEquals("Resultado","OK",cd.Guardar(d));  
+//     }
      
      
      
